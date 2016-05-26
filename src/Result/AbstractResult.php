@@ -28,4 +28,15 @@ abstract class AbstractResult implements ResultInterface
     {
         return $this->status;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function invert()
+    {
+        $clone = clone $this;
+        $clone->status = !$this->status;
+
+        return $clone;
+    }
 }

@@ -15,4 +15,9 @@ interface ResultInterface
      * @return bool
      */
     public function getStatus();
+
+    /**
+     * @return ResultInterface
+     */
+    public function invert();
 }
