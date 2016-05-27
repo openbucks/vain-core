@@ -42,7 +42,7 @@ interface ResultCompositeInterface extends ResultInterface
     /**
      * @param string $name
      *
-     * @return mixed
+     * @return bool
      */
     public function hasResult($name);
 }
