@@ -10,6 +10,9 @@ namespace Vain\Core\Result\Composite;
 
 use Vain\Core\Result\ResultInterface;
 
+/**
+ * @method ResultCompositeInterface invert
+ */
 interface ResultCompositeInterface extends ResultInterface
 {
     /**
