@@ -6,11 +6,11 @@
  * Time: 10:15 AM
  */
 
-namespace Vain\Core\Result\Storage;
+namespace Vain\Core\Result\Composite;
 
 use Vain\Core\Result\ResultInterface;
 
-class ResultStorage implements ResultStorageInterface
+class ResultComposite implements ResultCompositeInterface
 {
     private $results = [];
 
@@ -64,6 +64,34 @@ class ResultStorage implements ResultStorageInterface
     /**
      * @inheritDoc
      */
+    public function getStatus()
+    {
+        foreach ($this->getResults() as $result) {
+            if (false === $result->getStatus()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function invert()
+    {
+        $clone = clone $this;
+        foreach ($clone->getResults() as $name => $result) {
+            $clone->results[$name] = $result->invert();
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * @inheritDoc
+     */
     public function getResults()
     {
         return $this->results;
@@ -75,5 +103,15 @@ class ResultStorage implements ResultStorageInterface
     public function hasResult($name)
     {
         return array_key_exists($name, $this->results);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function __clone()
+    {
+        foreach ($this->getResults() as $name => $result) {
+            $this->results[$name] = clone $result;
+        }
     }
 }

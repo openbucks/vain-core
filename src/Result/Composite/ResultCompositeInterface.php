@@ -6,17 +6,17 @@
  * Time: 10:13 AM
  */
 
-namespace Vain\Core\Result\Storage;
+namespace Vain\Core\Result\Composite;
 
 use Vain\Core\Result\ResultInterface;
 
-interface ResultStorageInterface
+interface ResultCompositeInterface extends ResultInterface
 {
     /**
      * @param string $name
      * @param ResultInterface $result
      *
-     * @return ResultStorageInterface
+     * @return ResultCompositeInterface
      */
     public function addResult($name, ResultInterface $result);
 
@@ -30,7 +30,7 @@ interface ResultStorageInterface
     /**
      * @param string $name
      *
-     * @return ResultStorageInterface
+     * @return ResultCompositeInterface
      */
     public function removeResult($name);
 
