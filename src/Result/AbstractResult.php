@@ -51,6 +51,14 @@ abstract class AbstractResult implements ResultInterface
     /**
      * @inheritDoc
      */
+    public function __toString()
+    {
+        return $this->isSuccessful() ? 'true' : 'false';
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function serialize()
     {
         return json_encode(['status' => $this->status]);

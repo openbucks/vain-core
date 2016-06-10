@@ -8,8 +8,9 @@
 
 namespace Vain\Core\Result;
 
+use Vain\Core\String\StringInterface;
 
-interface ResultInterface extends \Serializable
+interface ResultInterface extends \Serializable, StringInterface
 {
     /**
      * @return bool
