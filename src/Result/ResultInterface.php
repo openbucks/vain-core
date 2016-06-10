@@ -9,7 +9,7 @@
 namespace Vain\Core\Result;
 
 
-interface ResultInterface
+interface ResultInterface extends \Serializable
 {
     /**
      * @return bool
