@@ -14,6 +14,11 @@ interface ResultInterface
     /**
      * @return bool
      */
+    public function isSuccessful();
+
+    /**
+     * @return bool
+     */
     public function getStatus();
 
     /**

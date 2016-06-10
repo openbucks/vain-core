@@ -24,6 +24,14 @@ abstract class AbstractResult implements ResultInterface
     /**
      * @inheritDoc
      */
+    public function isSuccessful()
+    {
+        return $this->getStatus();
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getStatus()
     {
         return $this->status;
