@@ -1,0 +1,3 @@
+service:
+    result.factory:
+        class: Vain\Core\Result\Factory\ResultFactory
