@@ -13,6 +13,9 @@ use Vain\Core\Result\ResultInterface;
 
 class SuccessfulResult extends AbstractResult implements ResultInterface
 {
+    /**
+     * SuccessfulResult constructor.
+     */
     public function __construct()
     {
         parent::__construct(true);

@@ -13,6 +13,9 @@ use Vain\Core\Result\ResultInterface;
 
 class FailedResult extends AbstractResult implements ResultInterface
 {
+    /**
+     * FailedResult constructor.
+     */
     public function __construct()
     {
         parent::__construct(false);
