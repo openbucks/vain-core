@@ -1,19 +1,27 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: allflame
- * Date: 5/26/16
- * Time: 11:29 AM
+ * Vain Framework
+ *
+ * PHP Version 7
+ *
+ * @package   vain-expression
+ * @license   https://opensource.org/licenses/MIT MIT License
+ * @link      https://github.com/allflame/vain-expression
  */
-
 namespace Vain\Core\Result;
 
+/**
+ * Class AbstractResult
+ *
+ * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
+ */
 abstract class AbstractResult implements ResultInterface
 {
     private $status;
 
     /**
      * AbstractResult constructor.
+     *
      * @param bool $status
      */
     public function __construct($status)

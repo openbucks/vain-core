@@ -1,21 +1,29 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: allflame
- * Date: 4/1/16
- * Time: 12:57 PM
+ * Vain Framework
+ *
+ * PHP Version 7
+ *
+ * @package   vain-expression
+ * @license   https://opensource.org/licenses/MIT MIT License
+ * @link      https://github.com/allflame/vain-expression
  */
-
 namespace Vain\Core\Runtime;
 
 use Vain\Core\Runtime\Exception\UnknownPropertyRuntimeDataException;
 
+/**
+ * Class RuntimeData
+ *
+ * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
+ */
 class RuntimeData implements \ArrayAccess, \Countable
 {
     private $storage;
 
     /**
      * VainCoreData constructor.
+     *
      * @param array $storage
      */
     public function __construct(array $storage = [])

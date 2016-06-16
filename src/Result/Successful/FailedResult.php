@@ -1,16 +1,23 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: allflame
- * Date: 6/13/16
- * Time: 11:23 AM
+ * Vain Framework
+ *
+ * PHP Version 7
+ *
+ * @package   vain-expression
+ * @license   https://opensource.org/licenses/MIT MIT License
+ * @link      https://github.com/allflame/vain-expression
  */
-
 namespace Vain\Core\Result\Successful;
 
 use Vain\Core\Result\AbstractResult;
 use Vain\Core\Result\ResultInterface;
 
+/**
+ * Class FailedResult
+ *
+ * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
+ */
 class FailedResult extends AbstractResult implements ResultInterface
 {
     /**

@@ -1,23 +1,35 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: allflame
- * Date: 4/4/16
- * Time: 11:53 AM
+ * Vain Framework
+ *
+ * PHP Version 7
+ *
+ * @package   vain-expression
+ * @license   https://opensource.org/licenses/MIT MIT License
+ * @link      https://github.com/allflame/vain-expression
  */
-
 namespace Vain\Core\Runtime\Exception;
 
-
+/**
+ * Class UnknownPropertyRuntimeDataException
+ *
+ * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
+ */
 class UnknownPropertyRuntimeDataException extends RuntimeDataException
 {
     /**
      * VainRuntimeDataUnknownPropertyException constructor.
+     *
      * @param \ArrayAccess $runtimeData
-     * @param string $property
+     * @param string       $property
      */
     public function __construct(\ArrayAccess $runtimeData, $property)
     {
-        parent::__construct($runtimeData, sprintf('Runtime data container does not have property %s', $property), 0, null);
+        parent::__construct(
+            $runtimeData,
+            sprintf('Runtime data container does not have property %s', $property),
+            0,
+            null
+        );
     }
 }
