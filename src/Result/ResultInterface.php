@@ -8,9 +8,10 @@
 
 namespace Vain\Core\Result;
 
+use Vain\Core\ArrayX\ArrayInterface;
 use Vain\Core\String\StringInterface;
 
-interface ResultInterface extends StringInterface
+interface ResultInterface extends StringInterface, ArrayInterface
 {
     /**
      * @return bool

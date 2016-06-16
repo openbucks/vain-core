@@ -55,4 +55,12 @@ abstract class AbstractResult implements ResultInterface
     {
         return $this->isSuccessful() ? 'true' : 'false';
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function toArray()
+    {
+        return ['status' => $this->status];
+    }
 }
