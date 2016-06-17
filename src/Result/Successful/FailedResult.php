@@ -4,9 +4,9 @@
  *
  * PHP Version 7
  *
- * @package   vain-expression
+ * @package   vain-core
  * @license   https://opensource.org/licenses/MIT MIT License
- * @link      https://github.com/allflame/vain-expression
+ * @link      https://github.com/allflame/vain-core
  */
 namespace Vain\Core\Result\Successful;
 
