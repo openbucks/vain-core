@@ -11,8 +11,8 @@
 namespace Vain\Core\Extension;
 
 use Symfony\Component\Config\FileLocator;
-use Symfony\Component\DependencyInjection\ContainerBuilder as SymfonyContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symfony\Component\DependencyInjection\ContainerInterface as SymfonyContainerInterface;
 
 /**
  * Class AbstractExtension
@@ -24,10 +24,10 @@ abstract class AbstractExtension implements ExtensionInterface
     /**
      * @inheritDoc
      */
-    public function register(SymfonyContainerBuilder $containerBuilder)
+    public function register(SymfonyContainerInterface $container)
     {
         $loader = new YamlFileLoader(
-            $containerBuilder,
+            $container,
             new FileLocator(
                 sprintf(
                     '%s%s%s%s%s',
@@ -35,7 +35,7 @@ abstract class AbstractExtension implements ExtensionInterface
                     DIRECTORY_SEPARATOR,
                     '..',
                     DIRECTORY_SEPARATOR,
-                    $containerBuilder->getParameter('app.config.dir')
+                    $container->getParameter('app.config.dir')
                 )
             )
         );

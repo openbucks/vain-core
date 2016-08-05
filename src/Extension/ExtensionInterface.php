@@ -10,7 +10,7 @@
  */
 namespace Vain\Core\Extension;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder as SymfonyContainerBuilder;
+use Symfony\Component\DependencyInjection\ContainerInterface as SymfonyContainerInterface;
 
 /**
  * Interface ExtensionInterface
@@ -20,9 +20,9 @@ use Symfony\Component\DependencyInjection\ContainerBuilder as SymfonyContainerBu
 interface ExtensionInterface
 {
     /**
-     * @param SymfonyContainerBuilder $containerBuilder
+     * @param SymfonyContainerInterface $container
      *
      * @return ExtensionInterface
      */
-    public function register(SymfonyContainerBuilder $containerBuilder);
+    public function register(SymfonyContainerInterface $container);
 }
