@@ -31,10 +31,10 @@ abstract class AbstractExtension extends Extension
             $container,
             new FileLocator(
                 sprintf(
-                    '%s%s%s%s%s',
+                    '%s%s..%s..%s%s',
                     dirname((new \ReflectionClass(get_class($this)))->getFileName()),
                     DIRECTORY_SEPARATOR,
-                    '..',
+                    DIRECTORY_SEPARATOR,
                     DIRECTORY_SEPARATOR,
                     $container->getParameter('app.config.dir')
                 )
