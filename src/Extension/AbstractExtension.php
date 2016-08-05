@@ -31,7 +31,7 @@ abstract class AbstractExtension implements ExtensionInterface
             new FileLocator(
                 sprintf(
                     '%s%s%s%s%s',
-                    __DIR__,
+                    dirname((new \ReflectionClass(get_class($this)))->getFileName()),
                     DIRECTORY_SEPARATOR,
                     '..',
                     DIRECTORY_SEPARATOR,
