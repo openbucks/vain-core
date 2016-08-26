@@ -17,7 +17,7 @@ use Vain\Core\Encoder\EncoderInterface;
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class EncoderException extends CoreException
+class EncoderException extends AbstractCoreException
 {
     private $encoder;
 

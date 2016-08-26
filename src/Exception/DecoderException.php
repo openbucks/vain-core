@@ -17,7 +17,7 @@ use Vain\Core\Decoder\DecoderInterface;
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class DecoderException extends CoreException
+class DecoderException extends AbstractCoreException
 {
     private $decoder;
 
