@@ -16,8 +16,8 @@
     },
     "require": {
         "php": ">=7.0",
-        "symfony/dependency-injection": "dev-master",
-        "symfony/config": "dev-master"
+        "symfony/dependency-injection": "^3",
+        "symfony/config": "^3"
     },
     "config": {
         "secure-http": false
