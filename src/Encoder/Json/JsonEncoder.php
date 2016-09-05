@@ -8,6 +8,8 @@
  * @license   https://opensource.org/licenses/MIT MIT License
  * @link      https://github.com/allflame/vain-core
  */
+declare(strict_types=1);
+
 namespace Vain\Core\Encoder\Json;
 
 use Vain\Core\Decoder\DecoderInterface;
@@ -25,7 +27,7 @@ class JsonEncoder implements EncoderInterface, DecoderInterface
     /**
      * @inheritDoc
      */
-    public function encode($dataToEncode)
+    public function encode($dataToEncode) : string
     {
         $encoded = json_encode($dataToEncode);
         if (0 !== ($errorCode = json_last_error())) {
@@ -40,7 +42,7 @@ class JsonEncoder implements EncoderInterface, DecoderInterface
     /**
      * @inheritDoc
      */
-    public function decode($dataToDecode)
+    public function decode(string $dataToDecode)
     {
         $decoded = json_decode($dataToDecode, true);
         if (0 !== ($errorCode = json_last_error())) {

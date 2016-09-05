@@ -8,6 +8,8 @@
  * @license   https://opensource.org/licenses/MIT MIT License
  * @link      https://github.com/allflame/vain-core
  */
+declare(strict_types=1);
+
 namespace Vain\Core\String;
 
 /**
@@ -20,5 +22,5 @@ interface StringInterface
     /**
      * @return string
      */
-    public function __toString();
+    public function __toString() : string;
 }

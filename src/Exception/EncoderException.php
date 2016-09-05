@@ -8,6 +8,8 @@
  * @license   https://opensource.org/licenses/MIT MIT License
  * @link      https://github.com/allflame/vain-core
  */
+declare(strict_types=1);
+
 namespace Vain\Core\Exception;
 
 use Vain\Core\Encoder\EncoderInterface;
@@ -38,7 +40,7 @@ class EncoderException extends AbstractCoreException
     /**
      * @return EncoderInterface
      */
-    public function getEncoder()
+    public function getEncoder() : EncoderInterface
     {
         return $this->encoder;
     }

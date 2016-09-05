@@ -8,6 +8,7 @@
  * @license   https://opensource.org/licenses/MIT MIT License
  * @link      https://github.com/allflame/vain-core
  */
+declare(strict_types=1);
 
 namespace Vain\Core\Exception;
 
@@ -21,7 +22,7 @@ abstract class AbstractCoreException extends \Exception implements CoreException
     /**
      * @inheritDoc
      */
-    function jsonSerialize()
+    public function jsonSerialize() : array
     {
         return ['code' => $this->getCode(), 'message' => $this->getMessage()];
     }

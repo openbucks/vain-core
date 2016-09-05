@@ -8,6 +8,8 @@
  * @license   https://opensource.org/licenses/MIT MIT License
  * @link      https://github.com/allflame/vain-core
  */
+declare(strict_types=1);
+
 namespace Vain\Core\Result;
 
 /**
@@ -32,7 +34,7 @@ abstract class AbstractResult implements ResultInterface
     /**
      * @inheritDoc
      */
-    public function isSuccessful()
+    public function isSuccessful() : bool
     {
         return $this->getStatus();
     }
@@ -40,7 +42,7 @@ abstract class AbstractResult implements ResultInterface
     /**
      * @inheritDoc
      */
-    public function getStatus()
+    public function getStatus() : bool
     {
         return $this->status;
     }
@@ -48,7 +50,7 @@ abstract class AbstractResult implements ResultInterface
     /**
      * @inheritDoc
      */
-    public function invert()
+    public function invert() : AbstractResult
     {
         $clone = clone $this;
         $clone->status = !$this->status;
@@ -59,7 +61,7 @@ abstract class AbstractResult implements ResultInterface
     /**
      * @inheritDoc
      */
-    public function __toString()
+    public function __toString() : string
     {
         return $this->isSuccessful() ? 'true' : 'false';
     }
@@ -67,7 +69,7 @@ abstract class AbstractResult implements ResultInterface
     /**
      * @inheritDoc
      */
-    public function toArray()
+    public function toArray() : array
     {
         return ['status' => $this->status];
     }

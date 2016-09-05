@@ -8,16 +8,18 @@
  * @license   https://opensource.org/licenses/MIT MIT License
  * @link      https://github.com/allflame/vain-core
  */
+declare(strict_types=1);
+
 namespace Vain\Core\Runtime\Exception;
 
-use Vain\Core\Exception\CoreException;
+use Vain\Core\Exception\AbstractCoreException;
 
 /**
  * Class RuntimeDataException
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class RuntimeDataException extends CoreException
+class RuntimeDataException extends AbstractCoreException
 {
     private $runtimeData;
 
@@ -38,7 +40,7 @@ class RuntimeDataException extends CoreException
     /**
      * @return \ArrayAccess
      */
-    public function getRuntimeData()
+    public function getRuntimeData() : \ArrayAccess
     {
         return $this->runtimeData;
     }

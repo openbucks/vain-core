@@ -8,6 +8,8 @@
  * @license   https://opensource.org/licenses/MIT MIT License
  * @link      https://github.com/allflame/vain-core
  */
+declare(strict_types=1);
+
 namespace Vain\Core\Extension;
 
 use Symfony\Component\Config\FileLocator;
@@ -25,7 +27,7 @@ abstract class AbstractExtension extends Extension
     /**
      * @inheritDoc
      */
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container) : AbstractExtension
     {
         $loader = new YamlFileLoader(
             $container,
@@ -41,5 +43,7 @@ abstract class AbstractExtension extends Extension
             )
         );
         $loader->load('di.yml');
+
+        return $this;
     }
 }

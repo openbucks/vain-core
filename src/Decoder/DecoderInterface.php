@@ -8,6 +8,8 @@
  * @license   https://opensource.org/licenses/MIT MIT License
  * @link      https://github.com/allflame/vain-core
  */
+declare(strict_types=1);
+
 namespace Vain\Core\Decoder;
 
 /**
@@ -17,11 +19,10 @@ namespace Vain\Core\Decoder;
  */
 interface DecoderInterface
 {
-
     /**
-     * @param mixed $dataToDecode
+     * @param string $dataToDecode
      *
      * @return mixed
      */
-    public function decode($dataToDecode);
+    public function decode(string $dataToDecode);
 }

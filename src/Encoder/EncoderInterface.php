@@ -8,6 +8,8 @@
  * @license   https://opensource.org/licenses/MIT MIT License
  * @link      https://github.com/allflame/vain-core
  */
+declare(strict_types=1);
+
 namespace Vain\Core\Encoder;
 
 /**
@@ -20,8 +22,7 @@ interface EncoderInterface
     /**
      * @param mixed $dataToEncode
      *
-     * @return mixed
+     * @return string
      */
-    public function encode($dataToEncode);
-
+    public function encode($dataToEncode) : string;
 }
