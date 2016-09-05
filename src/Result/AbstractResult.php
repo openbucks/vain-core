@@ -26,7 +26,7 @@ abstract class AbstractResult implements ResultInterface
      *
      * @param bool $status
      */
-    public function __construct($status)
+    public function __construct(bool $status)
     {
         $this->status = $status;
     }
