@@ -31,7 +31,7 @@ class RuntimeDataException extends AbstractCoreException
      * @param int          $code
      * @param \Exception   $previous
      */
-    public function __construct(\ArrayAccess $runtimeData, $message, $code, \Exception $previous = null)
+    public function __construct(\ArrayAccess $runtimeData, string $message, int $code, \Exception $previous = null)
     {
         $this->runtimeData = $runtimeData;
         parent::__construct($message, $code, $previous);

@@ -28,7 +28,7 @@ class JsonDecodeException extends DecoderException
      * @param int         $code
      * @param string      $message
      */
-    public function __construct(JsonEncoder $encoder, $code, $message)
+    public function __construct(JsonEncoder $encoder, int $code, string $message)
     {
         parent::__construct($encoder, sprintf('Json decode returned code %d: %S', $code, $message), 0, null);
     }

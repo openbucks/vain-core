@@ -25,7 +25,7 @@ class UnknownPropertyRuntimeDataException extends RuntimeDataException
      * @param \ArrayAccess $runtimeData
      * @param string       $property
      */
-    public function __construct(\ArrayAccess $runtimeData, $property)
+    public function __construct(\ArrayAccess $runtimeData, string $property)
     {
         parent::__construct(
             $runtimeData,
