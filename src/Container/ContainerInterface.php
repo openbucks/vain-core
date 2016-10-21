@@ -24,5 +24,5 @@ interface ContainerInterface
      *
      * @return mixed
      */
-    public function getService(string $serviceId);
+    public function get($serviceId);
 }
