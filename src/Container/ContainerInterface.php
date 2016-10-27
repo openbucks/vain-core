@@ -17,7 +17,7 @@ namespace Vain\Core\Container;
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-interface ContainerInterface
+interface ContainerInterface extends \ArrayAccess
 {
     /**
      * @param string $serviceId
@@ -25,4 +25,11 @@ interface ContainerInterface
      * @return mixed
      */
     public function get($serviceId);
+
+    /**
+     * @param string $serviceId
+     *
+     * @return mixed
+     */
+    public function has($serviceId);
 }
