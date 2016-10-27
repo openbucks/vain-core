@@ -31,7 +31,7 @@ class EncoderException extends AbstractCoreException
      * @param int              $code
      * @param \Exception|null  $previous
      */
-    public function __construct(EncoderInterface $encoder, string $message, int $code, \Exception $previous = null)
+    public function __construct(EncoderInterface $encoder, string $message, int $code = 500, \Exception $previous = null)
     {
         $this->encoder = $encoder;
         parent::__construct($message, $code, $previous);

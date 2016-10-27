@@ -30,6 +30,6 @@ class JsonEncodeException extends EncoderException
      */
     public function __construct(JsonEncoder $encoder, int $code, string $message)
     {
-        parent::__construct($encoder, sprintf('Json encode returned code %d: %S', $code, $message), 0, null);
+        parent::__construct($encoder, sprintf('Json encode returned code %d: %S', $code, $message));
     }
 }
