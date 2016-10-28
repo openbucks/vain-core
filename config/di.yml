@@ -1,4 +1,5 @@
 services:
   json.encoder:
     class: Vain\Core\Encoder\Json\JsonEncoder
-  json.decoder: '@json.encoder'
+  json.decoder:
+    alias: json.encoder
