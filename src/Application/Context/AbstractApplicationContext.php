@@ -9,14 +9,14 @@
  * @link      https://github.com/allflame/vain-core
  */
 
-namespace Vain\Core\Contenxt;
+namespace Vain\Core\Application\Context;
 
 /**
- * Class AbstractContext
+ * Class AbstractApplicationContext
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-abstract class AbstractContext implements ContextInterface
+abstract class AbstractApplicationContext implements ApplicationContextInterface
 {
     private $name;
 

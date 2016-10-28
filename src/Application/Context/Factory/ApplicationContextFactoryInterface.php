@@ -9,13 +9,13 @@
  * @link      https://github.com/allflame/vain-core
  */
 
-namespace Vain\Core\Contenxt\Factory;
+namespace Vain\Core\Application\Context\Factory;
 
 /**
- * Interface ContextFactoryInterface
+ * Interface ApplicationContextFactoryInterface
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-interface ContextFactoryInterface
+interface ApplicationContextFactoryInterface
 {
 }

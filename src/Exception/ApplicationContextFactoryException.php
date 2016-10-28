@@ -12,27 +12,27 @@ declare(strict_types = 1);
 
 namespace Vain\Core\Exception;
 
-use Vain\Core\Contenxt\Factory\ContextFactoryInterface;
+use Vain\Core\Application\Context\Factory\ApplicationContextFactoryInterface;
 
 /**
- * Class ContextFactoryException
+ * Class ApplicationContextFactoryException
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class ContextFactoryException extends AbstractCoreException
+class ApplicationContextFactoryException extends AbstractCoreException
 {
     private $contextFactory;
 
     /**
      * ContextFactoryException constructor.
      *
-     * @param ContextFactoryInterface $contextFactory
-     * @param string                  $message
-     * @param int                     $code
-     * @param \Exception|null         $previous
+     * @param ApplicationContextFactoryInterface $contextFactory
+     * @param string                             $message
+     * @param int                                $code
+     * @param \Exception|null                    $previous
      */
     public function __construct(
-        ContextFactoryInterface $contextFactory,
+        ApplicationContextFactoryInterface $contextFactory,
         string $message,
         int $code = 500,
         \Exception $previous = null
@@ -42,9 +42,9 @@ class ContextFactoryException extends AbstractCoreException
     }
 
     /**
-     * @return ContextFactoryInterface
+     * @return ApplicationContextFactoryInterface
      */
-    public function getContextFactory(): ContextFactoryInterface
+    public function getContextFactory(): ApplicationContextFactoryInterface
     {
         return $this->contextFactory;
     }

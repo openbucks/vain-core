@@ -9,7 +9,7 @@
  * @link      https://github.com/allflame/vain-core
  */
 
-namespace Vain\Core\Contenxt;
+namespace Vain\Core\Application\Context;
 
 use Vain\Core\ArrayX\ArrayInterface;
 
@@ -18,7 +18,7 @@ use Vain\Core\ArrayX\ArrayInterface;
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-interface ContextInterface extends ArrayInterface
+interface ApplicationContextInterface extends ArrayInterface
 {
     /**
      * @return string
