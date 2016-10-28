@@ -22,16 +22,24 @@ abstract class AbstractContext implements ContextInterface
 
     private $version;
 
+    private $env;
+
+    private $mode;
+
     /**
      * AbstractContext constructor.
      *
      * @param string $name
      * @param string $version
+     * @param string $env
+     * @param string $mode
      */
-    public function __construct(string $name, string $version)
+    public function __construct(string $name, string $version, string $env, string $mode)
     {
         $this->name = $name;
         $this->version = $version;
+        $this->env = $env;
+        $this->mode = $mode;
     }
 
     /**
@@ -48,5 +56,29 @@ abstract class AbstractContext implements ContextInterface
     public function getVersion() : string
     {
         return $this->version;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEnv(): string
+    {
+        return $this->env;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMode(): string
+    {
+        return $this->mode;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function toArray() : array
+    {
+        return ['name' => $this->name, 'version' => $this->version, 'env' => $this->env, 'mode' => $this->mode];
     }
 }

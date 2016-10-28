@@ -11,12 +11,14 @@
 
 namespace Vain\Core\Contenxt;
 
+use Vain\Core\ArrayX\ArrayInterface;
+
 /**
  * Interface ContextInterface
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-interface ContextInterface
+interface ContextInterface extends ArrayInterface
 {
     /**
      * @return string
@@ -27,4 +29,14 @@ interface ContextInterface
      * @return string
      */
     public function getVersion() : string;
+
+    /**
+     * @return string
+     */
+    public function getEnv() : string;
+
+    /**
+     * @return string
+     */
+    public function getMode() : string;
 }
