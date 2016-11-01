@@ -42,7 +42,8 @@ abstract class AbstractExtension extends Extension
                 )
             )
         );
-        $loader->load('di.yml');
+        $dir = $container->getParameter('app.debug') ? 'dev' : 'prod';
+        $loader->load(sprintf('%s%s%s', $dir, DIRECTORY_SEPARATOR, 'di.yml'));
 
         return $this;
     }
