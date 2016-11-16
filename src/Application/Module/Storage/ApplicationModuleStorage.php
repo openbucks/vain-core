@@ -23,7 +23,7 @@ use Vain\Core\Exception\UnknownModuleException;
  */
 class ApplicationModuleStorage implements ApplicationModuleStorageInterface
 {
-    private $modules;
+    private $modules = [];
 
     public function __construct(array $modules = [])
     {
