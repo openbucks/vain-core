@@ -3,3 +3,5 @@ services:
     class: Vain\Core\Encoder\Json\JsonEncoder
   json.decoder:
     alias: json.encoder
+  app.module.storage:
+    class: Vain\Core\Application\Module\Storage\ApplicationModuleStorage
