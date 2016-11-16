@@ -27,4 +27,17 @@ interface ApplicationModuleStorageInterface
      * @return ApplicationModuleStorageInterface
      */
     public function addModule(ApplicationModuleInterface $applicationModule) : ApplicationModuleStorageInterface;
+
+
+    /**
+     * @param string $name
+     *
+     * @return ApplicationModuleInterface
+     */
+    public function getModule(string $name) : ApplicationModuleInterface;
+
+    /**
+     * @return array
+     */
+    public function getModules() : array;
 }
