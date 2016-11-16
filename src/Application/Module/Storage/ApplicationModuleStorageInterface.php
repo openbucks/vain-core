@@ -37,7 +37,7 @@ interface ApplicationModuleStorageInterface
     public function getModule(string $name) : ApplicationModuleInterface;
 
     /**
-     * @return array
+     * @return ApplicationModuleInterface[]
      */
     public function getModules() : array;
 }
