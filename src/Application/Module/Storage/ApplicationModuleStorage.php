@@ -23,6 +23,11 @@ class ApplicationModuleStorage implements ApplicationModuleStorageInterface
 {
     private $modules = [];
 
+    /**
+     * ApplicationModuleStorage constructor.
+     *
+     * @param array $modules
+     */
     public function __construct(array $modules = [])
     {
         foreach ($modules as $module) {
