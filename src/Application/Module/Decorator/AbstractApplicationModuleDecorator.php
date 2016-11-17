@@ -12,7 +12,6 @@ declare(strict_types = 1);
 
 namespace Vain\Core\Application\Module\Decorator;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Vain\Core\Application\Module\ApplicationModuleInterface;
 
 /**
@@ -37,17 +36,9 @@ abstract class AbstractApplicationModuleDecorator implements ApplicationModuleIn
     /**
      * @inheritDoc
      */
-    public function getName() : string
+    public function register() : ApplicationModuleInterface
     {
-        return $this->module->getName();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function register(ContainerBuilder $container) : ApplicationModuleInterface
-    {
-        $this->module->register($container);
+        $this->module->register();
 
         return $this;
     }
