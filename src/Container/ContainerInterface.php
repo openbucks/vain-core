@@ -32,4 +32,18 @@ interface ContainerInterface extends \ArrayAccess
      * @return mixed
      */
     public function has($serviceId);
+
+    /**
+     * @param string $parameter
+     *
+     * @return mixed
+     */
+    public function getParameter($parameter);
+
+    /**
+     * @param string $parameter
+     *
+     * @return bool
+     */
+    public function hasParameter($parameter);
 }
