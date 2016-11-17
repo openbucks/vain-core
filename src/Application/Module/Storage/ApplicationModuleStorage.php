@@ -13,8 +13,6 @@ declare(strict_types = 1);
 namespace Vain\Core\Application\Module\Storage;
 
 use Vain\Core\Application\Module\ApplicationModuleInterface;
-use Vain\Core\Exception\DuplicateApplicationModuleException;
-use Vain\Core\Exception\UnknownModuleException;
 
 /**
  * Class ApplicationModuleStorage
@@ -37,25 +35,9 @@ class ApplicationModuleStorage implements ApplicationModuleStorageInterface
      */
     public function addModule(ApplicationModuleInterface $applicationModule) : ApplicationModuleStorageInterface
     {
-        $name = $applicationModule->getName();
-        if (array_key_exists($name, $this->modules)) {
-            throw new DuplicateApplicationModuleException($this, $name, $applicationModule, $this->modules[$name]);
-        }
-        $this->modules[$name] = $applicationModule;
+        $this->modules[] = $applicationModule;
 
         return $this;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getModule(string $name) : ApplicationModuleInterface
-    {
-        if (false === array_key_exists($name, $this->modules)) {
-            throw new UnknownModuleException($this, $name);
-        }
-
-        return $this->modules[$name];
     }
 
     /**
