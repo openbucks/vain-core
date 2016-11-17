@@ -12,6 +12,8 @@ declare(strict_types = 1);
 
 namespace Vain\Core\Application\Module;
 
+use Vain\Core\Container\ContainerInterface;
+
 /**
  * Interface ApplicationModuleInterface
  *
@@ -20,7 +22,9 @@ namespace Vain\Core\Application\Module;
 interface ApplicationModuleInterface
 {
     /**
+     * @param ContainerInterface $container
+     *
      * @return ApplicationModuleInterface
      */
-    public function register() : ApplicationModuleInterface;
+    public function register(ContainerInterface $container) : ApplicationModuleInterface;
 }

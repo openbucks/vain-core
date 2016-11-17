@@ -13,6 +13,7 @@ declare(strict_types = 1);
 namespace Vain\Core\Application\Module\Decorator;
 
 use Vain\Core\Application\Module\ApplicationModuleInterface;
+use Vain\Core\Container\ContainerInterface;
 
 /**
  * Class AbstractApplicationModuleDecorator
@@ -36,9 +37,9 @@ abstract class AbstractApplicationModuleDecorator implements ApplicationModuleIn
     /**
      * @inheritDoc
      */
-    public function register() : ApplicationModuleInterface
+    public function register(ContainerInterface $container) : ApplicationModuleInterface
     {
-        $this->module->register();
+        $this->module->register($container);
 
         return $this;
     }
