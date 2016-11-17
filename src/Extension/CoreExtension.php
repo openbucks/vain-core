@@ -12,9 +12,6 @@ declare(strict_types = 1);
 
 namespace Vain\Core\Extension;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Vain\Core\Extension\Compiler\ApplicationModuleCompilerPass;
-
 /**
  * Class CoreExtension
  *
@@ -22,13 +19,4 @@ use Vain\Core\Extension\Compiler\ApplicationModuleCompilerPass;
  */
 class CoreExtension extends AbstractExtension
 {
-    /**
-     * @inheritDoc
-     */
-    public function load(array $configs, ContainerBuilder $container) : AbstractExtension
-    {
-        $container->addCompilerPass(new ApplicationModuleCompilerPass());
-
-        return parent::load($configs, $container);
-    }
 }
