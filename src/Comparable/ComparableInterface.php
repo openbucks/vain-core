@@ -19,10 +19,21 @@ namespace Vain\Core\Comparable;
  */
 interface ComparableInterface
 {
+    const EQUAL = 0;
+    const LESS = -1;
+    const GREATER = 1;
+
     /**
      * @param ComparableInterface $comparable
      *
      * @return bool
      */
     public function equal(ComparableInterface $comparable) : bool;
+
+    /**
+     * @param ComparableInterface $comparable
+     *
+     * @return int
+     */
+    public function compare(ComparableInterface $comparable) : int;
 }
