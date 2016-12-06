@@ -29,9 +29,9 @@ class Counter implements CounterInterface
         if (array_key_exists($timeStamp, $this->counter)) {
             return ++$this->counter[$timeStamp];
         }
-        $this->counter[$timeStamp] = 0;
+        $this->counter[$timeStamp] = mt_rand(0, 255);
 
-        return 0;
+        return $this->counter[$timeStamp];
     }
 
     /**
