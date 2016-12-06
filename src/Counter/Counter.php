@@ -29,7 +29,7 @@ class Counter implements CounterInterface
         if (array_key_exists($timeStamp, $this->counter)) {
             return ++$this->counter[$timeStamp];
         }
-        $this->counter[$timeStamp] = mt_rand(0, 255);
+        $this->counter[$timeStamp] = mt_rand(0, PHP_INT_MAX);
 
         return $this->counter[$timeStamp];
     }
