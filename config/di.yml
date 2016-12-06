@@ -3,3 +3,5 @@ services:
     class: Vain\Core\Encoder\Json\JsonEncoder
   json.decoder:
     alias: json.encoder
+  counter:
+    class: Vain\Core\Counter\Counter
