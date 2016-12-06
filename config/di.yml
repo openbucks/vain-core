@@ -5,3 +5,4 @@ services:
     alias: json.encoder
   counter:
     class: Vain\Core\Counter\Counter
+    shared: false
