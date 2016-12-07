@@ -12,6 +12,8 @@ declare(strict_types = 1);
 
 namespace Vain\Core\Application;
 
+use Vain\Core\Container\ContainerInterface;
+
 /**
  * Interface ApplicationInterface
  *
@@ -19,5 +21,8 @@ namespace Vain\Core\Application;
  */
 interface ApplicationInterface
 {
-
+    /**
+     * @return ContainerInterface
+     */
+    public function getContainer() : ContainerInterface;
 }
