@@ -31,8 +31,12 @@ class DecoderException extends AbstractCoreException
      * @param int              $code
      * @param \Exception|null  $previous
      */
-    public function __construct(DecoderInterface $decoder, string $message, int $code = 500, \Exception $previous = null)
-    {
+    public function __construct(
+        DecoderInterface $decoder,
+        string $message,
+        int $code = 500,
+        \Exception $previous = null
+    ) {
         $this->decoder = $decoder;
         parent::__construct($message, $code, $previous);
     }
