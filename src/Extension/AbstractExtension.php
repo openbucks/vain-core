@@ -38,7 +38,7 @@ abstract class AbstractExtension extends Extension
                     DIRECTORY_SEPARATOR,
                     DIRECTORY_SEPARATOR,
                     DIRECTORY_SEPARATOR,
-                    $container->getParameter('app.config.dir')
+                    $container->getParameter('config.dir')
                 )
             )
         );
