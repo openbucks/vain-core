@@ -11,14 +11,15 @@
 
 namespace Vain\Core\Application\Context;
 
-use Vain\Core\ArrayX\ArrayInterface;
+use Vain\Core\Display\DisplayableInterface;
+use Vain\Core\PrivateX\PrivateInterface;
 
 /**
  * Interface ContextInterface
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-interface ApplicationContextInterface extends ArrayInterface
+interface ApplicationContextInterface extends DisplayableInterface, PrivateInterface
 {
     /**
      * @return string
