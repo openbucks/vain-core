@@ -28,6 +28,20 @@ interface ComparableInterface extends EquatableInterface
     /**
      * @param ComparableInterface $comparable
      *
+     * @return bool
+     */
+    public function greater(ComparableInterface $comparable) : bool;
+
+    /**
+     * @param ComparableInterface $comparable
+     *
+     * @return bool
+     */
+    public function less(ComparableInterface $comparable) : bool;
+
+    /**
+     * @param ComparableInterface $comparable
+     *
      * @return int
      */
     public function compare(ComparableInterface $comparable) : int;
