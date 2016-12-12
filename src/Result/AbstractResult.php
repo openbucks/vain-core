@@ -12,6 +12,8 @@ declare(strict_types = 1);
 
 namespace Vain\Core\Result;
 
+use Vain\Core\Equal\EquatableInterface;
+
 /**
  * Class AbstractResult
  *
@@ -69,7 +71,27 @@ abstract class AbstractResult implements ResultInterface
     /**
      * @inheritDoc
      */
-    public function toArray() : array
+    public function toDisplay() : array
+    {
+        return ['status' => $this->status];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function equals(EquatableInterface $equatable) : bool
+    {
+        /**
+         * @var ResultInterface $equatable
+         */
+
+        return $this->status === $equatable->getStatus();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function toPrivate() : array
     {
         return ['status' => $this->status];
     }
