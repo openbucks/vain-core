@@ -84,7 +84,6 @@ abstract class AbstractResult implements ResultInterface
         /**
          * @var ResultInterface $equatable
          */
-
         return $this->status === $equatable->getStatus();
     }
 }
