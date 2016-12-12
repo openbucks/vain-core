@@ -11,6 +11,8 @@
 
 namespace Vain\Core\Application\Context;
 
+use Vain\Core\ArrayX\ArrayInterface;
+
 /**
  * Class AbstractApplicationContext
  *
@@ -80,5 +82,20 @@ abstract class AbstractApplicationContext implements ApplicationContextInterface
     public function toArray() : array
     {
         return ['name' => $this->name, 'version' => $this->version, 'env' => $this->env, 'mode' => $this->mode];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function fromArray(array $data) : ArrayInterface
+    {
+        list ($this->name, $this->version, $this->env, $this->mode) = [
+            $data['name'],
+            $data['version'],
+            $data['env'],
+            $data['mode'],
+        ];
+
+        return $this;
     }
 }
