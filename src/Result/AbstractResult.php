@@ -87,12 +87,4 @@ abstract class AbstractResult implements ResultInterface
 
         return $this->status === $equatable->getStatus();
     }
-
-    /**
-     * @inheritDoc
-     */
-    public function toPrivate() : array
-    {
-        return ['status' => $this->status];
-    }
 }

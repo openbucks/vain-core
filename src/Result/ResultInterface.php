@@ -14,7 +14,6 @@ namespace Vain\Core\Result;
 
 use Vain\Core\Display\DisplayableInterface;
 use Vain\Core\Equal\EquatableInterface;
-use Vain\Core\PrivateX\PrivateInterface;
 use Vain\Core\String\StringInterface;
 
 /**
@@ -22,7 +21,7 @@ use Vain\Core\String\StringInterface;
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-interface ResultInterface extends StringInterface, DisplayableInterface, PrivateInterface, EquatableInterface
+interface ResultInterface extends StringInterface, DisplayableInterface, EquatableInterface
 {
     /**
      * @return bool
