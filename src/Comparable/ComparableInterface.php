@@ -12,23 +12,18 @@ declare(strict_types = 1);
 
 namespace Vain\Core\Comparable;
 
+use Vain\Core\Equal\EquatableInterface;
+
 /**
  * Class ComparableInterface
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-interface ComparableInterface
+interface ComparableInterface extends EquatableInterface
 {
     const EQUAL = 0;
     const LESS = -1;
     const GREATER = 1;
-
-    /**
-     * @param ComparableInterface $comparable
-     *
-     * @return bool
-     */
-    public function equal(ComparableInterface $comparable) : bool;
 
     /**
      * @param ComparableInterface $comparable
