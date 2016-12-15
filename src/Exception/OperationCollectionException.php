@@ -19,12 +19,12 @@ use Vain\Core\Operation\Collection\OperationCollectionInterface;
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class OperationOperationCollectionException extends OperationException
+class OperationCollectionException extends OperationException
 {
     private $collection;
 
     /**
-     * VainOperationOperationCollectionException constructor.
+     * OperationCollectionException constructor.
      *
      * @param OperationCollectionInterface $collection
      * @param string              $message
