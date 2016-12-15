@@ -10,23 +10,20 @@
  */
 declare(strict_types = 1);
 
-namespace Vain\Core\Result\Successful;
-
-use Vain\Core\Result\AbstractResult;
-use Vain\Core\Result\ResultInterface;
+namespace Vain\Core\Result;
 
 /**
- * Class FailedResult
+ * Class SuccessfulResult
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class FailedResult extends AbstractResult implements ResultInterface
+class SuccessfulResult extends AbstractResult implements ResultInterface
 {
     /**
-     * FailedResult constructor.
+     * SuccessfulResult constructor.
      */
     public function __construct()
     {
-        parent::__construct(false);
+        parent::__construct(true);
     }
 }
