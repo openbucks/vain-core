@@ -12,14 +12,12 @@ declare(strict_types = 1);
 
 namespace Vain\Core\Event\Config;
 
-use Vain\Core\Config\ConfigInterface;
-
 /**
  * Interface EventConfigInterface
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-interface EventConfigInterface extends ConfigInterface
+interface EventConfigInterface
 {
     /**
      * @return string
