@@ -19,6 +19,11 @@
         "symfony/dependency-injection": "^3",
         "symfony/config": "^3"
     },
+    "suggest": {
+        "vain/config": "Nested cacheable configuration files",
+        "vain/http": "PSR7 implementation",
+        "vain/time": "Immutable DateTime with handful methods"
+    },
     "config": {
         "secure-http": false
     },
