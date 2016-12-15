@@ -12,7 +12,6 @@ declare(strict_types = 1);
 
 namespace Vain\Core\Comparable;
 
-use Vain\Core\Equal\AbstractEquatable;
 use Vain\Core\Exception\UndefinedOrderComparableException;
 
 /**
@@ -20,7 +19,7 @@ use Vain\Core\Exception\UndefinedOrderComparableException;
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-abstract class AbstractComparable extends AbstractEquatable implements ComparableInterface
+abstract class AbstractComparable implements ComparableInterface
 {
     /**
      * @inheritDoc

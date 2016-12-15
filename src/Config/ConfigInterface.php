@@ -17,7 +17,7 @@ namespace Vain\Core\Config;
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-interface ConfigInterface extends \ArrayAccess
+interface ConfigInterface extends \ArrayAccess, \Iterator
 {
 
 }
