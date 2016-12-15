@@ -20,8 +20,9 @@
         "symfony/config": "^3"
     },
     "suggest": {
-        "vain/config": "Nested cacheable configuration files",
-        "vain/http": "PSR7 implementation",
+        "vain/config": "Nested configuration files and caches",
+        "vain/http": "PSR-7 implementation",
+        "vain/operation": "Operation implementation",
         "vain/time": "Immutable DateTime with handful methods"
     },
     "config": {
