@@ -157,6 +157,7 @@ services:
   database.generator.factory:
     class: Vain\Core\Database\Generator\Factory\DatabaseGeneratorFactory
   database.abstract:
+    abstract: true
     class: Vain\Core\Database\AbstractDatabase
     arguments: ['@config', '@connection.storage', '@database.generator.factory']
   entity.operation.factory.abstract:
