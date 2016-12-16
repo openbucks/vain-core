@@ -10,10 +10,10 @@
  */
 declare(strict_types = 1);
 
-namespace Vain\Core\Event\Operation\Collection\Factory\Decorator\Event;
+namespace Vain\Core\Operation\Collection\Factory\Decorator\Event;
 
 use Vain\Core\Event\Collection\CollectionEventDispatcherInterface;
-use Vain\Core\Event\Operation\Collection\Decorator\Event\CollectionEventDecorator;
+use Vain\Core\Operation\Collection\Decorator\Event\CollectionEventDecorator;
 use Vain\Core\Operation\Collection\OperationCollectionInterface;
 use Vain\Core\Operation\Collection\Factory\OperationCollectionFactoryInterface;
 use Vain\Core\Operation\Collection\Factory\Decorator\AbstractOperationCollectionFactoryDecorator;

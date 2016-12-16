@@ -16,7 +16,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Vain\Core\Extension\Compiler\AccessControlCompilerPass;
 use Vain\Core\Extension\Compiler\CacheFactoryCompilerPass;
 use Vain\Core\Extension\Compiler\ConnectionFactoryCompilerPass;
-use Vain\Core\Extension\Compiler\DatabaseFactoryCompilerPass;
 use Vain\Core\Extension\Compiler\ProcessorStrategyCompilerPass;
 use Vain\Core\Extension\Compiler\QueueFactoryCompilerPass;
 use Vain\Core\Extension\Compiler\QueueMessageFactoryCompilerPass;
@@ -43,7 +42,6 @@ class CoreExtension extends AbstractExtension
             ->addCompilerPass(new AccessControlCompilerPass())
             ->addCompilerPass(new CacheFactoryCompilerPass())
             ->addCompilerPass(new ConnectionFactoryCompilerPass())
-            ->addCompilerPass(new DatabaseFactoryCompilerPass())
             ->addCompilerPass(new ProcessorStrategyCompilerPass())
             ->addCompilerPass(new QueueFactoryCompilerPass())
             ->addCompilerPass(new QueueMessageFactoryCompilerPass())

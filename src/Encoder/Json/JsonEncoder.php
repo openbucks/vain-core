@@ -12,7 +12,7 @@ declare(strict_types = 1);
 
 namespace Vain\Core\Encoder\Json;
 
-use Vain\Core\Decoder\DecoderInterface;
+use Vain\Core\Encoder\DecoderInterface;
 use Vain\Core\Encoder\EncoderInterface;
 use Vain\Core\Exception\JsonDecodeException;
 use Vain\Core\Exception\JsonEncodeException;

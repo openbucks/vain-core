@@ -10,7 +10,7 @@
  */
 declare(strict_types = 1);
 
-namespace Vain\Core\Database\Operation\Collection\Decorator\Transaction;
+namespace Vain\Core\Operation\Collection\Decorator\Transaction;
 
 use Vain\Core\Database\DatabaseInterface;
 use Vain\Core\Exception\CommitOperationCollectionException;

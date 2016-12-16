@@ -156,9 +156,9 @@ services:
     arguments: ['@config']
   database.generator.factory:
     class: Vain\Core\Database\Generator\Factory\DatabaseGeneratorFactory
-  database.storage:
-    class: Vain\Core\Database\Storage\DatabaseStorage
-    arguments: ['@connection.storage', '@config']
+  database.abstract:
+    class: Vain\Core\Database\AbstractDatabase
+    arguments: ['@config', '@connection.storage', '@database.generator.factory']
   entity.operation.factory.abstract:
     abstract: true
     class: Vain\Core\Entity\Operation\Factory\AbstractEntityOperationFactory
@@ -220,10 +220,12 @@ services:
   http.context:
     class: Vain\Core\Http\Context\HttpContext
     arguments: ['@http.request.proxy', '@http.response.proxy']
-  json.encoder:
+  encoder.json:
     class: Vain\Core\Encoder\Json\JsonEncoder
-  json.decoder:
-    alias: json.encoder
+  decoder.json: '@encoder.json'
+  ecnoder.xml:
+    class: Vain\Core\Encoder\Xml\XmlEncoder
+  decoder:xml: '@encoder.xml'
   logger.connection:
     class: Vain\Logger\Monolog\MonologAdapter
     arguments: ['@monolog.logger.connection']
@@ -257,12 +259,12 @@ services:
     class: Monolog\Logger
     arguments: ['%logger.channel.security%']
   operation.collection.factory.transaction:
-    class: Vain\Core\Database\Operation\Collection\Factory\Decorator\Transaction\CollectionFactoryTransactionDecorator
+    class: Vain\Core\Operation\Collection\Factory\Decorator\Transaction\CollectionFactoryTransactionDecorator
     decorates: operation.collection.factory
     decoration_priority: 200
     arguments: ['@operation.collection.factory.transaction.inner', '@database.mvcc']
   operation.collection.factory.event:
-    class: Vain\Core\Event\Operation\Collection\Factory\Decorator\Event\CollectionFactoryEventDecorator
+    class: Vain\Core\Operation\Collection\Factory\Decorator\Event\CollectionFactoryEventDecorator
     decorates: operation.collection.factory
     decoration_priority: 100
     arguments: ['@operation.collection.factory.event.inner', '@operation.collection.event.dispatcher']

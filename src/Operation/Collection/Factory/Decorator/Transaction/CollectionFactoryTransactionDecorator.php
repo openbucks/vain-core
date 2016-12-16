@@ -10,11 +10,11 @@
  */
 declare(strict_types = 1);
 
-namespace Vain\Core\Database\Operation\Collection\Factory\Decorator\Transaction;
+namespace Vain\Core\Operation\Collection\Factory\Decorator\Transaction;
 
 use Vain\Core\Database\DatabaseInterface;
 use Vain\Core\Database\Mvcc\MvccDatabaseInterface;
-use Vain\Core\Database\Operation\Collection\Decorator\Transaction\CollectionTransactionDecorator;
+use Vain\Core\Operation\Collection\Decorator\Transaction\CollectionTransactionDecorator;
 use Vain\Core\Operation\Collection\OperationCollectionInterface;
 use Vain\Core\Operation\Collection\Factory\OperationCollectionFactoryInterface;
 use Vain\Core\Operation\Collection\Factory\Decorator\AbstractOperationCollectionFactoryDecorator;

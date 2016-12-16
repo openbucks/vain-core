@@ -11,6 +11,10 @@
 
 namespace Vain\Core\Database;
 
+use Vain\Core\Connection\ConnectionInterface;
+use Vain\Core\Connection\Storage\ConnectionStorageInterface;
+use Vain\Core\Database\Cursor\DatabaseCursorInterface;
+use Vain\Core\Database\Generator\DatabaseGeneratorInterface;
 use Vain\Core\Database\Generator\Factory\DatabaseGeneratorFactoryInterface;
 
 /**
@@ -20,23 +24,44 @@ use Vain\Core\Database\Generator\Factory\DatabaseGeneratorFactoryInterface;
  */
 abstract class AbstractDatabase implements DatabaseInterface
 {
+    private $configData;
+
+    private $connectionStorage;
+
     private $generatorFactory;
 
     /**
      * AbstractDatabase constructor.
      *
+     * @param \ArrayAccess                      $configData
+     * @param ConnectionStorageInterface        $connectionStorage
      * @param DatabaseGeneratorFactoryInterface $generatorFactory
      */
-    public function __construct(DatabaseGeneratorFactoryInterface $generatorFactory)
-    {
+    public function __construct(
+        \ArrayAccess $configData,
+        ConnectionStorageInterface $connectionStorage,
+        DatabaseGeneratorFactoryInterface $generatorFactory
+    ) {
+        $this->configData = $configData;
+        $this->connectionStorage = $connectionStorage;
         $this->generatorFactory = $generatorFactory;
     }
 
     /**
-     * @return DatabaseGeneratorFactoryInterface
+     * @return ConnectionInterface
      */
-    public function getGeneratorFactory()
+    public function getConnection() : ConnectionInterface
     {
-        return $this->generatorFactory;
+        return $this->connectionStorage->getConnection($this->configData['connection']);
+    }
+
+    /**
+     * @param DatabaseCursorInterface $databaseCursor
+     *
+     * @return DatabaseGeneratorInterface
+     */
+    public function getGenerator(DatabaseCursorInterface $databaseCursor) : DatabaseGeneratorInterface
+    {
+        return $this->generatorFactory->create($databaseCursor);
     }
 }

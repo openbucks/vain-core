@@ -10,7 +10,7 @@
  */
 declare(strict_types = 1);
 
-namespace Vain\Core\Event\Operation\Collection\Decorator\Event;
+namespace Vain\Core\Operation\Collection\Decorator\Event;
 
 use Vain\Core\Event\Collection\CollectionEventDispatcherInterface;
 use Vain\Core\Operation\Collection\OperationCollectionInterface;

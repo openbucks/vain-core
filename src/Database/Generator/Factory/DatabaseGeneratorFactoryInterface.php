@@ -13,7 +13,6 @@ declare(strict_types = 1);
 namespace Vain\Core\Database\Generator\Factory;
 
 use Vain\Core\Database\Cursor\DatabaseCursorInterface;
-use Vain\Core\Database\DatabaseInterface;
 use Vain\Core\Database\Generator\DatabaseGeneratorInterface;
 
 /**
@@ -24,10 +23,9 @@ use Vain\Core\Database\Generator\DatabaseGeneratorInterface;
 interface DatabaseGeneratorFactoryInterface
 {
     /**
-     * @param DatabaseInterface       $database
      * @param DatabaseCursorInterface $cursor
      *
      * @return DatabaseGeneratorInterface
      */
-    public function create(DatabaseInterface $database, DatabaseCursorInterface $cursor) : DatabaseGeneratorInterface;
+    public function create(DatabaseCursorInterface $cursor) : DatabaseGeneratorInterface;
 }
