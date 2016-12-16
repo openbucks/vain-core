@@ -44,8 +44,16 @@ abstract class AbstractConnectionFactoryDecorator implements ConnectionFactoryIn
     /**
      * @inheritDoc
      */
-    public function createConnection(array $config) : ConnectionInterface
+    public function getConfigData(string $connectionName) : array
     {
-        return $this->connectionFactory->createConnection($config);
+        return $this->connectionFactory->getConfigData($connectionName);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function createConnection(string $connectionName) : ConnectionInterface
+    {
+        return $this->connectionFactory->createConnection($connectionName);
     }
 }

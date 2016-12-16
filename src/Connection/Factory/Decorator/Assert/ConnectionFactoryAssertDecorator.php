@@ -40,14 +40,14 @@ class ConnectionFactoryAssertDecorator extends AbstractConnectionFactoryDecorato
     /**
      * @inheritDoc
      */
-    public function createConnection(array $config) : ConnectionInterface
+    public function createConnection(string $connectionName) : ConnectionInterface
     {
         foreach ($this->requiredFields as $requiredField) {
-            if (false === array_key_exists($requiredField, $config)) {
+            if (false === array_key_exists($requiredField, $this->getConfigData($connectionName))) {
                 throw new NoRequiredFieldException($this, $requiredField);
             }
         }
 
-        return parent::createConnection($config);
+        return parent::createConnection($connectionName);
     }
 }

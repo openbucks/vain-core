@@ -25,6 +25,13 @@ interface ConnectionFactoryInterface extends NameableInterface
     /**
      * @param string $connectionName
      *
+     * @return array
+     */
+    public function getConfigData(string $connectionName) : array;
+
+    /**
+     * @param string $connectionName
+     *
      * @return ConnectionInterface
      */
     public function createConnection(string $connectionName) : ConnectionInterface;

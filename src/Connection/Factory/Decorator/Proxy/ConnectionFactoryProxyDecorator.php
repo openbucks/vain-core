@@ -26,8 +26,8 @@ class ConnectionFactoryProxyDecorator extends AbstractConnectionFactoryDecorator
     /**
      * @inheritDoc
      */
-    public function createConnection(array $config) : ConnectionInterface
+    public function createConnection(string $connectionName) : ConnectionInterface
     {
-        return new ConnectionProxy(parent::createConnection($config));
+        return new ConnectionProxy(parent::createConnection($connectionName));
     }
 }

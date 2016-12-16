@@ -42,10 +42,16 @@ class ConnectionFactoryLoggerDecorator extends AbstractConnectionFactoryDecorato
     /**
      * @inheritDoc
      */
-    public function createConnection(array $config) : ConnectionInterface
+    public function createConnection(string $connectionName) : ConnectionInterface
     {
-        $this->logger->debug(sprintf('Creating connection %s with config %s', $this->getName(), json_encode($config)));
+        $this->logger->debug(
+            sprintf(
+                'Creating connection %s with config %s',
+                $this->getName(),
+                json_encode($this->getConfigData($connectionName))
+            )
+        );
 
-        return new ConnectionLoggerDecorator(parent::createConnection($config), $this->logger);
+        return new ConnectionLoggerDecorator(parent::createConnection($connectionName), $this->logger);
     }
 }
