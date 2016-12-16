@@ -1,8 +1,120 @@
 parameters:
   logger.channel.connection: 'connection'
   logger.channel.event: 'event'
+  logger.channel.operation: 'operation'
+  logger.channel.security: 'security'
+  http.log.header: 'X-Log-Level'
+  api.request.id.header: 'X-API-RequestId'
+  command.prefix: 'api'
+  command.name: 'command'
+  time.locale.default: 'us'
+  time.zone.default: 'UTC'
 
 services:
+  api.request.factory:
+    class: Vain\Core\Api\Request\Factory\ApiRequestFactory
+    arguments: ['@api.request.id.provider']
+  api.response.factory:
+    class: Vain\Core\Api\Response\Factory\ApiResponseFactory
+  api.request.tracker.fail:
+    class: Vain\Core\Api\Request\Tracker\Fail\ApiFailTracker
+    arguments: ['@api.response.factory.tracker']
+  api.request.validator.fail:
+    class: Vain\Core\Api\Request\Validator\Fail\ApiFailValidator
+    arguments: ['@api.request.factory']
+  api.request.validator.config:
+    class: Vain\Core\Api\Request\Validator\Config\ApiConfigValidator
+    arguments: ['@api.request.factory', '@api.request.validator.module.storage']
+  api.request.validator:
+    alias: api.request.validator.config
+  api.request.id.provider.random:
+    class: Vain\Core\Api\Request\Id\Provider\Random\ApiRequestIdRandomProvider
+    arguments: ['@id.generator.string.random']
+  api.request.id.provider.header:
+    class: Vain\Core\Api\Request\Id\Provider\Header\ApiRequestIdHeaderProvider
+    arguments: ['@api.request.id.provider.random', '%api.request.id.header%']
+  api.request.id.provider: '@api.request.id.provider.header'
+  api.config.factory.abstract:
+    abstract: true
+    class: Vain\Core\Api\Config\Factory\AbstractApiConfigFactory
+    arguments: ['@security.config.factory','@api.config.parameter.factory']
+  api.config.factory:
+    parent: api.config.factory.abstract
+    class: Vain\Core\Api\Config\Factory\ApiConfigFactory
+  api.config.parameter.factory:
+    class: Vain\Core\Api\Config\Parameter\Factory\ApiParameterConfigFactory
+  api.config.storage:
+    class: Vain\Core\Api\Config\Storage\ApiConfigStorage
+    arguments: ['@api.config.composite', '@api.config.factory']
+  api.config.provider: '@api.config.storage'
+  api.validator.module.factory.array:
+    class: Vain\Core\Api\Request\Validator\Module\Filter\Factory\ApiValidatorArrayModuleFactory
+    tags:
+      - {name: validator.factory}
+  api.validator.module.factory.boolean:
+    class: Vain\Core\Api\Request\Validator\Module\Filter\Factory\ApiValidatorBooleanModuleFactory
+    tags:
+      - {name: validator.factory}
+  api.validator.module.factory.float:
+    class: Vain\Core\Api\Request\Validator\Module\Filter\Factory\ApiValidatorFloatModuleFactory
+    tags:
+      - {name: validator.factory}
+  api.validator.module.factory.int:
+    class: Vain\Core\Api\Request\Validator\Module\Filter\Factory\ApiValidatorIntModuleFactory
+    tags:
+      - {name: validator.factory}
+  api.validator.module.factory.string:
+    class: Vain\Core\Api\Request\Validator\Module\Filter\Factory\ApiValidatorStringModuleFactory
+    tags:
+      - {name: validator.factory}
+  api.validator.module.factory.inet:
+    class: Vain\Core\Api\Request\Validator\Module\Filter\Factory\ApiValidatorInetModuleFactory
+    tags:
+      - {name: validator.factory}
+  api.validator.module.factory.datetime:
+    class: Vain\Core\Api\Request\Validator\Module\Filter\Factory\ApiValidatorDateTimeModuleFactory
+    arguments: ['@time.factory']
+    tags:
+      - {name: validator.factory}
+  api.validator.module.factory.optional:
+    class: Vain\Core\Api\Request\Validator\Module\Filter\Factory\ApiValidatorOptionalModuleFactory
+    tags:
+      - {name: validator.factory}
+  api.validator.module.factory.body:
+    class: Vain\Core\Api\Request\Validator\Module\Source\Factory\ApiValidatorBodyModuleFactory
+    tags:
+      - {name: validator.factory}
+  api.validator.module.factory.cookie:
+    class: Vain\Core\Api\Request\Validator\Module\Source\Factory\ApiValidatorCookieModuleFactory
+    tags:
+      - {name: validator.factory}
+  api.validator.module.factory.header:
+    class: Vain\Core\Api\Request\Validator\Module\Source\Factory\ApiValidatorHeaderModuleFactory
+    tags:
+      - {name: validator.factory}
+  api.validator.module.factory.query:
+    class: Vain\Core\Api\Request\Validator\Module\Source\Factory\ApiValidatorQueryModuleFactory
+    tags:
+      - {name: validator.factory}
+  api.request.validator.module.storage:
+    class: Vain\Core\Api\Request\Validator\Module\Storage\ApiValidatorModuleStorage
+  api.command.chain: '@api.command.tracker'
+  api.command.tracker:
+    class: Vain\Core\Api\Request\Tracker\Trust\ApiTrustTracker
+    arguments: ['@api.command.security']
+  api.command.security:
+    class: Vain\Core\Api\Security\SecurityApiCommand
+    arguments: ['@api.command.container', '@security.processor', '@api.response.factory']
+  api.command.container:
+    class: Vain\Core\Api\Command\Container\ApiCommandContainer
+    arguments: ['@app.di', '%command.prefix%', '%command.name%']
+  api.response.factory.tracker:
+    alias: api.response.factory
+  api.response.factory.handler:
+    alias: api.response.factory
+  api.config.composite:
+    class: Vain\Core\Api\Config\Composite\ApiCompositeConfig
+    arguments: ['@config.data.provider']
   app.context.factory.config:
     class: Vain\Core\Config\Context\Factory\ConfigContextFactory
   app.context.config:
@@ -95,6 +207,22 @@ services:
   operation.collection.event.dispatcher:
     class: Vain\Core\Event\Collection\CollectionEventDispatcher
     arguments: ['@event.dispatcher']
+  operation.collection.factory:
+    class: Vain\Core\Operation\Collection\Factory\OperationCollectionFactory
+  operation.factory:
+    class: Vain\Core\Operation\Factory\OperationFactory
+  operation.factory.abstract:
+    abstract: true
+    class: Vain\Core\Operation\Factory\Decorator\AbstractOperationFactoryDecorator
+    arguments: ['@operation.factory']
+  monolog.logger.operation:
+    class: Monolog\Logger
+    arguments: ['%logger.channel.operation%']
+  logger.operation:
+    class: Vain\Logger\Monolog\MonologAdapter
+    arguments: ['@monolog.logger.operation']
+    tags:
+      - {name: logger}
   collection.event.dispatcher:
     alias: operation.collection.event.dispatcher
   event.factory.abstract:
@@ -103,6 +231,23 @@ services:
     arguments: ['@event.resolver']
   event.resolver:
     class: Vain\Core\Event\Resolver\EventResolver
+  http.header.provider.apache:
+    class: Vain\Core\Http\Header\Provider\Apache\ApacheHeaderProvider
+    arguments: ['@http.header.provider.server']
+  http.header.provider.server:
+    class: Vain\Core\Http\Header\Provider\Server\ServerHeaderProvider
+  http.context.abstract:
+    abstract: true
+  http.context:
+    class: Vain\Core\Http\Context\HttpContext
+    arguments: ['@http.request.proxy', '@http.response.proxy']
+  event.factory.http:
+    parent: event.factory.abstract
+    class: Vain\Core\Http\Event\Factory\HttpEventFactory
+  event.handler.http:
+    parent: event.handler.abstract
+    class: Vain\Core\Http\Event\Handler\HttpEventHandler
+    arguments: ['@logger', '%http.log.header%']
   logger.connection:
     class: Vain\Logger\Monolog\MonologAdapter
     arguments: ['@monolog.logger.connection']
@@ -124,3 +269,150 @@ services:
     decorates: operation.collection.factory
     decoration_priority: 200
     arguments: ['@operation.collection.factory.transaction.inner', '@database.mvcc']
+  queue.storage:
+    class: Vain\Core\Queue\Storage\QueueStorage
+    arguments: ['@connection.storage', '@config']
+  queue.message.factory.storage:
+    class: Vain\Core\Queue\Message\Factory\Storage\QueueMessageFactoryStorage
+  queue.event:
+    class: Vain\Core\Queue\QueueInterface
+    factory: ['@queue.factory.event', getEventQueue]
+    arguments: ['@config']
+  queue.factory.event:
+    class: Vain\Core\Queue\Event\Factory\EventQueueFactory
+    arguments: ['@queue.storage']
+  queue.message.factory.event:
+    class: Vain\Core\Queue\Event\Message\Factory\EventQueueMessageFactory
+    arguments: ['event', '@id.generator.string.random']
+    tags:
+      - {name: queue.message.factory}
+  event.handler.factory.queue:
+    class: Vain\Core\Queue\Event\Handler\Factory\Decorator\EventHandlerFactoryQueueDecorator
+    decorates: event.handler.factory
+    arguments: ['@event.handler.factory.queue.inner', '@event.handler.queue']
+  event.handler.queue:
+    class: Vain\Core\Queue\Event\Handler\QueueEventHandler
+    arguments: ['@queue.event', '@queue.message.factory.event', '@event.tracker', '@app.context']
+  event.tracker:
+    class: Vain\Core\Queue\Event\Tracker\EventTracker
+  event.handler.tracker:
+    parent: event.handler.abstract
+    class: Vain\Core\Queue\Event\Tracker\Handler\EventTrackerHandler
+    arguments: ['@event.tracker']
+  time.locale.repository:
+    class: Vain\Core\Time\Locale\Repository\LocaleRepository
+  time.locale.uk:
+    class: Vain\Core\Time\Locale\Uk\UkLocale
+    tags:
+      - {name: time.locale}
+  time.locale.ru:
+    class: Vain\Core\Time\Locale\Ru\RuLocale
+    tags:
+      - {name: time.locale}
+  time.locale.us:
+    class: Vain\Core\Time\Locale\Us\UsLocale
+    tags:
+      - {name: time.locale}
+  time.factory:
+    class: Vain\Core\Time\Factory\TimeFactory
+    arguments: ['@time.locale.repository', '@time.zone.factory', '%time.zone.default%', '%time.locale.default%']
+  time.zone.factory.full:
+    class: Vain\Core\Time\Zone\Factory\Full\TimeZoneFullNameFactory
+  time.zone.factory.extract:
+    class: Vain\Core\Time\Zone\Factory\Extract\TimeZoneExtractFactory
+    arguments: ['@time.zone.factory.full']
+  time.zone.factory: '@time.zone.factory.extract'
+  time.provider:
+    class: Vain\Core\Time\Provider\TimeProvider
+    arguments: ['@time.factory']
+  security.context:
+    class: Vain\Core\Security\Context\SecurityContext
+  security.config.factory:
+    class: Vain\Core\Security\Config\Factory\SecurityConfigFactory
+  security.voter.storage:
+    class: Vain\Core\Security\Voter\Storage\SecurityVoterStorage
+  security.access.control.storage:
+    class: Vain\Core\Security\Access\Storage\AccessControlStorage
+  security.processor.strategy.storage:
+    class: Vain\Core\Security\Processor\Strategy\Storage\SecurityProcessorStrategyStorage
+  security.voter.strategy.storage:
+    class: Vain\Core\Security\Voter\Strategy\Storage\SecurityVoterStrategyStorage
+  security.processor:
+    class: Vain\Core\Security\Processor\SecurityProcessor
+    arguments: ['@security.token.storage', '@security.context', '@security.processor.strategy.storage']
+  security.processor.strategy.abstract:
+    abstract: true
+    class: Vain\Core\Security\Processor\Strategy\AbstractSecurityProcessorStrategy
+    arguments: ['@security.access.control.storage']
+  security.processor.strategy.allow:
+    parent: security.processor.strategy.abstract
+    class: Vain\Core\Security\Processor\Strategy\SecurityProcessorAllowStrategy
+    tags:
+      - {name: security.processor.strategy}
+  security.processor.strategy.deny:
+    parent: security.processor.strategy.abstract
+    class: Vain\Core\Security\Processor\Strategy\SecurityProcessorDenyStrategy
+    tags:
+      - {name: security.processor.strategy}
+  security.processor.strategy.consesus:
+    parent: security.processor.strategy.abstract
+    class: Vain\Core\Security\Processor\Strategy\SecurityProcessorConsensusStrategy
+    tags:
+      - {name: security.processor.strategy}
+  security.voter.strategy.abstract:
+    abstract: true
+    class: Vain\Core\Security\Voter\Strategy\AbstractSecurityVoterStrategy
+    arguments: ['@security.voter.storage']
+  security.voter.strategy.allow:
+    parent: security.voter.strategy.abstract
+    class: Vain\Core\Security\Voter\Strategy\SecurityVoterAllowStrategy
+    tags:
+      - {name: security.voter.strategy}
+  security.voter.strategy.deny:
+    parent: security.voter.strategy.abstract
+    class: Vain\Core\Security\Voter\Strategy\SecurityVoterDenyStrategy
+    tags:
+      - {name: security.voter.strategy}
+  security.voter.strategy.consesus:
+    parent: security.voter.strategy.abstract
+    class: Vain\Core\Security\Voter\Strategy\SecurityVoterConsensusStrategy
+    tags:
+      - {name: security.voter.strategy}
+  security.access.control.abstract:
+    abstract: true
+    class: Vain\Core\Security\Access\AbstractAccessControl
+  security.access.control.ownership:
+    parent: security.access.control.abstract
+    class: Vain\Core\Security\Ownership\OwnershipAccessControl
+    arguments: ['@security.resource.provider.storage']
+    tags:
+      - {name: security.access.control}
+  security.access.control.role:
+    parent: security.access.control.abstract
+    class: Vain\Core\Security\Role\RoleAccessControl
+    arguments: ['@security.role.hierarchy']
+    tags:
+      - {name: security.access.control}
+  security.access.control.voter:
+    parent: security.access.control.abstract
+    class: Vain\Core\Security\Voter\VoterAccessControl
+    arguments: ['@security.resource.provider.storage', '@security.voter.strategy.storage']
+    tags:
+      - {name: security.access.control}
+  security.resource.provider.storage:
+    class: Vain\Core\Security\Resource\Provider\Storage\ResourceProviderStorage
+  security.resource.provider.token:
+    class: Vain\Core\Security\Token\Resource\Provider\TokenResourceProvider
+    arguments: ['@security.context']
+    tags:
+      - {name: security.resource.provider}
+  security.token.storage:
+    class: Vain\Core\Security\Token\Storage\SecurityTokenStorage
+  monolog.logger.security:
+    class: Monolog\Logger
+    arguments: ['%logger.channel.security%']
+  logger.security:
+    class: Vain\Logger\Monolog\MonologAdapter
+    arguments: ['@monolog.logger.security']
+    tags:
+      - {name: logger}

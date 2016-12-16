@@ -1,2 +1,7 @@
 imports:
   - { resource: '../di.yml' }
+
+services:
+  api.command.tracker:
+    class: Vain\Core\Api\Request\Tracker\Trust\ApiTrustTracker
+    arguments: ['@api.command.security']

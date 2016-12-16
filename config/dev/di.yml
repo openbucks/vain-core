@@ -2,6 +2,19 @@ imports:
   - { resource: '../di.yml' }
 
 services:
+  api.config.factory.assert:
+    class: Vain\Core\Api\Config\Factory\Decorator\Assert\ApiConfigFactoryAssertDecorator
+    decorates: api.config.factory
+    decoration_priority: 1000
+    arguments: ['@api.config.factory.assert.inner']
+  api.config.parameter.factory.assert:
+    decorates: api.config.parameter.factory
+    decoration_priority: 1000
+    class: Vain\Core\Api\Config\Parameter\Factory\Decorator\Assert\ApiParameterConfigFactoryAssertDecorator
+    arguments: ['@api.config.parameter.factory.assert.inner']
+  api.command.tracker:
+    class: Vain\Core\Api\Request\Tracker\Trust\ApiTrustTracker
+    arguments: ['@api.command.security']
   app.context.factory.config.assert:
     class: Vain\Core\Config\Context\Factory\Decorator\Assert\ConfigContextFactoryAssertDecorator
     decorates: app.context.factory.config
@@ -40,3 +53,52 @@ services:
     decorates: event.dispatcher
     decoration_priority: 1000
     arguments: ['@event.dispatcher.debug.inner', '@logger.event']
+  operation.collection.factory.debug:
+    class: Vain\Core\Operation\Collection\Factory\Decorator\Logger\CollectionFactoryLoggerDecorator
+    decorates: operation.collection.factory
+    decoration_priority: 1000
+    arguments: ['@operation.collection.factory.debug.inner', '@logger.operation', '@id.generator.string.random']
+  operation.factory.debug:
+    class: Vain\Core\Operation\Factory\Decorator\Logger\OperationFactoryLoggerDecorator
+    decorates: operation.factory
+    decoration_priority: 1000
+    arguments: ['@operation.factory.debug.inner', '@logger.operation', '@id.generator.string.random']
+  queue.storage.assert:
+    class: Vain\Core\Queue\Storage\Decorator\Assert\QueueStorageAssertDecorator
+    decorates: queue.storage
+    arguments: ['@queue.storage.assert.inner', '@config']
+  security.config.factory.assert:
+    decorates: security.config.factory
+    decoration_priority: 1000
+    class: Vain\Core\Security\Config\Factory\Decorator\Assert\SecurityConfigFactoryAssertDecorator
+    arguments: ['@security.config.factory.assert.inner']
+  security.access.control.ownership.assert:
+    decorates: security.access.control.ownership
+    decoration_priority: 1000
+    class: Vain\Core\Security\Ownership\Decorator\Assert\OwnershipAccessControlAssertDecorator
+    arguments: ['@security.access.control.ownership.assert.inner']
+  security.access.control.ownership.debug:
+    decorates: security.access.control.ownership
+    decoration_priority: 100
+    class: Vain\Core\Security\Access\Decorator\Logger\AccessControlLoggerDecorator
+    arguments: ['@security.access.control.ownership.debug.inner', '@logger.security']
+  security.access.control.role.assert:
+    decorates: security.access.control.role
+    decoration_priority: 1000
+    class: Vain\Core\Security\Role\Decorator\Assert\RoleAccessControlAssertDecorator
+    arguments: ['@security.access.control.role.assert.inner']
+  security.access.control.role.debug:
+    decorates: security.access.control.role
+    decoration_priority: 100
+    class: Vain\Core\Security\Access\Decorator\Logger\AccessControlLoggerDecorator
+    arguments: ['@security.access.control.role.debug.inner', '@logger.security']
+  security.access.control.voter.assert:
+    decorates: security.access.control.voter
+    decoration_priority: 1000
+    class: Vain\Core\Security\Voter\Decorator\Assert\VoterAccessControlAssertDecorator
+    arguments: ['@security.access.control.voter.assert.inner']
+  security.access.control.voter.debug:
+    decorates: security.access.control.voter
+    decoration_priority: 100
+    class: Vain\Core\Security\Access\Decorator\Logger\AccessControlLoggerDecorator
+    arguments: ['@security.access.control.voter.debug.inner', '@logger.security']

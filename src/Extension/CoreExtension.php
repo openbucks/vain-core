@@ -13,9 +13,19 @@ declare(strict_types = 1);
 namespace Vain\Core\Extension;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Vain\Core\Extension\Compiler\AccessControlCompilerPass;
 use Vain\Core\Extension\Compiler\CacheFactoryCompilerPass;
 use Vain\Core\Extension\Compiler\ConnectionFactoryCompilerPass;
 use Vain\Core\Extension\Compiler\DatabaseFactoryCompilerPass;
+use Vain\Core\Extension\Compiler\ProcessorStrategyCompilerPass;
+use Vain\Core\Extension\Compiler\QueueFactoryCompilerPass;
+use Vain\Core\Extension\Compiler\QueueMessageFactoryCompilerPass;
+use Vain\Core\Extension\Compiler\ResourceProviderCompilerPass;
+use Vain\Core\Extension\Compiler\SecurityVoterCompilerPass;
+use Vain\Core\Extension\Compiler\TimeLocaleCompilerPass;
+use Vain\Core\Extension\Compiler\TokenProviderCompilerPass;
+use Vain\Core\Extension\Compiler\ValidatorModuleCompilerPass;
+use Vain\Core\Extension\Compiler\VoterStrategyCompilerPass;
 
 /**
  * Class CoreExtension
@@ -30,9 +40,19 @@ class CoreExtension extends AbstractExtension
     public function load(array $configs, ContainerBuilder $container) : AbstractExtension
     {
         $container
+            ->addCompilerPass(new AccessControlCompilerPass())
+            ->addCompilerPass(new CacheFactoryCompilerPass())
             ->addCompilerPass(new ConnectionFactoryCompilerPass())
             ->addCompilerPass(new DatabaseFactoryCompilerPass())
-            ->addCompilerPass(new CacheFactoryCompilerPass());
+            ->addCompilerPass(new ProcessorStrategyCompilerPass())
+            ->addCompilerPass(new QueueFactoryCompilerPass())
+            ->addCompilerPass(new QueueMessageFactoryCompilerPass())
+            ->addCompilerPass(new ResourceProviderCompilerPass())
+            ->addCompilerPass(new SecurityVoterCompilerPass())
+            ->addCompilerPass(new TimeLocaleCompilerPass())
+            ->addCompilerPass(new TokenProviderCompilerPass())
+            ->addCompilerPass(new VoterStrategyCompilerPass())
+            ->addCompilerPass(new ValidatorModuleCompilerPass());
 
         return parent::load($configs, $container);
     }
