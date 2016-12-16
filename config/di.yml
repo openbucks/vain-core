@@ -310,15 +310,15 @@ services:
   locale.storage:
     class: Vain\Core\Locale\Storage\LocaleStorage
   locale.uk:
-    class: Vain\Core\Locale\Uk\UkLocale
+    class: Vain\Core\Locale\UkLocale
     tags:
       - {name: locale}
   locale.ru:
-    class: Vain\Core\Locale\Ru\RuLocale
+    class: Vain\Core\Locale\RuLocale
     tags:
       - {name: locale}
   locale.us:
-    class: Vain\Core\Locale\Us\UsLocale
+    class: Vain\Core\Locale\UsLocale
     tags:
       - {name: locale}
   security.context:
