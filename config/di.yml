@@ -151,6 +151,10 @@ services:
     arguments: ['@config.factory', '@config.data.provider', '%config.dir%']
   config.factory:
     class: Vain\Core\Config\Factory\ConfigFactory
+  connection.abstract:
+    abstract: true
+    class: Vain\Core\Connection\AbstractConnection
+    arguments: ['@config']
   connection.storage:
     class: Vain\Core\Connection\Storage\ConnectionStorage
   database.generator.factory:
