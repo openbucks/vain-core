@@ -36,6 +36,14 @@ abstract class AbstractConnection implements ConnectionInterface
     }
 
     /**
+     * @inheritDoc
+     */
+    public function getName() : string
+    {
+        return $this->connectionName;
+    }
+
+    /**
      * @return array
      */
     public function getConfigData() : array
