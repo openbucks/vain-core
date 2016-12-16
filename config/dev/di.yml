@@ -1,2 +1,14 @@
 imports:
   - { resource: '../di.yml' }
+
+services:
+  connection.storage.assert:
+    class: Vain\Core\Connection\Storage\Decorator\Assert\ConnectionStorageAssertDecorator
+    decorates: connection.storage
+    decoration_priority: 900
+    arguments: ['@connection.storage.assert.inner', '@config']
+  connection.storage.debug:
+    class: Vain\Core\Connection\Storage\Decorator\Logger\ConnectionStorageLoggerDecorator
+    decorates: connection.storage
+    decoration_priority: 1000
+    arguments: ['@connection.storage.debug.inner', '@logger.connection']

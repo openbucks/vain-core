@@ -1,3 +1,6 @@
+parameters:
+  monolog.logger.connection: 'connection'
+
 services:
   json.encoder:
     class: Vain\Core\Encoder\Json\JsonEncoder
@@ -6,3 +9,14 @@ services:
   counter:
     class: Vain\Core\Counter\Counter
     shared: false
+  connection.storage:
+    class: Vain\Core\Connection\Storage\ConnectionStorage
+    arguments: ['@config']
+  monolog.logger.connection:
+    class: Monolog\Logger
+    arguments: ['%monolog.logger.connection%']
+  logger.connection:
+    class: Vain\Logger\Monolog\MonologAdapter
+    arguments: ['@monolog.logger.connection']
+    tags:
+      - {name: logger}
