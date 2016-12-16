@@ -11,7 +11,6 @@
 
 namespace Vain\Core\Database;
 
-use Vain\Core\Connection\ConnectionInterface;
 use Vain\Core\Connection\Storage\ConnectionStorageInterface;
 use Vain\Core\Database\Cursor\DatabaseCursorInterface;
 use Vain\Core\Database\Generator\DatabaseGeneratorInterface;
@@ -50,12 +49,12 @@ abstract class AbstractDatabase implements DatabaseInterface
     }
 
     /**
-     * @return ConnectionInterface
+     * @return mixed
      */
-    public function getConnection() : ConnectionInterface
+    public function getConnection()
     {
         if (null === $this->connection) {
-            $this->connection = $this->connectionStorage->getConnection($this->configData['connection']);
+            $this->connection = $this->connectionStorage->getConnection($this->configData['connection'])->establish();
         }
 
         return $this->connection;
