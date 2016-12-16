@@ -162,7 +162,7 @@ services:
   database.abstract:
     abstract: true
     class: Vain\Core\Database\AbstractDatabase
-    arguments: ['@config', '@connection.storage', '@database.generator.factory']
+    arguments: ['@database.generator.factory']
   entity.operation.factory.abstract:
     abstract: true
     class: Vain\Core\Entity\Operation\Factory\AbstractEntityOperationFactory
