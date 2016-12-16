@@ -20,3 +20,13 @@ services:
     arguments: ['@monolog.logger.connection']
     tags:
       - {name: logger}
+  database.generator.factory:
+    class: Vain\Core\Database\Generator\Factory\DatabaseGeneratorFactory
+  database.storage:
+    class: Vain\Core\Database\Storage\DatabaseStorage
+    arguments: ['@connection.storage', '@config']
+  operation.collection.factory.transaction:
+    class: Vain\Core\Database\Operation\Collection\Factory\Decorator\Transaction\CollectionFactoryTransactionDecorator
+    decorates: operation.collection.factory
+    decoration_priority: 200
+    arguments: ['@operation.collection.factory.transaction.inner', '@database.mvcc']

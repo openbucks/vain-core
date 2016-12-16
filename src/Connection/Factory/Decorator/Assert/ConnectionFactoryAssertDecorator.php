@@ -12,7 +12,7 @@
 namespace Vain\Core\Connection\Factory\Decorator\Assert;
 
 use Vain\Core\Connection\ConnectionInterface;
-use Vain\Core\Connection\Exception\NoRequiredFieldException;
+use Vain\Core\Exception\NoRequiredFieldException;
 use Vain\Core\Connection\Factory\ConnectionFactoryInterface;
 use Vain\Core\Connection\Factory\Decorator\AbstractConnectionFactoryDecorator;
 

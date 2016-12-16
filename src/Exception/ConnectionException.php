@@ -10,7 +10,7 @@
  */
 declare(strict_types = 1);
 
-namespace Vain\Core\Connection\Exception;
+namespace Vain\Core\Exception;
 
 use Vain\Core\Connection\ConnectionInterface;
 use Vain\Core\Exception\AbstractCoreException;

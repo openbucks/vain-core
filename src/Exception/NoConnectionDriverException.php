@@ -10,25 +10,28 @@
  */
 declare(strict_types = 1);
 
-namespace Vain\Core\Connection\Exception;
+namespace Vain\Core\Exception;
 
 use Vain\Core\Connection\Storage\ConnectionStorageInterface;
 
 /**
- * Class UnknownConnectionException
+ * Class NoConnectionTypeException
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class UnknownConnectionException extends ConnectionStorageException
+class NoConnectionDriverException extends ConnectionStorageException
 {
     /**
-     * UnknownConnectionException constructor.
+     * NoConnectionDriverException constructor.
      *
      * @param ConnectionStorageInterface $connectionStorage
      * @param string                     $connectionName
      */
     public function __construct(ConnectionStorageInterface $connectionStorage, string $connectionName)
     {
-        parent::__construct($connectionStorage, sprintf('No config for connection %s', $connectionName));
+        parent::__construct(
+            $connectionStorage,
+            sprintf('Connection %s does not contain driver information for', $connectionName)
+        );
     }
 }

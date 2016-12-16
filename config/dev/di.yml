@@ -12,3 +12,7 @@ services:
     decorates: connection.storage
     decoration_priority: 1000
     arguments: ['@connection.storage.debug.inner', '@logger.connection']
+  database.storage.assert:
+    class: Vain\Core\Database\Storage\Decorator\Assert\DatabaseStorageAssertDecorator
+    decorates: database.storage
+    arguments: ['@database.storage.assert.inner', '@config']

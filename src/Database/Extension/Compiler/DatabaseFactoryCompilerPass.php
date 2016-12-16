@@ -10,30 +10,30 @@
  */
 declare(strict_types = 1);
 
-namespace Vain\Core\Connection\Extension\Compiler;
+namespace Vain\Core\Database\Extension\Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * Class ConnectionFactoryCompilerPass
+ * Class DatabaseFactoryCompilerPass
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class ConnectionFactoryCompilerPass implements CompilerPassInterface
+class DatabaseFactoryCompilerPass implements CompilerPassInterface
 {
     /**
      * @inheritDoc
      */
     public function process(ContainerBuilder $container)
     {
-        if (false === $container->has('connection.storage')) {
+        if (false === $container->has('database.storage')) {
             return $this;
         }
 
-        $definition = $container->findDefinition('connection.storage');
-        $services = $container->findTaggedServiceIds('connection.factory');
+        $definition = $container->findDefinition('database.storage');
+        $services = $container->findTaggedServiceIds('database.factory');
         foreach ($services as $id => $tags) {
             $definition->addMethodCall('addFactory', [new Reference($id)]);
         }

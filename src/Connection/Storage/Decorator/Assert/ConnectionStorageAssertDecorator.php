@@ -11,8 +11,8 @@
 
 namespace Vain\Core\Connection\Storage\Decorator\Assert;
 
-use Vain\Core\Connection\Exception\NoConnectionDriverException;
-use Vain\Core\Connection\Exception\UnknownConnectionException;
+use Vain\Core\Exception\NoConnectionDriverException;
+use Vain\Core\Exception\UnknownConnectionException;
 use Vain\Core\Connection\Storage\ConnectionStorageInterface;
 use Vain\Core\Connection\Storage\Decorator\AbstractConnectionStorageDecorator;
 

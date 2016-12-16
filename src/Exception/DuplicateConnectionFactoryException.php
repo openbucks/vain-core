@@ -9,7 +9,7 @@
  * @link      https://github.com/allflame/vain-connection
  */
 
-namespace Vain\Core\Connection\Exception;
+namespace Vain\Core\Exception;
 
 use Vain\Core\Connection\Factory\ConnectionFactoryInterface;
 use Vain\Core\Connection\Storage\ConnectionStorageInterface;

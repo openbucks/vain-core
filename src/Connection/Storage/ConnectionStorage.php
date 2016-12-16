@@ -12,9 +12,9 @@ declare(strict_types = 1);
 
 namespace Vain\Core\Connection\Storage;
 
-use Vain\Core\Connection\Exception\DuplicateConnectionFactoryException;
+use Vain\Core\Exception\DuplicateConnectionFactoryException;
 use Vain\Core\Connection\Factory\ConnectionFactoryInterface;
-use Vain\Core\Connection\Exception\UnknownConnectionDriverException;
+use Vain\Core\Exception\UnknownConnectionDriverException;
 
 /**
  * Class ConnectionStorage
