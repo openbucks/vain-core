@@ -33,8 +33,8 @@ abstract class AbstractConnectionFactory implements ConnectionFactoryInterface
     /**
      * @return array
      */
-    public function getConfigData() : array
+    public function getConfigData(string $connectionName) : array
     {
-        return $this->configData['connections'][$this->getName()];
+        return $this->configData['connections'][$connectionName];
     }
 }
