@@ -12,6 +12,7 @@ declare(strict_types = 1);
 
 namespace Vain\Core\Security\Token;
 
+use Vain\Core\Api\Resource\ApiResourceInterface;
 use Vain\Core\Display\DisplayableInterface;
 use Vain\Core\Equal\EquatableInterface;
 use Vain\Core\PrivateX\PrivateInterface;
@@ -24,6 +25,7 @@ use Vain\Core\String\StringInterface;
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
 interface SecurityTokenInterface extends
+    ApiResourceInterface,
     DisplayableInterface,
     PrivateInterface,
     EquatableInterface,
