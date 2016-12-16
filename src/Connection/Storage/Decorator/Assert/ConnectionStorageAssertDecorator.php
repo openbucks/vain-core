@@ -11,6 +11,7 @@
 
 namespace Vain\Core\Connection\Storage\Decorator\Assert;
 
+use Vain\Core\Connection\ConnectionInterface;
 use Vain\Core\Exception\NoConnectionDriverException;
 use Vain\Core\Exception\UnknownConnectionException;
 use Vain\Core\Connection\Storage\ConnectionStorageInterface;
@@ -40,7 +41,7 @@ class ConnectionStorageAssertDecorator extends AbstractConnectionStorageDecorato
     /**
      * @inheritDoc
      */
-    public function getConnection(string $connectionName)
+    public function getConnection(string $connectionName) : ConnectionInterface
     {
         $connections = $this->config['connections'];
         if (false === array_key_exists($connectionName, $connections)) {

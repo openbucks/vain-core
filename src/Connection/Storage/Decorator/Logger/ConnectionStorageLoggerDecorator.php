@@ -13,6 +13,7 @@ declare(strict_types = 1);
 namespace Vain\Core\Connection\Storage\Decorator\Logger;
 
 use Psr\Log\LoggerInterface;
+use Vain\Core\Connection\ConnectionInterface;
 use Vain\Core\Connection\Storage\ConnectionStorageInterface;
 use Vain\Core\Connection\Storage\Decorator\AbstractConnectionStorageDecorator;
 
@@ -40,7 +41,7 @@ class ConnectionStorageLoggerDecorator extends AbstractConnectionStorageDecorato
     /**
      * @inheritDoc
      */
-    public function getConnection(string $connectionName)
+    public function getConnection(string $connectionName) : ConnectionInterface
     {
         $this->logger->debug(sprintf('Retrieving connection %s', $connectionName));
 

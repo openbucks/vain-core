@@ -12,6 +12,7 @@ declare(strict_types = 1);
 
 namespace Vain\Core\Connection\Storage\Decorator;
 
+use Vain\Core\Connection\ConnectionInterface;
 use Vain\Core\Connection\Storage\ConnectionStorageInterface;
 
 /**
@@ -36,7 +37,7 @@ abstract class AbstractConnectionStorageDecorator implements ConnectionStorageIn
     /**
      * @inheritDoc
      */
-    public function getConnection(string $connectionName)
+    public function getConnection(string $connectionName) : ConnectionInterface
     {
         return $this->connectionStorage->getConnection($connectionName);
     }
