@@ -30,6 +30,8 @@ abstract class AbstractDatabase implements DatabaseInterface
 
     private $generatorFactory;
 
+    private $connection = null;
+
     /**
      * AbstractDatabase constructor.
      *
@@ -52,7 +54,11 @@ abstract class AbstractDatabase implements DatabaseInterface
      */
     public function getConnection() : ConnectionInterface
     {
-        return $this->connectionStorage->getConnection($this->configData['connection']);
+        if (null === $this->connection) {
+            $this->connection = $this->connectionStorage->getConnection($this->configData['connection']);
+        }
+
+        return $this->connection;
     }
 
     /**
