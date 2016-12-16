@@ -35,7 +35,7 @@ class ConnectionFactoryCompilerPass implements CompilerPassInterface
         $definition = $container->findDefinition('connection.storage');
         $services = $container->findTaggedServiceIds('connection.factory');
         foreach ($services as $id => $tags) {
-            $definition->addMethodCall('addFactory', [new Reference($id)]);
+            $definition->addMethodCall('addItem', [new Reference($id)]);
         }
 
         return $this;
