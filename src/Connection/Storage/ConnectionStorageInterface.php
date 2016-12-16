@@ -12,6 +12,8 @@ declare(strict_types = 1);
 
 namespace Vain\Core\Connection\Storage;
 
+use Vain\Core\Connection\ConnectionInterface;
+
 /**
  * Interface ConnectionStorageInterface
  *
@@ -22,7 +24,7 @@ interface ConnectionStorageInterface
     /**
      * @param string $connectionName
      *
-     * @return mixed
+     * @return ConnectionInterface
      */
-    public function getConnection(string $connectionName);
+    public function getConnection(string $connectionName) : ConnectionInterface;
 }

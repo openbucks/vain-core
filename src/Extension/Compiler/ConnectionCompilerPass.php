@@ -17,11 +17,11 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * Class ConnectionFactoryCompilerPass
+ * Class ConnectionCompilerPass
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class ConnectionFactoryCompilerPass implements CompilerPassInterface
+class ConnectionCompilerPass implements CompilerPassInterface
 {
     /**
      * @inheritDoc
@@ -33,7 +33,7 @@ class ConnectionFactoryCompilerPass implements CompilerPassInterface
         }
 
         $definition = $container->findDefinition('connection.storage');
-        $services = $container->findTaggedServiceIds('connection.factory');
+        $services = $container->findTaggedServiceIds('connection');
         foreach ($services as $id => $tags) {
             $definition->addMethodCall('addItem', [new Reference($id)]);
         }
