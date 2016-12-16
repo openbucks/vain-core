@@ -12,8 +12,6 @@ declare(strict_types = 1);
 
 namespace Vain\Core\Connection\Storage;
 
-use Vain\Core\Connection\Factory\ConnectionFactoryInterface;
-
 /**
  * Interface ConnectionStorageInterface
  *
@@ -21,13 +19,6 @@ use Vain\Core\Connection\Factory\ConnectionFactoryInterface;
  */
 interface ConnectionStorageInterface
 {
-    /**
-     * @param ConnectionFactoryInterface $connectionFactory
-     *
-     * @return ConnectionStorageInterface
-     */
-    public function addFactory(ConnectionFactoryInterface $connectionFactory) : ConnectionStorageInterface;
-
     /**
      * @param string $connectionName
      *

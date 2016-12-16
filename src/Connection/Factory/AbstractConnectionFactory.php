@@ -18,23 +18,23 @@ namespace Vain\Core\Connection\Factory;
  */
 abstract class AbstractConnectionFactory implements ConnectionFactoryInterface
 {
-    private $name;
+    private $configData;
 
     /**
      * AbstractConnectionFactory constructor.
      *
-     * @param string $name
+     * @param \ArrayAccess $configData
      */
-    public function __construct(string $name)
+    public function __construct(\ArrayAccess $configData)
     {
-        $this->name = $name;
+        $this->configData = $configData;
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getName(): string
+    public function getConfigData() : array
     {
-        return $this->name;
+        return $this->configData['connections'][$this->getName()];
     }
 }

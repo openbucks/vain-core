@@ -153,7 +153,6 @@ services:
     class: Vain\Core\Config\Factory\ConfigFactory
   connection.storage:
     class: Vain\Core\Connection\Storage\ConnectionStorage
-    arguments: ['@config']
   database.generator.factory:
     class: Vain\Core\Database\Generator\Factory\DatabaseGeneratorFactory
   database.abstract:

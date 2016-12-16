@@ -12,7 +12,6 @@ declare(strict_types = 1);
 
 namespace Vain\Core\Connection\Storage\Decorator;
 
-use Vain\Core\Connection\Factory\ConnectionFactoryInterface;
 use Vain\Core\Connection\Storage\ConnectionStorageInterface;
 
 /**
@@ -32,16 +31,6 @@ abstract class AbstractConnectionStorageDecorator implements ConnectionStorageIn
     public function __construct(ConnectionStorageInterface $connectionStorage)
     {
         $this->connectionStorage = $connectionStorage;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function addFactory(ConnectionFactoryInterface $connectionFactory) : ConnectionStorageInterface
-    {
-        $this->connectionStorage->addFactory($connectionFactory);
-
-        return $this;
     }
 
     /**

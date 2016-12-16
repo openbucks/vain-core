@@ -13,7 +13,6 @@ declare(strict_types = 1);
 namespace Vain\Core\Connection\Storage\Decorator\Logger;
 
 use Psr\Log\LoggerInterface;
-use Vain\Core\Connection\Factory\ConnectionFactoryInterface;
 use Vain\Core\Connection\Storage\ConnectionStorageInterface;
 use Vain\Core\Connection\Storage\Decorator\AbstractConnectionStorageDecorator;
 
@@ -36,16 +35,6 @@ class ConnectionStorageLoggerDecorator extends AbstractConnectionStorageDecorato
     {
         $this->logger = $logger;
         parent::__construct($connectionStorage);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function addFactory(ConnectionFactoryInterface $connectionFactory) : ConnectionStorageInterface
-    {
-        $this->logger->debug(sprintf('Registering factory %s', $connectionFactory->getName()));
-
-        return parent::addFactory($connectionFactory);
     }
 
     /**

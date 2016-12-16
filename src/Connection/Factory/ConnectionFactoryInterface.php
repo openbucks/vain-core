@@ -23,9 +23,9 @@ use Vain\Core\Name\NameableInterface;
 interface ConnectionFactoryInterface extends NameableInterface
 {
     /**
-     * @param array $config
+     * @param string $connectionName
      *
      * @return ConnectionInterface
      */
-    public function createConnection(array $config) : ConnectionInterface;
+    public function createConnection(string $connectionName) : ConnectionInterface;
 }
