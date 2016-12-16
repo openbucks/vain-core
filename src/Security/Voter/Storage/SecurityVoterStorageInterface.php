@@ -22,13 +22,6 @@ use Vain\Core\Security\Voter\SecurityVoterInterface;
 interface SecurityVoterStorageInterface
 {
     /**
-     * @param SecurityVoterInterface $voter
-     *
-     * @return SecurityVoterStorageInterface
-     */
-    public function addVoter(SecurityVoterInterface $voter) : SecurityVoterStorageInterface;
-
-    /**
      * @param string $voterName
      *
      * @return SecurityVoterInterface

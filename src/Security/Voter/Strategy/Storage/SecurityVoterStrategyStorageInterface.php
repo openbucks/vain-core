@@ -22,13 +22,6 @@ use Vain\Core\Security\Voter\Strategy\SecurityVoterStrategyInterface;
 interface SecurityVoterStrategyStorageInterface
 {
     /**
-     * @param SecurityVoterStrategyInterface $strategy
-     *
-     * @return SecurityVoterStrategyStorageInterface
-     */
-    public function addStrategy(SecurityVoterStrategyInterface $strategy) : SecurityVoterStrategyStorageInterface;
-
-    /**
      * @param string $strategyName
      *
      * @return SecurityVoterStrategyInterface

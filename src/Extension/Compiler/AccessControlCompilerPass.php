@@ -35,7 +35,7 @@ class AccessControlCompilerPass implements CompilerPassInterface
         $definition = $container->findDefinition('security.access.control.storage');
         $services = $container->findTaggedServiceIds('security.access.control');
         foreach ($services as $id => $tags) {
-            $definition->addMethodCall('addAcl', [new Reference($id)]);
+            $definition->addMethodCall('addItem', [new Reference($id)]);
         }
 
         return $this;

@@ -10,7 +10,7 @@
  */
 declare(strict_types = 1);
 
-namespace Vain\Core\Time\Locale\Repository;
+namespace Vain\Core\Locale\Storage;
 
 use Vain\Core\Locale\LocaleInterface;
 
@@ -19,24 +19,17 @@ use Vain\Core\Locale\LocaleInterface;
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-interface LocaleRepositoryInterface
+interface LocaleStorageInterface
 {
     /**
-     * @param string $string
+     * @param string $name
      *
      * @return LocaleInterface
      */
-    public function getLocale(string $string) : LocaleInterface;
+    public function getLocale(string $name) : LocaleInterface;
 
     /**
      * @return LocaleInterface[]
      */
     public function getLocales() : array;
-
-    /**
-     * @param LocaleInterface $locale
-     *
-     * @return LocaleRepositoryInterface
-     */
-    public function addLocale(LocaleInterface $locale) : LocaleRepositoryInterface;
 }

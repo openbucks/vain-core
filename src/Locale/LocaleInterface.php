@@ -12,18 +12,15 @@ declare(strict_types = 1);
 
 namespace Vain\Core\Locale;
 
+use Vain\Core\Name\NameableInterface;
+
 /**
  * Interface LocaleInterface
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-interface LocaleInterface
+interface LocaleInterface extends NameableInterface
 {
-    /**
-     * @return string
-     */
-    public function getLanguage() : string;
-
     /**
      * @return int
      */

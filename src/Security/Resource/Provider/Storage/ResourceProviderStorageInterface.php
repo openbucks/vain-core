@@ -22,13 +22,6 @@ use Vain\Core\Api\Resource\Provider\ApiResourceProviderInterface;
 interface ResourceProviderStorageInterface
 {
     /**
-     * @param ApiResourceProviderInterface $resourceProvider
-     *
-     * @return ResourceProviderStorageInterface
-     */
-    public function addProvider(ApiResourceProviderInterface $resourceProvider) : ResourceProviderStorageInterface;
-
-    /**
      * @param string $resourceName
      *
      * @return ApiResourceProviderInterface

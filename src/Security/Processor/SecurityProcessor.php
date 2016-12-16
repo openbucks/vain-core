@@ -54,7 +54,7 @@ class SecurityProcessor implements SecurityProcessorInterface
      */
     public function isAllowed(SecurityConfigInterface $securityConfig, ServerRequestInterface $request) : bool
     {
-        if (null === ($token = $this->tokenStorage->getToken($securityConfig->getAuth(), $request))) {
+        if (null === ($token = $this->tokenStorage->getProvider($securityConfig->getAuth())->getToken($request))) {
             return false;
         }
         $this->securityContext->setToken($token);

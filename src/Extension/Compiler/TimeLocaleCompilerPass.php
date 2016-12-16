@@ -28,14 +28,14 @@ class TimeLocaleCompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if (false === $container->has('time.locale.repository')) {
+        if (false === $container->has('locale.storage')) {
             return $this;
         }
 
-        $definition = $container->findDefinition('time.locale.repository');
-        $services = $container->findTaggedServiceIds('time.locale');
+        $definition = $container->findDefinition('locale.storage');
+        $services = $container->findTaggedServiceIds('locale');
         foreach ($services as $id => $tags) {
-            $definition->addMethodCall('addLocale', [new Reference($id)]);
+            $definition->addMethodCall('addItem', [new Reference($id)]);
         }
 
         return $this;

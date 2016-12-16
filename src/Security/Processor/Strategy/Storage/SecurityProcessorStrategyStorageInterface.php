@@ -22,17 +22,9 @@ use Vain\Core\Security\Processor\Strategy\SecurityProcessorStrategyInterface;
 interface SecurityProcessorStrategyStorageInterface
 {
     /**
-     * @param SecurityProcessorStrategyInterface $strategy
-     *
-     * @return SecurityProcessorStrategyStorageInterface
-     */
-    public function addStrategy(SecurityProcessorStrategyInterface $strategy
-    ) : SecurityProcessorStrategyStorageInterface;
-
-    /**
-     * @param string $name
+     * @param string $strategyName
      *
      * @return SecurityProcessorStrategyInterface
      */
-    public function getStrategy(string $name) : SecurityProcessorStrategyInterface;
+    public function getStrategy(string $strategyName) : SecurityProcessorStrategyInterface;
 }

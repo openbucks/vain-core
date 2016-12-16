@@ -12,55 +12,24 @@ declare(strict_types = 1);
 
 namespace Vain\Core\Security\Voter\Strategy\Storage;
 
-use Vain\Core\Exception\DuplicateVoterStrategyException;
-use Vain\Core\Exception\UnknownVoterStrategyException;
+use Vain\Core\Name\Storage\AbstractNameableStorage;
 use Vain\Core\Security\Voter\Strategy\SecurityVoterStrategyInterface;
 
 /**
  * Class SecurityVoterStrategyStorage
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
+ *
+ * @method SecurityVoterStrategyInterface getItem(string $name)
  */
-class SecurityVoterStrategyStorage implements SecurityVoterStrategyStorageInterface
+class SecurityVoterStrategyStorage extends AbstractNameableStorage implements SecurityVoterStrategyStorageInterface
 {
-    private $strategies = [];
-
-    /**
-     * SecurityProcessorStrategyStorage constructor.
-     *
-     * @param SecurityVoterStrategyInterface[] $strategies
-     */
-    public function __construct(array $strategies = [])
-    {
-        foreach ($strategies as $processorStrategy) {
-            $this->addStrategy($processorStrategy);
-        }
-    }
-
     /**
      * @inheritDoc
      */
-    public function addStrategy(SecurityVoterStrategyInterface $strategy
-    ) : SecurityVoterStrategyStorageInterface
+    public function getStrategy(string $strategyName) : SecurityVoterStrategyInterface
     {
-        $name = $strategy->getName();
-        if (array_key_exists($name, $this->strategies)) {
-            throw new DuplicateVoterStrategyException($this, $name, $strategy, $this->strategies[$name]);
-        }
-        $this->strategies[$name] = $strategy;
-
-        return $this;
+        return $this->getItem($strategyName);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getStrategy(string $name) : SecurityVoterStrategyInterface
-    {
-        if (false === array_key_exists($name, $this->strategies)) {
-            throw new UnknownVoterStrategyException($this, $name);
-        }
-
-        return $this->strategies[$name];
-    }
 }

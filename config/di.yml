@@ -1,13 +1,13 @@
 parameters:
+  api.request.id.header: 'X-API-RequestId'
+  command.prefix: 'api'
+  command.name: 'command'
+  http.log.level.header: 'X-Log-Level'
+  locale.default: 'us'
   logger.channel.connection: 'connection'
   logger.channel.event: 'event'
   logger.channel.operation: 'operation'
   logger.channel.security: 'security'
-  http.log.header: 'X-Log-Level'
-  api.request.id.header: 'X-API-RequestId'
-  command.prefix: 'api'
-  command.name: 'command'
-  time.locale.default: 'us'
   time.zone.default: 'UTC'
 
 services:
@@ -195,10 +195,72 @@ services:
     arguments: ['@app.di']
   event.handler.factory:
     alias: event.handler.factory.container
+  collection.event.dispatcher:
+    alias: operation.collection.event.dispatcher
+  event.factory.abstract:
+    abstract: true
+    class: Vain\Core\Event\Factory\AbstractEventFactory
+    arguments: ['@event.resolver']
+  event.resolver:
+    class: Vain\Core\Event\Resolver\EventResolver
+  event.factory.http:
+    parent: event.factory.abstract
+    class: Vain\Core\Http\Event\Factory\HttpEventFactory
+  event.handler.http:
+    parent: event.handler.abstract
+    class: Vain\Core\Http\Event\Handler\HttpEventHandler
+    arguments: ['@logger', '%http.log.level.header%']
+  http.header.provider.apache:
+    class: Vain\Core\Http\Header\Provider\Apache\ApacheHeaderProvider
+    arguments: ['@http.header.provider.server']
+  http.header.provider.server:
+    class: Vain\Core\Http\Header\Provider\Server\ServerHeaderProvider
+  http.context.abstract:
+    abstract: true
+  http.context:
+    class: Vain\Core\Http\Context\HttpContext
+    arguments: ['@http.request.proxy', '@http.response.proxy']
   json.encoder:
     class: Vain\Core\Encoder\Json\JsonEncoder
   json.decoder:
     alias: json.encoder
+  logger.connection:
+    class: Vain\Logger\Monolog\MonologAdapter
+    arguments: ['@monolog.logger.connection']
+    tags:
+      - {name: logger}
+  logger.event:
+    class: Vain\Logger\Monolog\MonologAdapter
+    arguments: ['@monolog.logger.event']
+    tags:
+      - {name: logger}
+  logger.operation:
+    class: Vain\Logger\Monolog\MonologAdapter
+    arguments: ['@monolog.logger.operation']
+    tags:
+      - {name: logger}
+  logger.security:
+    class: Vain\Logger\Monolog\MonologAdapter
+    arguments: ['@monolog.logger.security']
+    tags:
+      - {name: logger}
+  monolog.logger.connection:
+    class: Monolog\Logger
+    arguments: ['%logger.channel.connection%']
+  monolog.logger.event:
+    class: Monolog\Logger
+    arguments: ['%logger.channel.event%']
+  monolog.logger.operation:
+    class: Monolog\Logger
+    arguments: ['%logger.channel.operation%']
+  monolog.logger.security:
+    class: Monolog\Logger
+    arguments: ['%logger.channel.security%']
+  operation.collection.factory.transaction:
+    class: Vain\Core\Database\Operation\Collection\Factory\Decorator\Transaction\CollectionFactoryTransactionDecorator
+    decorates: operation.collection.factory
+    decoration_priority: 200
+    arguments: ['@operation.collection.factory.transaction.inner', '@database.mvcc']
   operation.collection.factory.event:
     class: Vain\Core\Event\Operation\Collection\Factory\Decorator\Event\CollectionFactoryEventDecorator
     decorates: operation.collection.factory
@@ -215,60 +277,6 @@ services:
     abstract: true
     class: Vain\Core\Operation\Factory\Decorator\AbstractOperationFactoryDecorator
     arguments: ['@operation.factory']
-  monolog.logger.operation:
-    class: Monolog\Logger
-    arguments: ['%logger.channel.operation%']
-  logger.operation:
-    class: Vain\Logger\Monolog\MonologAdapter
-    arguments: ['@monolog.logger.operation']
-    tags:
-      - {name: logger}
-  collection.event.dispatcher:
-    alias: operation.collection.event.dispatcher
-  event.factory.abstract:
-    abstract: true
-    class: Vain\Core\Event\Factory\AbstractEventFactory
-    arguments: ['@event.resolver']
-  event.resolver:
-    class: Vain\Core\Event\Resolver\EventResolver
-  http.header.provider.apache:
-    class: Vain\Core\Http\Header\Provider\Apache\ApacheHeaderProvider
-    arguments: ['@http.header.provider.server']
-  http.header.provider.server:
-    class: Vain\Core\Http\Header\Provider\Server\ServerHeaderProvider
-  http.context.abstract:
-    abstract: true
-  http.context:
-    class: Vain\Core\Http\Context\HttpContext
-    arguments: ['@http.request.proxy', '@http.response.proxy']
-  event.factory.http:
-    parent: event.factory.abstract
-    class: Vain\Core\Http\Event\Factory\HttpEventFactory
-  event.handler.http:
-    parent: event.handler.abstract
-    class: Vain\Core\Http\Event\Handler\HttpEventHandler
-    arguments: ['@logger', '%http.log.header%']
-  logger.connection:
-    class: Vain\Logger\Monolog\MonologAdapter
-    arguments: ['@monolog.logger.connection']
-    tags:
-      - {name: logger}
-  logger.event:
-    class: Vain\Logger\Monolog\MonologAdapter
-    arguments: ['@monolog.logger.event']
-    tags:
-      - {name: logger}
-  monolog.logger.event:
-    class: Monolog\Logger
-    arguments: ['%logger.channel.event%']
-  monolog.logger.connection:
-    class: Monolog\Logger
-    arguments: ['%logger.channel.connection%']
-  operation.collection.factory.transaction:
-    class: Vain\Core\Database\Operation\Collection\Factory\Decorator\Transaction\CollectionFactoryTransactionDecorator
-    decorates: operation.collection.factory
-    decoration_priority: 200
-    arguments: ['@operation.collection.factory.transaction.inner', '@database.mvcc']
   queue.storage:
     class: Vain\Core\Queue\Storage\QueueStorage
     arguments: ['@connection.storage', '@config']
@@ -299,32 +307,20 @@ services:
     parent: event.handler.abstract
     class: Vain\Core\Queue\Event\Tracker\Handler\EventTrackerHandler
     arguments: ['@event.tracker']
-  time.locale.repository:
-    class: Vain\Core\Time\Locale\Repository\LocaleRepository
-  time.locale.uk:
-    class: Vain\Core\Time\Locale\Uk\UkLocale
+  locale.storage:
+    class: Vain\Core\Locale\Storage\LocaleStorage
+  locale.uk:
+    class: Vain\Core\Locale\Uk\UkLocale
     tags:
-      - {name: time.locale}
-  time.locale.ru:
-    class: Vain\Core\Time\Locale\Ru\RuLocale
+      - {name: locale}
+  locale.ru:
+    class: Vain\Core\Locale\Ru\RuLocale
     tags:
-      - {name: time.locale}
-  time.locale.us:
-    class: Vain\Core\Time\Locale\Us\UsLocale
+      - {name: locale}
+  locale.us:
+    class: Vain\Core\Locale\Us\UsLocale
     tags:
-      - {name: time.locale}
-  time.factory:
-    class: Vain\Core\Time\Factory\TimeFactory
-    arguments: ['@time.locale.repository', '@time.zone.factory', '%time.zone.default%', '%time.locale.default%']
-  time.zone.factory.full:
-    class: Vain\Core\Time\Zone\Factory\Full\TimeZoneFullNameFactory
-  time.zone.factory.extract:
-    class: Vain\Core\Time\Zone\Factory\Extract\TimeZoneExtractFactory
-    arguments: ['@time.zone.factory.full']
-  time.zone.factory: '@time.zone.factory.extract'
-  time.provider:
-    class: Vain\Core\Time\Provider\TimeProvider
-    arguments: ['@time.factory']
+      - {name: locale}
   security.context:
     class: Vain\Core\Security\Context\SecurityContext
   security.config.factory:
@@ -408,11 +404,15 @@ services:
       - {name: security.resource.provider}
   security.token.storage:
     class: Vain\Core\Security\Token\Storage\SecurityTokenStorage
-  monolog.logger.security:
-    class: Monolog\Logger
-    arguments: ['%logger.channel.security%']
-  logger.security:
-    class: Vain\Logger\Monolog\MonologAdapter
-    arguments: ['@monolog.logger.security']
-    tags:
-      - {name: logger}
+  time.factory:
+    class: Vain\Core\Time\Factory\TimeFactory
+    arguments: ['@locale.storage', '@time.zone.factory', '%time.zone.default%', '%locale.default%']
+  time.zone.factory.full:
+    class: Vain\Core\Time\Zone\Factory\Full\TimeZoneFullNameFactory
+  time.zone.factory.extract:
+    class: Vain\Core\Time\Zone\Factory\Extract\TimeZoneExtractFactory
+    arguments: ['@time.zone.factory.full']
+  time.zone.factory: '@time.zone.factory.extract'
+  time.provider:
+    class: Vain\Core\Time\Provider\TimeProvider
+    arguments: ['@time.factory']

@@ -10,9 +10,7 @@
  */
 declare(strict_types = 1);
 
-namespace Vain\Core\Time\Locale;
-
-use Vain\Core\Locale\LocaleInterface;
+namespace Vain\Core\Locale;
 
 /**
  * Class AbstractLocale

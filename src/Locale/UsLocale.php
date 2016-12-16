@@ -10,9 +10,8 @@
  */
 declare(strict_types = 1);
 
-namespace Vain\Core\Time\Locale\Us;
+namespace Vain\Core\Locale;
 
-use Vain\Core\Time\Locale\AbstractLocale;
 use Vain\Core\Time\TimeInterface;
 
 /**
@@ -39,7 +38,7 @@ class UsLocale extends AbstractLocale
     /**
      * @inheritDoc
      */
-    public function getLanguage() : string
+    public function getName() : string
     {
         return 'us';
     }

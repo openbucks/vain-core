@@ -35,7 +35,7 @@ class VoterStrategyCompilerPass implements CompilerPassInterface
         $definition = $container->findDefinition('security.voter.strategy.storage');
         $services = $container->findTaggedServiceIds('security.voter.strategy');
         foreach ($services as $id => $tags) {
-            $definition->addMethodCall('addStrategy', [new Reference($id)]);
+            $definition->addMethodCall('addItem', [new Reference($id)]);
         }
 
         return $this;

@@ -35,7 +35,7 @@ class ResourceProviderCompilerPass implements CompilerPassInterface
         $definition = $container->findDefinition('security.resource.provider.storage');
         $services = $container->findTaggedServiceIds('security.resource.provider');
         foreach ($services as $id => $tags) {
-            $definition->addMethodCall('addProvider', [new Reference($id)]);
+            $definition->addMethodCall('addItem', [new Reference($id)]);
         }
 
         return $this;

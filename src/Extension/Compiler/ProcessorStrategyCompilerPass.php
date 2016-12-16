@@ -35,7 +35,7 @@ class ProcessorStrategyCompilerPass implements CompilerPassInterface
         $definition = $container->findDefinition('security.processor.strategy.storage');
         $services = $container->findTaggedServiceIds('security.processor.strategy');
         foreach ($services as $id => $tags) {
-            $definition->addMethodCall('addStrategy', [new Reference($id)]);
+            $definition->addMethodCall('addItem', [new Reference($id)]);
         }
 
         return $this;

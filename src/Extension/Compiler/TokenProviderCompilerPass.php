@@ -35,7 +35,7 @@ class TokenProviderCompilerPass implements CompilerPassInterface
         $definition = $container->findDefinition('security.token.storage');
         $services = $container->findTaggedServiceIds('security.token.provider');
         foreach ($services as $id => $tags) {
-            $definition->addMethodCall('addProvider', [new Reference($id)]);
+            $definition->addMethodCall('addItem', [new Reference($id)]);
         }
 
         return $this;

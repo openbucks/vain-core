@@ -12,9 +12,7 @@ declare(strict_types = 1);
 
 namespace Vain\Core\Security\Token\Storage;
 
-use Psr\Http\Message\ServerRequestInterface;
 use Vain\Core\Security\Token\Provider\SecurityTokenProviderInterface;
-use Vain\Core\Security\Token\SecurityTokenInterface;
 
 /**
  * Interface SecurityTokenStorageInterface
@@ -23,19 +21,10 @@ use Vain\Core\Security\Token\SecurityTokenInterface;
  */
 interface SecurityTokenStorageInterface
 {
-
     /**
-     * @param SecurityTokenProviderInterface $tokenProvider
+     * @param string $authType
      *
-     * @return SecurityTokenStorageInterface
+     * @return SecurityTokenProviderInterface
      */
-    public function addProvider(SecurityTokenProviderInterface $tokenProvider) : SecurityTokenStorageInterface;
-
-    /**
-     * @param string                 $type
-     * @param ServerRequestInterface $request
-     *
-     * @return SecurityTokenInterface
-     */
-    public function getToken(string $type, ServerRequestInterface $request) : SecurityTokenInterface;
+    public function getProvider(string $authType) : SecurityTokenProviderInterface;
 }

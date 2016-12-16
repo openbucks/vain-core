@@ -12,8 +12,7 @@ declare(strict_types = 1);
 
 namespace Vain\Core\Time\Factory;
 
-use Vain\Core\Time\Factory\TimeFactoryInterface;
-use Vain\Core\Time\Locale\Repository\LocaleRepositoryInterface;
+use Vain\Core\Locale\Storage\LocaleStorageInterface;
 use Vain\Core\Time\Time;
 use Vain\Core\Time\TimeInterface;
 use Vain\Core\Time\Zone\Factory\TimeZoneFactoryInterface;
@@ -36,13 +35,13 @@ class TimeFactory implements TimeFactoryInterface
     /**
      * TimeFactory constructor.
      *
-     * @param LocaleRepositoryInterface $localeRepository
-     * @param TimeZoneFactoryInterface  $timeZoneFactory
-     * @param string                    $defaultTimeZone
-     * @param string                    $defaultLocale
+     * @param LocaleStorageInterface   $localeRepository
+     * @param TimeZoneFactoryInterface $timeZoneFactory
+     * @param string                   $defaultTimeZone
+     * @param string                   $defaultLocale
      */
     public function __construct(
-        LocaleRepositoryInterface $localeRepository,
+        LocaleStorageInterface $localeRepository,
         TimeZoneFactoryInterface $timeZoneFactory,
         string $defaultTimeZone,
         string $defaultLocale

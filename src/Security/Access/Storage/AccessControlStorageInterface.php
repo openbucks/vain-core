@@ -22,13 +22,6 @@ use Vain\Core\Security\Access\AccessControlInterface;
 interface AccessControlStorageInterface
 {
     /**
-     * @param AccessControlInterface $accessControl
-     *
-     * @return AccessControlStorageInterface
-     */
-    public function addAcl(AccessControlInterface $accessControl) : AccessControlStorageInterface;
-
-    /**
      * @param string $name
      *
      * @return AccessControlInterface
