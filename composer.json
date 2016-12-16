@@ -23,7 +23,9 @@
     },
     "suggest": {
         "vain/config": "Nested configuration files and caches",
-        "vain/entity": "Entity framework",
+        "vain/doctrine": "Doctrine bridge",
+        "vain/memcache": "Memcache implementation",
+        "vain/redis": "Redis implementation",
         "vain/http": "PSR-7 implementation",
         "vain/operation": "Operation and collection implementation",
         "vain/time": "Immutable DateTime with handful methods"
