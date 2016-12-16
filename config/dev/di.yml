@@ -2,6 +2,11 @@ imports:
   - { resource: '../di.yml' }
 
 services:
+  app.context.factory.config.assert:
+    class: Vain\Core\Config\Context\Factory\Decorator\Assert\ConfigContextFactoryAssertDecorator
+    decorates: app.context.factory.config
+    public: false
+    arguments: ['@app.context.factory.config.assert.inner']
   connection.storage.assert:
     class: Vain\Core\Connection\Storage\Decorator\Assert\ConnectionStorageAssertDecorator
     decorates: connection.storage

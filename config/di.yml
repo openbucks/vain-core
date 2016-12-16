@@ -3,16 +3,42 @@ parameters:
   logger.channel.event: 'event'
 
 services:
-  json.encoder:
-    class: Vain\Core\Encoder\Json\JsonEncoder
-  json.decoder:
-    alias: json.encoder
+  app.context.factory.config:
+    class: Vain\Core\Config\Context\Factory\ConfigContextFactory
+  app.context.config:
+    class: Vain\Core\Config\Context\ConfigApplicationContext
+    factory:  ['@app.context.factory.config', createFromConfig]
+    arguments: ['@config', '%app.env%', '%app.mode%']
+  app.context:
+    alias: app.context.config
   cache.storage:
     class: Vain\Core\Cache\Storage\CacheStorage
     arguments: ['@config', '@connection.storage']
   counter:
     class: Vain\Core\Counter\Counter
     shared: false
+  config.reader.factory:
+    class: Vain\Core\Config\Data\Handler\Yaml\YamlHandlerFactory
+    arguments: ['%app.dir%']
+  config.handler.factory:
+    class: Vain\Core\Config\Data\Handler\RequireX\RequireHandlerFactory
+    arguments: ['%app.dir%', '%cache.dir%', '%config.dir%']
+  config.reader.data.provider:
+    class: Vain\Core\Config\Data\Provider\Reader\ReaderConfigDataProvider
+    arguments: ['@config.reader.factory']
+  config.handler.data.provider:
+    class: Vain\Core\Config\Data\Provider\Handler\HandlerConfigDataProvider
+    arguments: ['@config.reader.data.provider', '@config.handler.factory', '%app.caching%']
+  config.cache.data.provider:
+    class: Vain\Core\Config\Data\Provider\Cache\CacheConfigDataProvider
+    arguments: ['@config.handler.data.provider']
+  config.data.provider:
+    alias: config.cache.data.provider
+  config.provider:
+    class: Vain\Core\Config\Provider\ConfigProvider
+    arguments: ['@config.factory', '@config.data.provider', '%config.dir%']
+  config.factory:
+    class: Vain\Core\Config\Factory\ConfigFactory
   connection.storage:
     class: Vain\Core\Connection\Storage\ConnectionStorage
     arguments: ['@config']
@@ -57,6 +83,10 @@ services:
     arguments: ['@app.di']
   event.handler.factory:
     alias: event.handler.factory.container
+  json.encoder:
+    class: Vain\Core\Encoder\Json\JsonEncoder
+  json.decoder:
+    alias: json.encoder
   operation.collection.factory.event:
     class: Vain\Core\Event\Operation\Collection\Factory\Decorator\Event\CollectionFactoryEventDecorator
     decorates: operation.collection.factory
