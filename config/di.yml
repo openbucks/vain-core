@@ -227,9 +227,9 @@ services:
   encoder.json:
     class: Vain\Core\Encoder\Json\JsonEncoder
   decoder.json: '@encoder.json'
-  ecnoder.xml:
+  encoder.xml:
     class: Vain\Core\Encoder\Xml\XmlEncoder
-  decoder:xml: '@encoder.xml'
+  decoder.xml: '@encoder.xml'
   logger.connection:
     class: Vain\Logger\Monolog\MonologAdapter
     arguments: ['@monolog.logger.connection']
