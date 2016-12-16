@@ -13,6 +13,7 @@ declare(strict_types = 1);
 namespace Vain\Core\Extension;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Vain\Core\Extension\Compiler\CacheFactoryCompilerPass;
 use Vain\Core\Extension\Compiler\ConnectionFactoryCompilerPass;
 use Vain\Core\Extension\Compiler\DatabaseFactoryCompilerPass;
 
@@ -30,7 +31,8 @@ class CoreExtension extends AbstractExtension
     {
         $container
             ->addCompilerPass(new ConnectionFactoryCompilerPass())
-            ->addCompilerPass(new DatabaseFactoryCompilerPass());
+            ->addCompilerPass(new DatabaseFactoryCompilerPass())
+            ->addCompilerPass(new CacheFactoryCompilerPass());
 
         return parent::load($configs, $container);
     }

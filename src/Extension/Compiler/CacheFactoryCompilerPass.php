@@ -4,36 +4,36 @@
  *
  * PHP Version 7
  *
- * @package   vain-database
+ * @package   vain-cache
  * @license   https://opensource.org/licenses/MIT MIT License
- * @link      https://github.com/allflame/vain-database
+ * @link      https://github.com/allflame/vain-cache
  */
 declare(strict_types = 1);
 
-namespace Vain\Core\Database\Extension\Compiler;
+namespace Vain\Core\Extension\Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * Class DatabaseFactoryCompilerPass
+ * Class CacheFactoryCompilerPass
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class DatabaseFactoryCompilerPass implements CompilerPassInterface
+class CacheFactoryCompilerPass implements CompilerPassInterface
 {
     /**
      * @inheritDoc
      */
     public function process(ContainerBuilder $container)
     {
-        if (false === $container->has('database.storage')) {
+        if (false === $container->has('cache.storage')) {
             return $this;
         }
 
-        $definition = $container->findDefinition('database.storage');
-        $services = $container->findTaggedServiceIds('database.factory');
+        $definition = $container->findDefinition('cache.storage');
+        $services = $container->findTaggedServiceIds('cache.factory');
         foreach ($services as $id => $tags) {
             $definition->addMethodCall('addFactory', [new Reference($id)]);
         }

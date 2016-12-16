@@ -1,30 +1,94 @@
 parameters:
-  monolog.logger.connection: 'connection'
+  logger.channel.connection: 'connection'
+  logger.channel.event: 'event'
 
 services:
   json.encoder:
     class: Vain\Core\Encoder\Json\JsonEncoder
   json.decoder:
     alias: json.encoder
+  cache.storage:
+    class: Vain\Core\Cache\Storage\CacheStorage
+    arguments: ['@config', '@connection.storage']
   counter:
     class: Vain\Core\Counter\Counter
     shared: false
   connection.storage:
     class: Vain\Core\Connection\Storage\ConnectionStorage
     arguments: ['@config']
-  monolog.logger.connection:
-    class: Monolog\Logger
-    arguments: ['%monolog.logger.connection%']
-  logger.connection:
-    class: Vain\Logger\Monolog\MonologAdapter
-    arguments: ['@monolog.logger.connection']
-    tags:
-      - {name: logger}
   database.generator.factory:
     class: Vain\Core\Database\Generator\Factory\DatabaseGeneratorFactory
   database.storage:
     class: Vain\Core\Database\Storage\DatabaseStorage
     arguments: ['@connection.storage', '@config']
+  entity.operation.factory.abstract:
+    abstract: true
+    class: Vain\Core\Entity\Operation\Factory\AbstractEntityOperationFactory
+    arguments: ['@operation.factory']
+  entity.event.operation.factory:
+    parent: operation.factory.abstract
+    class: Vain\Core\Entity\Event\Operation\Factory\EntityEventOperationFactory
+    arguments: ['@event.resolver', '@operation.collection.event.dispatcher', '@operation.collection.factory']
+  entity.operation.factory.event:
+    class: Vain\Core\Entity\Operation\Factory\Decorator\Event\EntityOperationFactoryEventDecorator
+    parent: entity.operation.factory.abstract
+    decorates: entity.operation.factory
+    decoration_priority: 1000
+    arguments: ['@entity.operation.factory.event.inner', '@entity.event.operation.factory', '@operation.collection.factory']
+  event.handler.abstract:
+    abstract: true
+    class: Vain\Core\Event\Handler\AbstractEventHandler
+    arguments: ['@event.resolver']
+  config.event:
+    class: Config
+    factory: ['@config.provider', getConfig]
+    arguments:
+      - 'event'
+  event.dispatcher:
+    class: Vain\Core\Event\Dispatcher\EventDispatcher
+    arguments: ['@config.event', '@event.config.factory', '@event.resolver', '@event.handler.storage']
+  event.config.factory:
+    class: Vain\Core\Event\Config\Factory\Trust\TrustEventConfigFactory
+  event.handler.storage:
+    class: Vain\Core\Event\Handler\Storage\EventHandlerStorage
+    arguments: ['@event.handler.factory']
+  event.handler.factory.container:
+    class: Vain\Core\Event\Handler\Factory\Container\ContainerEventHandlerFactory
+    arguments: ['@app.di']
+  event.handler.factory:
+    alias: event.handler.factory.container
+  operation.collection.factory.event:
+    class: Vain\Core\Event\Operation\Collection\Factory\Decorator\Event\CollectionFactoryEventDecorator
+    decorates: operation.collection.factory
+    decoration_priority: 100
+    arguments: ['@operation.collection.factory.event.inner', '@operation.collection.event.dispatcher']
+  operation.collection.event.dispatcher:
+    class: Vain\Core\Event\Collection\CollectionEventDispatcher
+    arguments: ['@event.dispatcher']
+  collection.event.dispatcher:
+    alias: operation.collection.event.dispatcher
+  event.factory.abstract:
+    abstract: true
+    class: Vain\Core\Event\Factory\AbstractEventFactory
+    arguments: ['@event.resolver']
+  event.resolver:
+    class: Vain\Core\Event\Resolver\EventResolver
+  logger.connection:
+    class: Vain\Logger\Monolog\MonologAdapter
+    arguments: ['@monolog.logger.connection']
+    tags:
+      - {name: logger}
+  logger.event:
+    class: Vain\Logger\Monolog\MonologAdapter
+    arguments: ['@monolog.logger.event']
+    tags:
+      - {name: logger}
+  monolog.logger.event:
+    class: Monolog\Logger
+    arguments: ['%logger.channel.event%']
+  monolog.logger.connection:
+    class: Monolog\Logger
+    arguments: ['%logger.channel.connection%']
   operation.collection.factory.transaction:
     class: Vain\Core\Database\Operation\Collection\Factory\Decorator\Transaction\CollectionFactoryTransactionDecorator
     decorates: operation.collection.factory

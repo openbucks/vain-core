@@ -16,3 +16,22 @@ services:
     class: Vain\Core\Database\Storage\Decorator\Assert\DatabaseStorageAssertDecorator
     decorates: database.storage
     arguments: ['@database.storage.assert.inner', '@config']
+  event.config.factory.assert:
+    class: Vain\Core\Event\Config\Factory\Decorator\Assert\EventConfigFactoryAssertDecorator
+    decorates: event.config.factory
+    decoration_priority: 1000
+    arguments: ['@event.config.factory.assert.inner']
+  event.handler.factory.assert:
+    class: Vain\Core\Event\Handler\Factory\Decorator\Assert\EventHandlerFactoryAssertDecorator
+    decorates: event.handler.factory
+    decoration_priority: 1000
+    arguments: ['@event.handler.factory.assert.inner', '@app.di']
+  event.handler.factory.debug:
+    class: Vain\Core\Event\Handler\Factory\Decorator\Logger\EventHandlerFactoryLoggerDecorator
+    decorates: event.handler.factory
+    arguments: ['@event.handler.factory.debug.inner', '@logger.event']
+  event.dispatcher.debug:
+    class: Vain\Core\Event\Dispatcher\Decorator\Logger\EventDispatcherLoggerDecorator
+    decorates: event.dispatcher
+    decoration_priority: 1000
+    arguments: ['@event.dispatcher.debug.inner', '@logger.event']
