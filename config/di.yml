@@ -25,8 +25,7 @@ services:
   api.request.validator.config:
     class: Vain\Core\Api\Request\Validator\Config\ApiConfigValidator
     arguments: ['@api.request.factory', '@api.request.validator.module.storage']
-  api.request.validator:
-    alias: api.request.validator.config
+  api.request.validator: '@api.request.validator.config'
   api.request.id.provider.random:
     class: Vain\Core\Api\Request\Id\Provider\Random\ApiRequestIdRandomProvider
     arguments: ['@id.generator.string.random']
@@ -108,10 +107,8 @@ services:
   api.command.container:
     class: Vain\Core\Api\Command\Container\ApiCommandContainer
     arguments: ['@app.di', '%command.prefix%', '%command.name%']
-  api.response.factory.tracker:
-    alias: api.response.factory
-  api.response.factory.handler:
-    alias: api.response.factory
+  api.response.factory.tracker: '@api.response.factory'
+  api.response.factory.handler: '@api.response.factory'
   api.config.composite:
     class: Vain\Core\Api\Config\Composite\ApiCompositeConfig
     arguments: ['@config.data.provider']
@@ -121,8 +118,7 @@ services:
     class: Vain\Core\Config\Context\ConfigApplicationContext
     factory:  ['@app.context.factory.config', createFromConfig]
     arguments: ['@config', '%app.env%', '%app.mode%']
-  app.context:
-    alias: app.context.config
+  app.context: '@app.context.config'
   cache.storage:
     class: Vain\Core\Cache\Storage\CacheStorage
     arguments: ['@config', '@connection.storage']
@@ -144,8 +140,7 @@ services:
   config.cache.data.provider:
     class: Vain\Core\Config\Data\Provider\Cache\CacheConfigDataProvider
     arguments: ['@config.handler.data.provider']
-  config.data.provider:
-    alias: config.cache.data.provider
+  config.data.provider: '@config.cache.data.provider'
   config.provider:
     class: Vain\Core\Config\Provider\ConfigProvider
     arguments: ['@config.factory', '@config.data.provider', '%config.dir%']
@@ -167,10 +162,6 @@ services:
     abstract: true
     class: Vain\Core\Entity\Operation\Factory\AbstractEntityOperationFactory
     arguments: ['@operation.factory']
-  entity.event.operation.factory:
-    parent: operation.factory.abstract
-    class: Vain\Core\Entity\Event\Operation\Factory\EntityEventOperationFactory
-    arguments: ['@event.resolver', '@operation.collection.event.dispatcher', '@operation.collection.factory']
   event.handler.abstract:
     abstract: true
     class: Vain\Core\Event\Handler\AbstractEventHandler
@@ -191,10 +182,8 @@ services:
   event.handler.factory.container:
     class: Vain\Core\Event\Handler\Factory\Container\ContainerEventHandlerFactory
     arguments: ['@app.di']
-  event.handler.factory:
-    alias: event.handler.factory.container
-  collection.event.dispatcher:
-    alias: operation.collection.event.dispatcher
+  event.handler.factory: '@event.handler.factory.container'
+  collection.event.dispatcher: '@operation.collection.event.dispatcher'
   event.factory.abstract:
     abstract: true
     class: Vain\Core\Event\Factory\AbstractEventFactory
