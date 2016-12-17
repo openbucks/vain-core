@@ -12,6 +12,7 @@ declare(strict_types = 1);
 
 namespace Vain\Core\Entity;
 
+use Vain\Core\ArrayX\ArrayInterface;
 use Vain\Core\Display\DisplayableInterface;
 use Vain\Core\Equal\EquatableInterface;
 
@@ -20,7 +21,7 @@ use Vain\Core\Equal\EquatableInterface;
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-interface EntityInterface extends DisplayableInterface, EquatableInterface
+interface EntityInterface extends DisplayableInterface, EquatableInterface, ArrayInterface
 {
     /**
      * @return int
