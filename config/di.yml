@@ -171,12 +171,6 @@ services:
     parent: operation.factory.abstract
     class: Vain\Core\Entity\Event\Operation\Factory\EntityEventOperationFactory
     arguments: ['@event.resolver', '@operation.collection.event.dispatcher', '@operation.collection.factory']
-  entity.operation.factory.event:
-    class: Vain\Core\Entity\Operation\Factory\Decorator\Event\EntityOperationFactoryEventDecorator
-    parent: entity.operation.factory.abstract
-    decorates: entity.operation.factory
-    decoration_priority: 1000
-    arguments: ['@entity.operation.factory.event.inner', '@entity.event.operation.factory', '@operation.collection.factory']
   event.handler.abstract:
     abstract: true
     class: Vain\Core\Event\Handler\AbstractEventHandler

@@ -46,6 +46,8 @@ class CollectionEventDispatcher implements CollectionEventDispatcherInterface
     {
         if (0 <= $this->level) {
             $this->level++;
+
+            return $this;
         }
 
         throw new LevelIntegrityDispatcherException($this, $this->level);
@@ -58,6 +60,8 @@ class CollectionEventDispatcher implements CollectionEventDispatcherInterface
     {
         if (0 < $this->level) {
             $this->level--;
+
+            return $this;
         }
 
         if (0 > $this->level) {

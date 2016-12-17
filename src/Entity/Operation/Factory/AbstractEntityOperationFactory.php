@@ -12,7 +12,6 @@ declare(strict_types = 1);
 
 namespace Vain\Core\Entity\Operation\Factory;
 
-use Vain\Core\Entity\EntityInterface;
 use Vain\Core\Operation\Factory\OperationFactoryInterface;
 use Vain\Core\Operation\OperationInterface;
 
@@ -21,7 +20,7 @@ use Vain\Core\Operation\OperationInterface;
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-abstract class AbstractEntityOperationFactory implements EntityOperationFactoryInterface, OperationFactoryInterface
+abstract class AbstractEntityOperationFactory implements EntityOperationFactoryInterface
 {
     private $operationFactory;
 
@@ -57,25 +56,5 @@ abstract class AbstractEntityOperationFactory implements EntityOperationFactoryI
     public function failed() : OperationInterface
     {
         return $this->operationFactory->failed();
-    }
-
-    /**
-     * @param EntityInterface $newEntity
-     * @param EntityInterface $oldEntity
-     *
-     * @return mixed
-     */
-    abstract public function doUpdateEntity(EntityInterface $newEntity, EntityInterface $oldEntity);
-
-    /**
-     * @inheritDoc
-     */
-    public function updateEntity(EntityInterface $newEntity, EntityInterface $oldEntity) : OperationInterface
-    {
-        if ($newEntity->equals($oldEntity)) {
-            return $this->operationFactory->successful();
-        }
-
-        return $this->doUpdateEntity($newEntity, $oldEntity);
     }
 }

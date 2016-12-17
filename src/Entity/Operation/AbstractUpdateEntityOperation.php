@@ -13,41 +13,82 @@ declare(strict_types = 1);
 namespace Vain\Core\Entity\Operation;
 
 use Vain\Core\Entity\EntityInterface;
+use Vain\Core\Entity\Event\UpdateEntityEvent;
+use Vain\Core\Event\Dispatcher\EventDispatcherInterface;
+use Vain\Core\Event\Resolver\EventResolverInterface;
+use Vain\Core\Operation\AbstractOperation;
+use Vain\Core\Result\FailedResult;
+use Vain\Core\Result\ResultInterface;
+use Vain\Core\Result\SuccessfulResult;
 
 /**
  * Class AbstractUpdateEntityOperation
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-abstract class AbstractUpdateEntityOperation extends AbstractEntityOperation
+abstract class AbstractUpdateEntityOperation extends AbstractOperation
 {
-    private $oldEntity;
+    private $eventResolver;
+
+    private $eventDispatcher;
 
     /**
-     * AbstractUpdateEntityOperation constructor.
+     * AbstractCreateEntityOperation constructor.
      *
-     * @param EntityInterface $newEntity
-     * @param EntityInterface $oldEntity
+     * @param EventResolverInterface   $eventResolver
+     * @param EventDispatcherInterface $eventDispatcher
      */
-    public function __construct(EntityInterface $newEntity, EntityInterface $oldEntity)
+    public function __construct(EventResolverInterface $eventResolver, EventDispatcherInterface $eventDispatcher)
     {
-        $this->oldEntity = $oldEntity;
-        parent::__construct($newEntity);
+        $this->eventResolver = $eventResolver;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
      * @return EntityInterface
      */
-    public function getNewEntity(): EntityInterface
-    {
-        return $this->getEntity();
-    }
+    abstract public function findEntity() : EntityInterface;
 
     /**
+     * @param EntityInterface $entity
+     *
      * @return EntityInterface
      */
-    public function getOldEntity(): EntityInterface
+    abstract public function updateEntity(EntityInterface $entity) : EntityInterface;
+
+    /**
+     * @inheritDoc
+     */
+    public function execute() : ResultInterface
     {
-        return $this->oldEntity;
+        if (null === ($oldEntity = $this->findEntity())) {
+            return new FailedResult();
+        }
+
+        if (null === ($newEntity = $this->updateEntity($oldEntity))) {
+            return new FailedResult();
+        }
+
+        if ($newEntity->equals($oldEntity)) {
+            return new SuccessfulResult();
+        }
+
+        $this->eventDispatcher
+            ->dispatch(
+                new UpdateEntityEvent(
+                    $this->eventResolver->createName('entity', 'update'),
+                    $oldEntity,
+                    $newEntity
+                )
+            )
+            ->dispatch(
+                new UpdateEntityEvent(
+                    $this->eventResolver->createName($newEntity->getEntityName(), 'update'),
+                    $oldEntity,
+                    $newEntity
+                )
+            );
+
+        return new SuccessfulResult();
     }
 }

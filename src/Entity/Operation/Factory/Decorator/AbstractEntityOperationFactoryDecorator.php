@@ -12,10 +12,7 @@ declare(strict_types = 1);
 
 namespace Vain\Core\Entity\Operation\Factory\Decorator;
 
-use Vain\Core\Entity\EntityInterface;
-use Vain\Core\Entity\Operation\Factory\AbstractEntityOperationFactory;
 use Vain\Core\Entity\Operation\Factory\EntityOperationFactoryInterface;
-use Vain\Core\Operation\Factory\OperationFactoryInterface;
 use Vain\Core\Operation\OperationInterface;
 
 /**
@@ -23,54 +20,46 @@ use Vain\Core\Operation\OperationInterface;
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class AbstractEntityOperationFactoryDecorator extends AbstractEntityOperationFactory implements
-    EntityOperationFactoryInterface
+abstract class AbstractEntityOperationFactoryDecorator implements EntityOperationFactoryInterface
 {
     private $entityOperationFactory;
 
     /**
-     * AbstractOperationFactoryDecorator constructor.
+     * AbstractEntityOperationFactoryDecorator constructor.
      *
-     * @param OperationFactoryInterface       $operationFactory
      * @param EntityOperationFactoryInterface $entityOperationFactory
      */
-    public function __construct(
-        OperationFactoryInterface $operationFactory,
-        EntityOperationFactoryInterface $entityOperationFactory
-    ) {
+    public function __construct(EntityOperationFactoryInterface $entityOperationFactory)
+    {
         $this->entityOperationFactory = $entityOperationFactory;
-        parent::__construct($operationFactory);
-    }
-
-    /**
-     * @return EntityOperationFactoryInterface
-     */
-    public function getEntityOperationFactory(): EntityOperationFactoryInterface
-    {
-        return $this->entityOperationFactory;
     }
 
     /**
      * @inheritDoc
      */
-    public function createEntity(EntityInterface $entity) : OperationInterface
+    public function createOperation(string $entityName, array $entityData) : OperationInterface
     {
-        return $this->entityOperationFactory->createEntity($entity);
+        return $this->entityOperationFactory->createOperation($entityName, $entityData);
     }
 
     /**
      * @inheritDoc
      */
-    public function doUpdateEntity(EntityInterface $newEntity, EntityInterface $oldEntity) : OperationInterface
+    public function updateOperation(
+        string $entityName,
+        array $criteria,
+        array $entityData,
+        bool $lock = false
+    ) : OperationInterface
     {
-        return $this->entityOperationFactory->updateEntity($newEntity, $oldEntity);
+        return $this->entityOperationFactory->updateOperation($entityName, $criteria, $entityData, $lock);
     }
 
     /**
      * @inheritDoc
      */
-    public function deleteEntity(EntityInterface $entity) : OperationInterface
+    public function deleteOperation(string $entityName, array $criteria) : OperationInterface
     {
-        return $this->entityOperationFactory->deleteEntity($entity);
+        return $this->entityOperationFactory->deleteOperation($entityName, $criteria);
     }
 }
