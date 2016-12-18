@@ -12,6 +12,7 @@ declare(strict_types = 1);
 
 namespace Vain\Core\Entity\Operation\Factory\Decorator;
 
+use Vain\Core\Entity\EntityInterface;
 use Vain\Core\Entity\Operation\Factory\EntityOperationFactoryInterface;
 use Vain\Core\Operation\OperationInterface;
 
@@ -37,29 +38,24 @@ abstract class AbstractEntityOperationFactoryDecorator implements EntityOperatio
     /**
      * @inheritDoc
      */
-    public function createOperation(string $entityName, array $entityData) : OperationInterface
+    public function createOperation(EntityInterface $entity) : OperationInterface
     {
-        return $this->entityOperationFactory->createOperation($entityName, $entityData);
+        return $this->entityOperationFactory->createOperation($entity);
     }
 
     /**
      * @inheritDoc
      */
-    public function updateOperation(
-        string $entityName,
-        array $criteria,
-        array $entityData,
-        bool $lock = false
-    ) : OperationInterface
+    public function updateOperation(EntityInterface $newEntity, EntityInterface $oldEntity) : OperationInterface
     {
-        return $this->entityOperationFactory->updateOperation($entityName, $criteria, $entityData, $lock);
+        return $this->entityOperationFactory->updateOperation($newEntity, $oldEntity);
     }
 
     /**
      * @inheritDoc
      */
-    public function deleteOperation(string $entityName, array $criteria) : OperationInterface
+    public function deleteOperation(EntityInterface $entity) : OperationInterface
     {
-        return $this->entityOperationFactory->deleteOperation($entityName, $criteria);
+        return $this->entityOperationFactory->deleteOperation($entity);
     }
 }
