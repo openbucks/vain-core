@@ -44,22 +44,30 @@ abstract class AbstractApiExtension extends Extension
             return $this;
         }
 
-        $container
-            ->findDefinition('api.config.composite')
-            ->addMethodCall(
-                'addFile',
-                [substr($absolutePath, strlen($appDir)) . DIRECTORY_SEPARATOR  . 'api']
-            );
+        if (substr($absolutePath, strlen($appDir)) . DIRECTORY_SEPARATOR . 'api') {
+            $container
+                ->findDefinition('api.config.composite')
+                ->addMethodCall(
+                    'addFile',
+                    [substr($absolutePath, strlen($appDir)) . DIRECTORY_SEPARATOR . 'api']
+                );
+        }
 
         if (false === $container->has('api.extension.storage')) {
             return $this;
         }
+
+        $entityDir = $absolutePath . DIRECTORY_SEPARATOR . 'Entity';
+        if (false === is_dir($entityDir)) {
+            return $this;
+        }
+
         $container
             ->findDefinition('api.extension.storage')
             ->addMethodCall(
                 'addPath',
                 [
-                    $absolutePath . DIRECTORY_SEPARATOR . 'Entity',
+                    $entityDir,
                     str_replace('\Extension', '\Entity', $reflectionClass->getNamespaceName()),
                 ]
             );
