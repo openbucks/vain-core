@@ -47,25 +47,23 @@ abstract class AbstractUpdateEntityOperation extends AbstractOperation
     /**
      * @return EntityInterface
      */
-    abstract public function findEntity() : EntityInterface;
+    abstract public function getNewEntity() : EntityInterface;
 
     /**
-     * @param EntityInterface $entity
-     *
      * @return EntityInterface
      */
-    abstract public function updateEntity(EntityInterface $entity) : EntityInterface;
+    abstract public function getOldEntity() : EntityInterface;
 
     /**
      * @inheritDoc
      */
     public function execute() : ResultInterface
     {
-        if (null === ($oldEntity = $this->findEntity())) {
+        if (null === ($newEntity = $this->getNewEntity())) {
             return new FailedResult();
         }
 
-        if (null === ($newEntity = $this->updateEntity($oldEntity))) {
+        if (null === ($oldEntity = $this->getOldEntity())) {
             return new FailedResult();
         }
 
