@@ -12,7 +12,8 @@ declare(strict_types = 1);
 
 namespace Vain\Core\Entity\Operation\Factory;
 
-use Vain\Core\Operation\Factory\OperationFactoryInterface;
+use Vain\Core\Entity\EntityInterface;
+use Vain\Core\Operation\Factory\Decorator\AbstractOperationFactoryDecorator;
 use Vain\Core\Operation\OperationInterface;
 
 /**
@@ -20,41 +21,30 @@ use Vain\Core\Operation\OperationInterface;
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-abstract class AbstractEntityOperationFactory implements EntityOperationFactoryInterface
+abstract class AbstractEntityOperationFactory extends AbstractOperationFactoryDecorator implements
+    EntityOperationFactoryInterface
 {
-    private $operationFactory;
 
     /**
-     * AbstractEntityOperationFactory constructor.
+     * @param EntityInterface $newEntity
+     * @param EntityInterface $oldEntity
      *
-     * @param OperationFactoryInterface $operationFactory
+     * @return OperationInterface
      */
-    public function __construct(OperationFactoryInterface $operationFactory)
-    {
-        $this->operationFactory = $operationFactory;
-    }
+    abstract public function doUpdateOperation(
+        EntityInterface $newEntity,
+        EntityInterface $oldEntity
+    ) : OperationInterface;
 
     /**
      * @inheritDoc
      */
-    public function decorate(OperationInterface $operation) : OperationInterface
+    public function updateOperation(EntityInterface $newEntity, EntityInterface $oldEntity) : OperationInterface
     {
-        return $this->operationFactory->decorate($operation);
-    }
+        if ($newEntity->equals($oldEntity)) {
+            return $this->successful();
+        }
 
-    /**
-     * @inheritDoc
-     */
-    public function successful() : OperationInterface
-    {
-        return $this->operationFactory->successful();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function failed() : OperationInterface
-    {
-        return $this->operationFactory->failed();
+        return $this->doUpdateOperation($newEntity, $oldEntity);
     }
 }
