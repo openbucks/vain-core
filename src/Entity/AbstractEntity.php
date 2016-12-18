@@ -44,7 +44,7 @@ abstract class AbstractEntity implements EntityInterface
             if (false === property_exists($this, $field)) {
                 continue;
             }
-            $this->$field = $value;
+            $this->{$field} = $value;
         }
 
         return $this;
