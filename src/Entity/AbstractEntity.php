@@ -19,8 +19,6 @@ use Vain\Core\Equal\EquatableInterface;
  * Class AbstractEntity
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
- *
- * @method EntityInterface fromArray(array $data)
  */
 abstract class AbstractEntity implements EntityInterface
 {
