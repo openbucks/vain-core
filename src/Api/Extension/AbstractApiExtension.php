@@ -29,9 +29,10 @@ abstract class AbstractApiExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container) : AbstractApiExtension
     {
+        $reflectionClass = new \ReflectionClass($this);
         $absolutePath = sprintf(
             '%s%s..%s',
-            dirname((new \ReflectionClass(get_class($this)))->getFileName()),
+            dirname($reflectionClass->getFileName()),
             DIRECTORY_SEPARATOR,
             DIRECTORY_SEPARATOR
         );
@@ -53,6 +54,16 @@ abstract class AbstractApiExtension extends Extension
             ->addMethodCall(
                 'addFile',
                 [substr($absolutePath, strlen($appDir) + 1) . 'api']
+            );
+
+        if (false === $container->has('api.extension.storage')) {
+            return $this;
+        }
+        $container
+            ->findDefinition('api.extension.storage')
+            ->addMethodCall(
+                'addPath',
+                [$absolutePath, str_replace('/Extension', '/Entity', $reflectionClass->getNamespaceName())]
             );
 
         return $this;
