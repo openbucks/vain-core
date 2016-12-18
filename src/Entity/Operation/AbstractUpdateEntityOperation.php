@@ -75,10 +75,6 @@ abstract class AbstractUpdateEntityOperation extends AbstractOperation
             return new FailedResult();
         }
 
-        if ($newEntity->equals($oldEntity)) {
-            return new SuccessfulResult();
-        }
-
         if (null === ($this->updateEntity($newEntity, $oldEntity))) {
             return new FailedResult();
         }
