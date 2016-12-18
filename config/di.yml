@@ -11,6 +11,8 @@ parameters:
   time.zone.default: 'UTC'
 
 services:
+  api.extension.storage:
+    class: Vain\Core\Api\Extension\Storage\ApiExtensionStorage
   api.request.factory:
     class: Vain\Core\Api\Request\Factory\ApiRequestFactory
     arguments: ['@api.request.id.provider']
