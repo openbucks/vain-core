@@ -26,4 +26,13 @@ class SuccessfulResult extends AbstractResult implements ResultInterface
     {
         parent::__construct(true);
     }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function __toString() : string
+    {
+        return 'Ok';
+    }
 }

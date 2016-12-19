@@ -12,9 +12,6 @@ declare(strict_types = 1);
 
 namespace Vain\Core\Result;
 
-use Vain\Core\Result\AbstractResult;
-use Vain\Core\Result\ResultInterface;
-
 /**
  * Class FailedResult
  *
@@ -22,11 +19,41 @@ use Vain\Core\Result\ResultInterface;
  */
 class FailedResult extends AbstractResult implements ResultInterface
 {
+    private $message;
+
+    private $errors;
+
     /**
      * FailedResult constructor.
+     *
+     * @param string $message
+     * @param array  $errors
      */
-    public function __construct()
+    public function __construct(string $message = '', array $errors = [])
     {
+        $this->message = $message;
+        $this->errors = $errors;
         parent::__construct(false);
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function __toString() : string
+    {
+        return $this->message;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function toDisplay() : array
+    {
+        if ([] === $this->errors) {
+            return parent::toDisplay();
+        }
+
+        return array_merge(parent::toDisplay(), $this->errors);
     }
 }
