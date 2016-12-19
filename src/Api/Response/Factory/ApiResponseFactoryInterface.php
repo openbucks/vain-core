@@ -37,16 +37,16 @@ interface ApiResponseFactoryInterface extends
     /**
      * @param int    $status
      * @param string $shortMessage
-     * @param array  $data
      * @param array  $headers
+     * @param array  $data
      *
      * @return ApiResponseInterface
      */
     public function createFailed(
         int $status,
         string $shortMessage = '',
-        array $headers = [],
-        array $data = []
+        array $data = [],
+        array $headers = []
     ) : ApiResponseInterface;
 
     /**
