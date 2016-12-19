@@ -37,8 +37,8 @@ class ApiResponseFactory implements ApiResponseFactoryInterface
     public function createFailed(
         int $status,
         string $shortMessage = '',
-        array $headers = [],
-        array $data = []
+        array $data = [],
+        array $headers = []
     ) : ApiResponseInterface
     {
         return $this->createFromData($status, $shortMessage, $data, $headers);
