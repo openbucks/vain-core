@@ -15,13 +15,14 @@ namespace Vain\Core\Entity;
 use Vain\Core\ArrayX\ArrayInterface;
 use Vain\Core\Display\DisplayableInterface;
 use Vain\Core\Equal\EquatableInterface;
+use Vain\Core\PrivateX\PrivateInterface;
 
 /**
  * Class EntityInterface
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-interface EntityInterface extends DisplayableInterface, EquatableInterface, ArrayInterface
+interface EntityInterface extends DisplayableInterface, PrivateInterface, EquatableInterface, ArrayInterface
 {
     /**
      * @return int
