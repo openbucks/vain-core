@@ -54,6 +54,6 @@ class FailedResult extends AbstractResult implements ResultInterface
             return parent::toDisplay();
         }
 
-        return array_merge(parent::toDisplay(), $this->errors);
+        return array_merge(parent::toDisplay(), ['errors' => $this->errors]);
     }
 }
