@@ -40,7 +40,7 @@ abstract class AbstractApiResource implements ApiResourceInterface
     public function isConformedTo(SecurityUserInterface $user) : bool
     {
         foreach ($user->getSubordinates() as $userSubordinate) {
-            if (false === $this->isOwnedBy($userSubordinate)) {
+            if (false === $this->isConformedTo($userSubordinate)) {
                 continue;
             }
 
