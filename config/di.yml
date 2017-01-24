@@ -60,6 +60,10 @@ services:
     class: Vain\Core\Api\Request\Validator\Module\Filter\Factory\ApiValidatorFloatModuleFactory
     tags:
       - {name: validator.factory}
+  api.validator.module.factory.decimal:
+    class: Vain\Core\Api\Request\Validator\Module\Filter\Factory\ApiValidatorDecimalModuleFactory
+    tags:
+      - {name: validator.factory}
   api.validator.module.factory.int:
     class: Vain\Core\Api\Request\Validator\Module\Filter\Factory\ApiValidatorIntModuleFactory
     tags:
