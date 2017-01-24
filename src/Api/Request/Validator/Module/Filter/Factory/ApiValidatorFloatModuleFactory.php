@@ -28,7 +28,7 @@ class ApiValidatorFloatModuleFactory implements ApiValidatorModuleFactoryInterfa
      */
     public function getNames() : array
     {
-        return ['float', 'double', 'number'];
+        return ['float', 'number'];
     }
 
     /**

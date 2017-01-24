@@ -39,7 +39,7 @@ class DuplicateValidatorFactoryException extends ValidatorModuleStorageException
             sprintf(
                 'Trying to register validator factory %s with the same name %s as already registered %s',
                 get_class($new),
-                $new->getNames(),
+                implode(', ', $new->getNames()),
                 get_class($old)
             )
         );
