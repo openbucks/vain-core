@@ -13,6 +13,7 @@ declare(strict_types = 1);
 namespace Vain\Core\Database\Phinx;
 
 use Phinx\Db\Adapter\PostgresAdapter;
+use Phinx\Db\Table\Column;
 
 /**
  * Class PhinxPostgresAdapter
@@ -26,9 +27,43 @@ class PhinxPostgresAdapter extends PostgresAdapter
     /**
      * @inheritDoc
      */
+    public function getAdapterType()
+    {
+        return 'postgres';
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getColumnTypes()
     {
         return array_merge(parent::getColumnTypes(), ['inet']);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function isValidColumnType(Column $column)
+    {
+        return in_array($column->getType(), $this->getColumnTypes());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setOptions(array $options)
+    {
+        $this->options = $options;
+
+        if (isset($options['default_migration_table'])) {
+            $this->setSchemaTableName($options['default_migration_table']);
+        }
+
+        if (isset($options['pdo'])) {
+            $this->setConnection($options['pdo']);
+        }
+
+        return $this;
     }
 
     /**
