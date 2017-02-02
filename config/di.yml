@@ -26,7 +26,7 @@ services:
     arguments: ['@api.request.factory']
   api.request.validator.config:
     class: Vain\Core\Api\Request\Validator\Config\ApiConfigValidator
-    arguments: ['@api.request.factory', '@api.request.validator.module.storage']
+    arguments: ['@api.request.factory']
   api.request.validator: '@api.request.validator.config'
   api.request.id.provider.random:
     class: Vain\Core\Api\Request\Id\Provider\Random\ApiRequestIdRandomProvider
@@ -44,65 +44,64 @@ services:
     class: Vain\Core\Api\Config\Factory\ApiConfigFactory
   api.config.parameter.factory:
     class: Vain\Core\Api\Config\Parameter\Factory\ApiParameterConfigFactory
+    arguments: ['@api.parameter.filter.factory.storage', '@api.parameter.source.factory.storage']
   api.config.storage:
     class: Vain\Core\Api\Config\Storage\ApiConfigStorage
     arguments: ['@api.config.composite', '@api.config.factory']
   api.config.provider: '@api.config.storage'
-  api.validator.module.factory.array:
-    class: Vain\Core\Api\Request\Validator\Module\Filter\Factory\ApiValidatorArrayModuleFactory
+  api.config.parameter.factory.array:
+    class: Vain\Core\Api\Config\Parameter\Filter\Factory\ApiConfigParameterArrayFactory
     tags:
-      - {name: validator.factory}
-  api.validator.module.factory.boolean:
-    class: Vain\Core\Api\Request\Validator\Module\Filter\Factory\ApiValidatorBooleanModuleFactory
+      - {name: filter.factory}
+  api.config.parameter.factory.boolean:
+    class: Vain\Core\Api\Config\Parameter\Filter\Factory\ApiConfigParameterBooleanFactory
     tags:
-      - {name: validator.factory}
-  api.validator.module.factory.float:
-    class: Vain\Core\Api\Request\Validator\Module\Filter\Factory\ApiValidatorFloatModuleFactory
-    tags:
-      - {name: validator.factory}
-  api.validator.module.factory.decimal:
-    class: Vain\Core\Api\Request\Validator\Module\Filter\Factory\ApiValidatorDecimalModuleFactory
-    tags:
-      - {name: validator.factory}
-  api.validator.module.factory.int:
-    class: Vain\Core\Api\Request\Validator\Module\Filter\Factory\ApiValidatorIntModuleFactory
-    tags:
-      - {name: validator.factory}
-  api.validator.module.factory.string:
-    class: Vain\Core\Api\Request\Validator\Module\Filter\Factory\ApiValidatorStringModuleFactory
-    tags:
-      - {name: validator.factory}
-  api.validator.module.factory.inet:
-    class: Vain\Core\Api\Request\Validator\Module\Filter\Factory\ApiValidatorInetModuleFactory
-    tags:
-      - {name: validator.factory}
-  api.validator.module.factory.datetime:
-    class: Vain\Core\Api\Request\Validator\Module\Filter\Factory\ApiValidatorDateTimeModuleFactory
+      - {name: filter.factory}
+  api.config.parameter.factory.datetime:
+    class: Vain\Core\Api\Config\Parameter\Filter\Factory\ApiConfigParameterDateTimeFactory
     arguments: ['@time.factory']
     tags:
-      - {name: validator.factory}
-  api.validator.module.factory.optional:
-    class: Vain\Core\Api\Request\Validator\Module\Filter\Factory\ApiValidatorOptionalModuleFactory
+      - {name: filter.factory}
+  api.config.parameter.factory.decimal:
+    class: Vain\Core\Api\Config\Parameter\Filter\Factory\ApiConfigParameterDecimalFactory
     tags:
-      - {name: validator.factory}
-  api.validator.module.factory.body:
-    class: Vain\Core\Api\Request\Validator\Module\Source\Factory\ApiValidatorBodyModuleFactory
+      - {name: filter.factory}
+  api.config.parameter.factory.float:
+    class: Vain\Core\Api\Config\Parameter\Filter\Factory\ApiConfigParameterFloatFactory
     tags:
-      - {name: validator.factory}
-  api.validator.module.factory.cookie:
-    class: Vain\Core\Api\Request\Validator\Module\Source\Factory\ApiValidatorCookieModuleFactory
+      - {name: filter.factory}
+  api.config.parameter.factory.inet:
+    class: Vain\Core\Api\Config\Parameter\Filter\Factory\ApiConfigParameterInetFactory
     tags:
-      - {name: validator.factory}
-  api.validator.module.factory.header:
-    class: Vain\Core\Api\Request\Validator\Module\Source\Factory\ApiValidatorHeaderModuleFactory
+      - {name: filter.factory}
+  api.config.parameter.factory.int:
+    class: Vain\Core\Api\Config\Parameter\Filter\Factory\ApiConfigParameterIntFactory
     tags:
-      - {name: validator.factory}
-  api.validator.module.factory.query:
-    class: Vain\Core\Api\Request\Validator\Module\Source\Factory\ApiValidatorQueryModuleFactory
+      - {name: filter.factory}
+  api.config.parameter.factory.string:
+    class: Vain\Core\Api\Config\Parameter\Filter\Factory\ApiConfigParameterStringFactory
     tags:
-      - {name: validator.factory}
-  api.request.validator.module.storage:
-    class: Vain\Core\Api\Request\Validator\Module\Storage\ApiValidatorModuleStorage
+      - {name: filter.factory}
+  api.parameter.filter.factory.storage:
+    class: Vain\Core\Api\Config\Parameter\Filter\Factory\Storage\ApiConfigParameterFilterFactoryStorage
+  api.parameter.source.factory.storage:
+    class: Vain\Core\Api\Config\Parameter\Source\Factory\Storage\ApiConfigParameterSourceFactoryStorage
+  api.config.parameter.factory.body:
+    class: Vain\Core\Api\Config\Parameter\Source\ApiConfigBodySource
+    tags:
+      - {name: source.factory}
+  api.config.parameter.factory.cookie:
+    class: Vain\Core\Api\Config\Parameter\Source\ApiConfigCookieSource
+    tags:
+      - {name: source.factory}
+  api.config.parameter.factory.header:
+    class: Vain\Core\Api\Config\Parameter\Source\ApiConfigHeaderSource
+    tags:
+      - {name: source.factory}
+  api.config.parameter.factory.query:
+    class: Vain\Core\Api\Config\Parameter\Source\ApiConfigQuerySource
+    tags:
+      - {name: source.factory}
   api.command.chain: '@api.command.tracker'
   api.command.tracker:
     class: Vain\Core\Api\Request\Tracker\Trust\ApiTrustTracker

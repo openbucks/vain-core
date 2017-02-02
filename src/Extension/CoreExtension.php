@@ -14,6 +14,8 @@ namespace Vain\Core\Extension;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Vain\Core\Extension\Compiler\AccessControlCompilerPass;
+use Vain\Core\Extension\Compiler\ApiParameterFilterCompilerPass;
+use Vain\Core\Extension\Compiler\ApiParameterSourceCompilerPass;
 use Vain\Core\Extension\Compiler\CacheFactoryCompilerPass;
 use Vain\Core\Extension\Compiler\ConnectionCompilerPass;
 use Vain\Core\Extension\Compiler\ProcessorStrategyCompilerPass;
@@ -40,6 +42,8 @@ class CoreExtension extends AbstractExtension
     {
         $container
             ->addCompilerPass(new AccessControlCompilerPass())
+            ->addCompilerPass(new ApiParameterFilterCompilerPass())
+            ->addCompilerPass(new ApiParameterSourceCompilerPass())
             ->addCompilerPass(new CacheFactoryCompilerPass())
             ->addCompilerPass(new ConnectionCompilerPass())
             ->addCompilerPass(new ProcessorStrategyCompilerPass())

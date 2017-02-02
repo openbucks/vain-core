@@ -21,18 +21,14 @@ class FailedResult extends AbstractResult implements ResultInterface
 {
     private $message;
 
-    private $errors;
-
     /**
      * FailedResult constructor.
      *
      * @param string $message
-     * @param array  $errors
      */
-    public function __construct(string $message = '', array $errors = [])
+    public function __construct(string $message = '')
     {
         $this->message = $message;
-        $this->errors = $errors;
         parent::__construct(false);
     }
 
@@ -43,17 +39,5 @@ class FailedResult extends AbstractResult implements ResultInterface
     public function __toString() : string
     {
         return $this->message;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function toDisplay() : array
-    {
-        if ([] === $this->errors) {
-            return parent::toDisplay();
-        }
-
-        return array_merge(parent::toDisplay(), ['errors' => $this->errors]);
     }
 }

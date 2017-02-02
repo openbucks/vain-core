@@ -14,6 +14,8 @@ namespace Vain\Core\Api\Config\Parameter\Factory;
 
 use Vain\Core\Api\Config\Parameter\ApiParameterConfig;
 use Vain\Core\Api\Config\Parameter\ApiParameterConfigInterface;
+use Vain\Core\Api\Config\Parameter\Filter\Factory\Storage\ApiConfigParameterFilterFactoryStorageInterface;
+use Vain\Core\Api\Config\Parameter\Source\Factory\Storage\ApiConfigParameterSourceFactoryStorageInterface;
 
 /**
  * Class ApiParameterConfigFactory
@@ -22,29 +24,42 @@ use Vain\Core\Api\Config\Parameter\ApiParameterConfigInterface;
  */
 class ApiParameterConfigFactory implements ApiParameterConfigFactoryInterface
 {
+    private $filterFactoryStorage;
+
+    private $sourceFactoryStorage;
+
+    /**
+     * ApiParameterConfigFactory constructor.
+     *
+     * @param ApiConfigParameterFilterFactoryStorageInterface $filterFactoryStorage
+     * @param ApiConfigParameterSourceFactoryStorageInterface $sourceFactoryStorage
+     */
+    public function __construct(
+        ApiConfigParameterFilterFactoryStorageInterface $filterFactoryStorage,
+        ApiConfigParameterSourceFactoryStorageInterface $sourceFactoryStorage
+    ) {
+        $this->filterFactoryStorage = $filterFactoryStorage;
+        $this->sourceFactoryStorage = $sourceFactoryStorage;
+    }
+
     /**
      * @inheritDoc
      */
-    public function createParameterConfig(string $endpointName, string $name, array $configData) : ApiParameterConfigInterface
-    {
-        $source = $configData['source'];
-        $type = $configData['type'];
-        $sourceName = $name;
-        $optional = false;
-        $defaultValue = null;
+    public function createParameterConfig(
+        string $name,
+        array $configData
+    ): ApiParameterConfigInterface {
 
-        if (array_key_exists('source_name', $configData)) {
-            $sourceName = $configData['source_name'];
-        }
-
-        if (array_key_exists('optional', $configData)) {
-            $optional = (bool)$configData['optional'];
-        }
-
-        if (array_key_exists('default', $configData)) {
-            $defaultValue = $configData['default'];
-        }
-
-        return new ApiParameterConfig($name, $sourceName, $type, $source, $optional, $defaultValue);
+        return new ApiParameterConfig(
+            $name,
+            $configData,
+            $this->sourceFactoryStorage->getFactory($configData['source'])->createSource(
+                $name,
+                $configData
+            ),
+            $this->filterFactoryStorage->getFactory($configData['type'])->createFilter(
+                $configData
+            )
+        );
     }
 }
