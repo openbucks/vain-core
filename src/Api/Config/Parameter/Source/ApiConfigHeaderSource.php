@@ -10,20 +10,23 @@
  */
 declare(strict_types = 1);
 
-namespace Vain\Core\Api\Config\Parameter;
+namespace Vain\Core\Api\Config\Parameter\Source;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Vain\Core\Api\Config\Parameter\Result\ApiConfigParameterResultInterface;
-use Vain\Core\ArrayX\ArrayInterface;
-use Vain\Core\Http\Request\Handler\RequestHandlerInterface;
 
 /**
- * Interface ApiParameterConfigInterface
+ * Class ApiConfigHeaderSource
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
- *
- * @method ApiConfigParameterResultInterface handle(ServerRequestInterface $request)
  */
-interface ApiParameterConfigInterface extends RequestHandlerInterface, ArrayInterface
+class ApiConfigHeaderSource extends AbstractApiConfigParameterSource
 {
+    /**
+     * @inheritDoc
+     */
+    public function extract(ServerRequestInterface $serverRequest): ApiConfigParameterResultInterface
+    {
+        return $this->process($serverRequest->getHeaders());
+    }
 }

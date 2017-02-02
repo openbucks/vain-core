@@ -39,11 +39,10 @@ class AbstractApiParameterConfigFactoryDecorator implements ApiParameterConfigFa
      * @inheritDoc
      */
     public function createParameterConfig(
-        string $endpointName,
         string $name,
         array $configData
     ) : ApiParameterConfigInterface
     {
-        return $this->parameterConfigFactory->createParameterConfig($endpointName, $name, $configData);
+        return $this->parameterConfigFactory->createParameterConfig($name, $configData);
     }
 }

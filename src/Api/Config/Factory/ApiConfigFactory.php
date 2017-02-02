@@ -35,7 +35,7 @@ class ApiConfigFactory extends AbstractApiConfigFactory
             $configData[ApiConfigInterface::FIELD_URL],
             $configData[ApiConfigInterface::FIELD_METHOD],
             $this->createSecurityConfig($endpointName, $configData[ApiConfigInterface::FIELD_SECURITY]),
-            $this->createParameterConfigs($endpointName, $parametersData)
+            $this->createParameterConfigs($parametersData)
         );
     }
 }

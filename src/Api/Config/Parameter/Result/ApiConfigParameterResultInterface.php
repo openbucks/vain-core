@@ -8,19 +8,20 @@
  * @license   https://opensource.org/licenses/MIT MIT License
  * @link      https://github.com/allflame/vain-core
  */
-declare(strict_types = 1);
 
-namespace Vain\Core\ArrayX;
+namespace Vain\Core\Api\Config\Parameter\Result;
+
+use Vain\Core\Result\ResultInterface;
 
 /**
- * Interface ArrayInterface
+ * Interface ApiConfigParameterResultInterface
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-interface ArrayInterface
+interface ApiConfigParameterResultInterface extends ResultInterface
 {
     /**
-     * @return array
+     * @return mixed
      */
-    public function toArray() : array;
+    public function getValue();
 }

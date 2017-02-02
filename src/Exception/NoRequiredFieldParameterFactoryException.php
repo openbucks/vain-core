@@ -24,23 +24,20 @@ class NoRequiredFieldParameterFactoryException extends ApiParameterConfigFactory
      * NoRequiredFieldException constructor.
      *
      * @param ApiParameterConfigFactoryInterface $parameterConfigFactory
-     * @param string                             $endpointName
      * @param string                             $parameterName
      * @param string                             $requiredField
      */
     public function __construct(
         ApiParameterConfigFactoryInterface $parameterConfigFactory,
-        string $endpointName,
         string $parameterName,
         string $requiredField
     ) {
         parent::__construct(
             $parameterConfigFactory,
             sprintf(
-                'Required field %s is missing from config for parameter %s endpoint %s',
+                'Required field %s is missing from config for parameter %s',
                 $requiredField,
-                $parameterName,
-                $endpointName
+                $parameterName
             )
         );
     }

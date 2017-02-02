@@ -22,14 +22,12 @@ use Vain\Core\Api\Config\Parameter\ApiParameterConfigInterface;
 interface ApiParameterConfigFactoryInterface
 {
     /**
-     * @param string $endpointName
      * @param string $name
      * @param array  $configData
      *
      * @return ApiParameterConfigInterface
      */
     public function createParameterConfig(
-        string $endpointName,
         string $name,
         array $configData
     ) : ApiParameterConfigInterface;
