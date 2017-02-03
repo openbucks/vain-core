@@ -36,7 +36,7 @@ class ApiConfigParameterSuccessfulResult extends SuccessfulResult implements Api
     /**
      * @inheritDoc
      */
-    public function getValue(): array
+    public function getValue()
     {
         return $this->value;
     }
