@@ -80,6 +80,7 @@ services:
       - {name: filter.factory}
   api.config.parameter.factory.object:
     class: Vain\Core\Api\Config\Parameter\Filter\Factory\ApiConfigParameterObjectFactory
+    arguments: ['@api.parameter.filter.factory.storage']
     tags:
       - {name: filter.factory}
   api.config.parameter.factory.string:
