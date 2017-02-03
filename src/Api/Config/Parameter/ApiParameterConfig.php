@@ -65,7 +65,7 @@ class ApiParameterConfig implements ApiParameterConfigInterface
     public function handle(ServerRequestInterface $serverRequest)
     {
         $result = $this->source->extract($serverRequest);
-        if ($result->isSuccessful()) {
+        if (false === $result->isSuccessful()) {
             return $result;
         }
 

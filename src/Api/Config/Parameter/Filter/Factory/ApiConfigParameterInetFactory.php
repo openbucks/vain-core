@@ -27,7 +27,7 @@ class ApiConfigParameterInetFactory implements ApiConfigParameterFilterFactoryIn
      */
     public function getName() : string
     {
-        return 'ip';
+        return 'inet';
     }
 
     /**
