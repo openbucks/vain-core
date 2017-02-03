@@ -87,19 +87,19 @@ services:
   api.parameter.source.factory.storage:
     class: Vain\Core\Api\Config\Parameter\Source\Factory\Storage\ApiConfigParameterSourceFactoryStorage
   api.config.parameter.factory.body:
-    class: Vain\Core\Api\Config\Parameter\Source\ApiConfigBodySource
+    class: Vain\Core\Api\Config\Parameter\Source\Factory\ApiConfigParameterBodyFactory
     tags:
       - {name: source.factory}
   api.config.parameter.factory.cookie:
-    class: Vain\Core\Api\Config\Parameter\Source\ApiConfigCookieSource
+    class: Vain\Core\Api\Config\Parameter\Source\Factory\ApiConfigParameterCookieFactory
     tags:
       - {name: source.factory}
   api.config.parameter.factory.header:
-    class: Vain\Core\Api\Config\Parameter\Source\ApiConfigHeaderSource
+    class: Vain\Core\Api\Config\Parameter\Source\Factory\ApiConfigParameterHeaderFactory
     tags:
       - {name: source.factory}
   api.config.parameter.factory.query:
-    class: Vain\Core\Api\Config\Parameter\Source\ApiConfigQuerySource
+    class: Vain\Core\Api\Config\Parameter\Source\Factory\ApiConfigParameterQueryFactory
     tags:
       - {name: source.factory}
   api.command.chain: '@api.command.tracker'
