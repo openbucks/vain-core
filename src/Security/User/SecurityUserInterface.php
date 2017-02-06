@@ -30,9 +30,11 @@ interface SecurityUserInterface extends
     StringInterface
 {
     /**
-     * @return SecurityRoleInterface[]
+     * @param SecurityRoleInterface $role
+     *
+     * @return bool
      */
-    public function getRoles() : array;
+    public function hasRole(SecurityRoleInterface $role) : bool;
 
     /**
      * @return SecurityUserInterface[]
