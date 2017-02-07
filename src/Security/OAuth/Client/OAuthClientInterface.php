@@ -24,8 +24,4 @@ use Vain\Core\String\StringInterface;
  */
 interface OAuthClientInterface extends DisplayableInterface, EquatableInterface, PrivateInterface, StringInterface
 {
-    /**
-     * @return string
-     */
-    public function getPublicKey() : string;
 }
