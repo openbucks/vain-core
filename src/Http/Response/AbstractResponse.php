@@ -43,7 +43,7 @@ abstract class AbstractResponse extends AbstractMessage implements VainResponseI
     /**
      * @inheritDoc
      */
-    public function getStatusCode() : int
+    public function getStatusCode(): int
     {
         return $this->code;
     }
@@ -51,7 +51,7 @@ abstract class AbstractResponse extends AbstractMessage implements VainResponseI
     /**
      * @inheritDoc
      */
-    public function withStatus($code, $reasonPhrase = '') : VainResponseInterface
+    public function withStatus($code, $reasonPhrase = ''): VainResponseInterface
     {
         if (false === array_key_exists($code, self::CODE_TO_MESSAGE)) {
             $code = 500;
@@ -69,7 +69,7 @@ abstract class AbstractResponse extends AbstractMessage implements VainResponseI
     /**
      * @inheritDoc
      */
-    public function getReasonPhrase() : string
+    public function getReasonPhrase(): string
     {
         if (null !== $this->message) {
             return $this->message;
@@ -80,5 +80,13 @@ abstract class AbstractResponse extends AbstractMessage implements VainResponseI
         }
 
         return self::CODE_TO_MESSAGE[$this->code];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function toDisplay(): array
+    {
+        return array_merge([sprintf('%d %s', $this->getStatusCode(), $this->getReasonPhrase())], parent::toDisplay());
     }
 }
