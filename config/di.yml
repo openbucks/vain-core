@@ -6,6 +6,7 @@ parameters:
   locale.default: 'us'
   logger.channel.connection: 'connection'
   logger.channel.event: 'event'
+  logger.channel.http: 'http'
   logger.channel.operation: 'operation'
   logger.channel.security: 'security'
   time.zone.default: 'UTC'
@@ -207,6 +208,8 @@ services:
     parent: event.handler.abstract
     class: Vain\Core\Http\Event\Handler\HttpEventHandler
     arguments: ['@logger', '%http.log.level.header%']
+  http.response.emitter.factory:
+    class: Vain\Core\Http\Response\Emitter\Factory\EmitterSapiFactory
   http.header.provider.apache:
     class: Vain\Core\Http\Header\Provider\Apache\ApacheHeaderProvider
     arguments: ['@http.header.provider.server']
@@ -233,6 +236,11 @@ services:
     arguments: ['@monolog.logger.event']
     tags:
       - {name: logger}
+  logger.http:
+    class: Vain\Logger\Monolog\MonologAdapter
+    arguments: ['@monolog.logger.http']
+    tags:
+      - {name: logger}
   logger.operation:
     class: Vain\Logger\Monolog\MonologAdapter
     arguments: ['@monolog.logger.operation']
@@ -252,6 +260,9 @@ services:
   monolog.logger.operation:
     class: Monolog\Logger
     arguments: ['%logger.channel.operation%']
+  monolog.logger.http:
+    class: Monolog\Logger
+    arguments: ['%logger.channel.http%']
   monolog.logger.security:
     class: Monolog\Logger
     arguments: ['%logger.channel.security%']

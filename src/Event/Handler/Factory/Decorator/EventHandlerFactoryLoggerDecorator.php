@@ -10,12 +10,11 @@
  */
 declare(strict_types = 1);
 
-namespace Vain\Core\Event\Handler\Factory\Decorator\Logger;
+namespace Vain\Core\Event\Handler\Factory\Decorator;
 
 use Psr\Log\LoggerInterface;
-use Vain\Core\Event\Handler\Decorator\Logger\EventHandlerLoggerDecorator;
+use Vain\Core\Event\Handler\Decorator\EventHandlerLoggerDecorator;
 use Vain\Core\Event\Handler\EventHandlerInterface;
-use Vain\Core\Event\Handler\Factory\Decorator\AbstractEventHandlerFactoryDecorator;
 use Vain\Core\Event\Handler\Factory\EventHandlerFactoryInterface;
 
 /**

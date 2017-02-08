@@ -36,12 +36,12 @@ services:
     decoration_priority: 1000
     arguments: ['@event.config.factory.assert.inner']
   event.handler.factory.assert:
-    class: Vain\Core\Event\Handler\Factory\Decorator\Assert\EventHandlerFactoryAssertDecorator
+    class: Vain\Core\Event\Handler\Factory\Decorator\EventHandlerFactoryAssertDecorator
     decorates: event.handler.factory
     decoration_priority: 1000
     arguments: ['@event.handler.factory.assert.inner', '@app.di']
   event.handler.factory.debug:
-    class: Vain\Core\Event\Handler\Factory\Decorator\Logger\EventHandlerFactoryLoggerDecorator
+    class: Vain\Core\Event\Handler\Factory\Decorator\EventHandlerFactoryLoggerDecorator
     decorates: event.handler.factory
     arguments: ['@event.handler.factory.debug.inner', '@logger.event']
   event.dispatcher.debug:
@@ -49,6 +49,11 @@ services:
     decorates: event.dispatcher
     decoration_priority: 1000
     arguments: ['@event.dispatcher.debug.inner', '@logger.event']
+  http.response.emitter.factory.debug:
+    class: Vain\Core\Http\Response\Emitter\Factory\Decorator\EmitterFactoryLoggerDecorator
+    decorates: http.response.emitter.factory
+    decoration_priority: 1000
+    arguments: ['@http.emitter.factory.debug.inner', '@logger.http']
   operation.collection.factory.debug:
     class: Vain\Core\Operation\Collection\Factory\Decorator\Logger\CollectionFactoryLoggerDecorator
     decorates: operation.collection.factory
