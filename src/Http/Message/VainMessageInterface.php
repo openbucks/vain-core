@@ -13,6 +13,7 @@ declare(strict_types = 1);
 namespace Vain\Core\Http\Message;
 
 use Psr\Http\Message\MessageInterface as HttpMessageInterface;
+use Vain\Core\Display\DisplayableInterface;
 use Vain\Core\Http\Header\Storage\HeaderStorageInterface;
 use Vain\Core\Http\Header\VainHeaderInterface;
 use Vain\Core\Http\Stream\VainStreamInterface;
@@ -24,7 +25,7 @@ use Vain\Core\Http\Stream\VainStreamInterface;
  *
  * @method VainHeaderInterface[] getHeaders
  */
-interface VainMessageInterface extends HttpMessageInterface
+interface VainMessageInterface extends HttpMessageInterface, DisplayableInterface
 {
     const HEADER_CONTENT_TYPE = 'Content-Type';
     const HEADER_EXPIRES = 'Expires';
