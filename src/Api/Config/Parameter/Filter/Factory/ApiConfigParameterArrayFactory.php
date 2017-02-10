@@ -24,7 +24,7 @@ class ApiConfigParameterArrayFactory implements ApiConfigParameterFilterFactoryI
     /**
      * @inheritDoc
      */
-    public function getName() : string
+    public function getName(): string
     {
         return 'array';
     }
@@ -34,6 +34,6 @@ class ApiConfigParameterArrayFactory implements ApiConfigParameterFilterFactoryI
      */
     public function createFilter(array $config): ApiConfigParameterFilterInterface
     {
-        return new ApiConfigParameterArrayFilter();
+        return new ApiConfigParameterArrayFilter($config['optional'] ?? false, $config['default'] ?? null);
     }
 }

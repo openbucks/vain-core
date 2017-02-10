@@ -34,6 +34,6 @@ class ApiConfigParameterFloatFactory implements ApiConfigParameterFilterFactoryI
      */
     public function createFilter(array $config): ApiConfigParameterFilterInterface
     {
-        return new ApiConfigParameterFloatFilter();
+        return new ApiConfigParameterFloatFilter($config['optional'] ?? false, $config['default'] ?? null);
     }
 }

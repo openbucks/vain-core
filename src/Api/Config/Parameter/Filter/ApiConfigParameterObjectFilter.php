@@ -32,13 +32,18 @@ class ApiConfigParameterObjectFilter extends AbstractApiConfigParameterFilter
      *
      * @param ApiConfigParameterFilterFactoryStorageInterface $filterFactoryStorage
      * @param array                                           $fieldConfigs
+     * @param bool                                            $isOptional
+     * @param mixed                                           $default
      */
     public function __construct(
         ApiConfigParameterFilterFactoryStorageInterface $filterFactoryStorage,
-        array $fieldConfigs
+        array $fieldConfigs,
+        bool $isOptional = false,
+        $default = null
     ) {
         $this->filterFactoryStorage = $filterFactoryStorage;
         $this->fieldConfigs = $fieldConfigs;
+        parent::__construct($isOptional, $default);
     }
 
     /**

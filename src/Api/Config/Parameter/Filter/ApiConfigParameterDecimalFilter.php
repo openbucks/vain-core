@@ -30,13 +30,16 @@ class ApiConfigParameterDecimalFilter extends AbstractApiConfigParameterFilter
     /**
      * ApiConfigParameterDecimalFilter constructor.
      *
-     * @param int $precision
-     * @param int $scale
+     * @param int   $precision
+     * @param int   $scale
+     * @param bool  $isOptional
+     * @param mixed $default
      */
-    public function __construct(int $precision, int $scale)
+    public function __construct(int $precision, int $scale, bool $isOptional = false, $default = null)
     {
         $this->precision = $precision;
         $this->scale = $scale;
+        parent::__construct($isOptional, $default);
     }
 
     /**

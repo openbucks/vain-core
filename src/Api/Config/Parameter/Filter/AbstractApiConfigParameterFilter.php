@@ -21,6 +21,22 @@ use Vain\Core\Api\Config\Parameter\Result\ApiConfigParameterSuccessfulResult;
  */
 abstract class AbstractApiConfigParameterFilter implements ApiConfigParameterFilterInterface
 {
+    private $isOptional;
+
+    private $default;
+
+    /**
+     * AbstractApiConfigParameterFilter constructor.
+     *
+     * @param bool $isOptional
+     * @param null $default
+     */
+    public function __construct(bool $isOptional = false, $default = null)
+    {
+        $this->isOptional = $isOptional;
+        $this->default = $default;
+    }
+
     /**
      * @param string $name
      * @param mixed  $element
@@ -37,10 +53,17 @@ abstract class AbstractApiConfigParameterFilter implements ApiConfigParameterFil
         $filteredData = [];
         foreach ($data as $name => $element) {
             $filterResult = $this->doFilter($name, $element);
-            if (false === $filterResult->isSuccessful()) {
-                return $filterResult;
+            if ($filterResult->isSuccessful()) {
+                $filteredData[$name] = $filterResult->getValue();
+                continue;
             }
-            $filteredData[$name] = $filterResult->getValue();
+
+            if ($this->isOptional) {
+                $filteredData[$name] = $this->default;
+                continue;
+            }
+
+            return $filterResult;
         }
 
         return new ApiConfigParameterSuccessfulResult($filteredData);

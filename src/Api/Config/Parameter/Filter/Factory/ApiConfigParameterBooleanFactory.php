@@ -34,6 +34,6 @@ class ApiConfigParameterBooleanFactory implements ApiConfigParameterFilterFactor
      */
     public function createFilter(array $config): ApiConfigParameterFilterInterface
     {
-        return new ApiConfigParameterBooleanFilter();
+        return new ApiConfigParameterBooleanFilter($config['optional'] ?? false, $config['default'] ?? null);
     }
 }

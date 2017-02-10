@@ -47,6 +47,11 @@ class ApiConfigParameterObjectFactory implements ApiConfigParameterFilterFactory
      */
     public function createFilter(array $config): ApiConfigParameterFilterInterface
     {
-        return new ApiConfigParameterObjectFilter($this->filterFactoryStorage, $config['fields']);
+        return new ApiConfigParameterObjectFilter(
+            $this->filterFactoryStorage,
+            $config['fields'],
+            $config['optional'] ?? false,
+            $config['default'] ?? null
+        );
     }
 }
