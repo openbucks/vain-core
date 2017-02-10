@@ -52,7 +52,9 @@ class ApiConfigParameterObjectFilter extends AbstractApiConfigParameterFilter
                 ['flags' => FILTER_NULL_ON_FAILURE | FILTER_REQUIRE_ARRAY]
             ))
         ) {
-            return new ApiConfigParameterFailedResult(sprintf('Parameter %s is not an object', $name));
+            return new ApiConfigParameterFailedResult(
+                sprintf('Parameter %s [%s] is not an object', $name, var_export($element, true))
+            );
         }
 
         $filteredData = [];

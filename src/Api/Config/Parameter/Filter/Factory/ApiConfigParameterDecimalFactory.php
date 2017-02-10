@@ -34,8 +34,8 @@ class ApiConfigParameterDecimalFactory implements ApiConfigParameterFilterFactor
      */
     public function createFilter(array $config): ApiConfigParameterFilterInterface
     {
-        $precision = $config['precision'] ?? 4;
-        $scale = $config['scale'] ?? 10;
+        $precision = $config['precision'] ?? 10;
+        $scale = $config['scale'] ?? 4;
 
         return new ApiConfigParameterDecimalFilter($precision, $scale);
     }

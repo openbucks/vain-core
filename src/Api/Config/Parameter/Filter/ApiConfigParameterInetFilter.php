@@ -29,7 +29,9 @@ class ApiConfigParameterInetFilter extends AbstractApiConfigParameterFilter
     public function doFilter(string $name, $element): ApiConfigParameterResultInterface
     {
         if (null === ($ip = filter_var($element, FILTER_VALIDATE_IP, FILTER_NULL_ON_FAILURE))) {
-            return new ApiConfigParameterFailedResult(sprintf('Parameter %s is not a valid ip address', $name));
+            return new ApiConfigParameterFailedResult(
+                sprintf('Parameter %s [%s] is not a valid ip address', $name, var_export($element, true))
+            );
         }
 
         return new ApiConfigParameterSuccessfulResult($ip);

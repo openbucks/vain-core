@@ -42,7 +42,9 @@ class ApiConfigParameterDateTimeFilter extends AbstractApiConfigParameterFilter
     public function doFilter(string $name, $element): ApiConfigParameterResultInterface
     {
         if (null === ($dateTime = filter_var($element, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE))) {
-            return new ApiConfigParameterFailedResult(sprintf('Parameter %s is not a valid time string', $name));
+            return new ApiConfigParameterFailedResult(
+                sprintf('Parameter %s [%s] is not a valid time string', $name, var_export($element, true))
+            );
         }
 
         return new ApiConfigParameterSuccessfulResult($this->timeFactory->createFromString($dateTime));

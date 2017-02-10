@@ -29,7 +29,9 @@ class ApiConfigParameterBooleanFilter extends AbstractApiConfigParameterFilter
     public function doFilter(string $name, $element): ApiConfigParameterResultInterface
     {
         if (null === ($boolean = filter_var($element, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE))) {
-            return new ApiConfigParameterFailedResult(sprintf('Parameter %s is not a boolean', $boolean));
+            return new ApiConfigParameterFailedResult(
+                sprintf('Parameter %s [%s] is not a boolean', $boolean, var_export($element, true))
+            );
         }
 
         return new ApiConfigParameterSuccessfulResult($boolean);
