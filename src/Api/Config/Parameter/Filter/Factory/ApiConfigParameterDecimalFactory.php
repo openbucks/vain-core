@@ -24,7 +24,7 @@ class ApiConfigParameterDecimalFactory implements ApiConfigParameterFilterFactor
     /**
      * @inheritDoc
      */
-    public function getName() : string
+    public function getName(): string
     {
         return 'decimal';
     }
@@ -34,9 +34,11 @@ class ApiConfigParameterDecimalFactory implements ApiConfigParameterFilterFactor
      */
     public function createFilter(array $config): ApiConfigParameterFilterInterface
     {
-        $precision = $config['precision'] ?? 10;
-        $scale = $config['scale'] ?? 4;
-
-        return new ApiConfigParameterDecimalFilter($precision, $scale);
+        return new ApiConfigParameterDecimalFilter(
+            $config['precision'] ?? 10,
+            $config['scale'] ?? 4,
+            $config['optional'] ?? false,
+            $config['default'] ?? null
+        );
     }
 }

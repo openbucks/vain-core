@@ -34,6 +34,6 @@ class ApiConfigParameterIntFactory implements ApiConfigParameterFilterFactoryInt
      */
     public function createFilter(array $config): ApiConfigParameterFilterInterface
     {
-        return new ApiConfigParameterIntFilter();
+        return new ApiConfigParameterIntFilter($config['optional'] ?? false, $config['default'] ?? null);
     }
 }

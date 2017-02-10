@@ -30,10 +30,13 @@ class ApiConfigParameterDateTimeFilter extends AbstractApiConfigParameterFilter
      * ApiValidatorDateTimeModule constructor.
      *
      * @param TimeFactoryInterface $timeFactory
+     * @param bool                 $isOptional
+     * @param mixed                $default
      */
-    public function __construct(TimeFactoryInterface $timeFactory)
+    public function __construct(TimeFactoryInterface $timeFactory, $isOptional = false, $default = null)
     {
         $this->timeFactory = $timeFactory;
+        parent::__construct($isOptional, $default);
     }
 
     /**

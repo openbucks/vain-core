@@ -38,7 +38,7 @@ class ApiConfigParameterDateTimeFactory implements ApiConfigParameterFilterFacto
     /**
      * @inheritDoc
      */
-    public function getName() : string
+    public function getName(): string
     {
         return 'datetime';
     }
@@ -48,6 +48,10 @@ class ApiConfigParameterDateTimeFactory implements ApiConfigParameterFilterFacto
      */
     public function createFilter(array $config): ApiConfigParameterFilterInterface
     {
-        return new ApiConfigParameterDateTimeFilter($this->timeFactory);
+        return new ApiConfigParameterDateTimeFilter(
+            $this->timeFactory,
+            $config['optional'] ?? false,
+            $config['default'] ?? null
+        );
     }
 }
