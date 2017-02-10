@@ -45,6 +45,14 @@ class ApiValidatorFailResult extends FailedResult implements ApiValidatorResultI
     }
 
     /**
+     * @inheritDoc
+     */
+    public function toDisplay(): array
+    {
+        return array_merge(parent::toDisplay(), ['errors' => $this->errors]);
+    }
+
+    /**
      * @return array
      */
     public function getErrors(): array
