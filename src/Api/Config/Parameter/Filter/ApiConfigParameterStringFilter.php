@@ -28,7 +28,7 @@ class ApiConfigParameterStringFilter extends AbstractApiConfigParameterFilter
      */
     public function doFilter(string $name, $element): ApiConfigParameterResultInterface
     {
-        if (null === ($string = filter_var($element, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE))) {
+        if (false === ($string = filter_var($element, FILTER_SANITIZE_STRING))) {
             return new ApiConfigParameterFailedResult(
                 sprintf('Parameter %s [%s] is not a string', var_export($element, true))
             );
