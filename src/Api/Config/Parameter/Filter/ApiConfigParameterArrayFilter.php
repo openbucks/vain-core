@@ -29,11 +29,14 @@ class ApiConfigParameterArrayFilter extends AbstractApiConfigParameterFilter
     public function doFilter(string $name, $element): ApiConfigParameterResultInterface
     {
         if (null === ($array = filter_var(
-            $element,
-            FILTER_UNSAFE_RAW,
-            ['flags' => FILTER_NULL_ON_FAILURE | FILTER_REQUIRE_ARRAY]
-        ))) {
-            return new ApiConfigParameterFailedResult(sprintf('Parameter %s is not an array', $name));
+                $element,
+                FILTER_UNSAFE_RAW,
+                ['flags' => FILTER_NULL_ON_FAILURE | FILTER_REQUIRE_ARRAY]
+            ))
+        ) {
+            return new ApiConfigParameterFailedResult(
+                sprintf('Parameter %s [%s] is not an array', $name, var_export($element, true))
+            );
         }
 
         return new ApiConfigParameterSuccessfulResult($array);

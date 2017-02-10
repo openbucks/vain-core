@@ -29,7 +29,9 @@ class ApiConfigParameterFloatFilter extends AbstractApiConfigParameterFilter
     public function doFilter(string $name, $element): ApiConfigParameterResultInterface
     {
         if (null === ($float = filter_var($element, FILTER_VALIDATE_FLOAT, FILTER_NULL_ON_FAILURE))) {
-            return new ApiConfigParameterFailedResult(sprintf('Parameter %s is not a valid float', $name));
+            return new ApiConfigParameterFailedResult(
+                sprintf('Parameter %s [%s] is not a valid float', $name, var_export($element, true))
+            );
         }
 
         return new ApiConfigParameterSuccessfulResult($float);
