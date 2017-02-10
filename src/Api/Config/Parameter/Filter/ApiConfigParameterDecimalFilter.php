@@ -44,7 +44,7 @@ class ApiConfigParameterDecimalFilter extends AbstractApiConfigParameterFilter
      */
     public function doFilter(string $name, $element): ApiConfigParameterResultInterface
     {
-        if (null === ($decimal = filter_var($element, FILTER_VALIDATE_FLOAT, FILTER_NULL_ON_FAILURE))) {
+        if (false === ($decimal = filter_var($element, FILTER_VALIDATE_FLOAT))) {
             return new ApiConfigParameterFailedResult(sprintf('Parameter %s is not a valid decimal', $name));
         }
         $format = sprintf('%%01.%df', $this->scale);

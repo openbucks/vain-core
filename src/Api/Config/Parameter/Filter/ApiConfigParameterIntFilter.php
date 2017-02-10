@@ -28,7 +28,7 @@ class ApiConfigParameterIntFilter extends AbstractApiConfigParameterFilter
      */
     public function doFilter(string $name, $element): ApiConfigParameterResultInterface
     {
-        if (null === ($int = filter_var($element, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE))) {
+        if (false === ($int = filter_var($element, FILTER_VALIDATE_INT))) {
             return new ApiConfigParameterFailedResult(
                 sprintf('Parameter %s [%s] is not a valid integer', $name, var_export($element, true))
             );
