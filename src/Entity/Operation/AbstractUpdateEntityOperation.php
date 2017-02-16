@@ -14,10 +14,10 @@ namespace Vain\Core\Entity\Operation;
 
 use Vain\Core\Entity\EntityInterface;
 use Vain\Core\Entity\Event\UpdateEntityEvent;
+use Vain\Core\Entity\Result\CannotUpdateEntityResult;
 use Vain\Core\Event\Dispatcher\EventDispatcherInterface;
 use Vain\Core\Event\Resolver\EventResolverInterface;
 use Vain\Core\Operation\AbstractOperation;
-use Vain\Core\Result\FailedResult;
 use Vain\Core\Result\ResultInterface;
 use Vain\Core\Result\SuccessfulResult;
 
@@ -68,15 +68,15 @@ abstract class AbstractUpdateEntityOperation extends AbstractOperation
     public function execute() : ResultInterface
     {
         if (null === ($newEntity = $this->getNewEntity())) {
-            return new FailedResult();
+            return new CannotUpdateEntityResult($newEntity);
         }
 
         if (null === ($oldEntity = $this->getOldEntity())) {
-            return new FailedResult();
+            return new CannotUpdateEntityResult($newEntity);
         }
 
         if (null === ($this->updateEntity($newEntity, $oldEntity))) {
-            return new FailedResult();
+            return new CannotUpdateEntityResult($newEntity);
         }
 
         $this->eventDispatcher

@@ -14,7 +14,7 @@ namespace Vain\Core\Api\Config\Parameter\Filter;
 
 use Vain\Core\Api\Config\Parameter\Result\ApiConfigParameterResultInterface;
 use Vain\Core\Api\Config\Parameter\Result\ApiConfigParameterSuccessfulResult;
-use Vain\Core\Api\Config\Parameter\Result\ApiConfigParameterWrongTypeResult;
+use Vain\Core\Api\Config\Parameter\Result\ApiParameterWrongTypeResult;
 
 /**
  * Class ApiConfigParameterArrayFilter
@@ -30,7 +30,7 @@ class ApiConfigParameterArrayFilter extends AbstractApiConfigParameterFilter
     {
         if (false === ($array = filter_var($element, FILTER_UNSAFE_RAW, ['flags' => FILTER_REQUIRE_ARRAY]))
         ) {
-            return new ApiConfigParameterWrongTypeResult($name, 'array', $element);
+            return new ApiParameterWrongTypeResult($name, 'array', $element);
         }
 
         return new ApiConfigParameterSuccessfulResult($array);

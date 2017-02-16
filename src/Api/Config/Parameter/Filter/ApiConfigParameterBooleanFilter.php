@@ -14,7 +14,7 @@ namespace Vain\Core\Api\Config\Parameter\Filter;
 
 use Vain\Core\Api\Config\Parameter\Result\ApiConfigParameterResultInterface;
 use Vain\Core\Api\Config\Parameter\Result\ApiConfigParameterSuccessfulResult;
-use Vain\Core\Api\Config\Parameter\Result\ApiConfigParameterWrongTypeResult;
+use Vain\Core\Api\Config\Parameter\Result\ApiParameterWrongTypeResult;
 
 /**
  * Class ApiConfigParameterBooleanFilter
@@ -29,7 +29,7 @@ class ApiConfigParameterBooleanFilter extends AbstractApiConfigParameterFilter
     public function doFilter(string $name, $element): ApiConfigParameterResultInterface
     {
         if (null === ($boolean = filter_var($element, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE))) {
-            return new ApiConfigParameterWrongTypeResult($name, 'boolean', $element);
+            return new ApiParameterWrongTypeResult($name, 'boolean', $element);
         }
 
         return new ApiConfigParameterSuccessfulResult($boolean);
