@@ -11,7 +11,7 @@
 
 namespace Vain\Core\Api\Config\Parameter\Source;
 
-use Vain\Core\Api\Config\Parameter\Result\ApiConfigParameterFailedResult;
+use Vain\Core\Api\Config\Parameter\Result\ApiConfigParameterMissingResult;
 use Vain\Core\Api\Config\Parameter\Result\ApiConfigParameterResultInterface;
 use Vain\Core\Api\Config\Parameter\Result\ApiConfigParameterSuccessfulResult;
 
@@ -61,6 +61,6 @@ abstract class AbstractApiConfigParameterSource implements ApiConfigParameterSou
             return new ApiConfigParameterSuccessfulResult([$this->destination => $this->defaultValue]);
         }
 
-        return new ApiConfigParameterFailedResult(sprintf('Required parameter %s is missing', $this->source));
+        return new ApiConfigParameterMissingResult($this->source);
     }
 }

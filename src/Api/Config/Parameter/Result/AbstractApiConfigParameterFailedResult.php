@@ -14,12 +14,13 @@ namespace Vain\Core\Api\Config\Parameter\Result;
 use Vain\Core\Result\FailedResult;
 
 /**
- * Class ApiConfigParameterFailedResult
+ * Class AbstractApiConfigParameterFailedResult
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class ApiConfigParameterFailedResult extends FailedResult implements ApiConfigParameterResultInterface
+abstract class AbstractApiConfigParameterFailedResult extends FailedResult implements ApiConfigParameterResultInterface
 {
+
     /**
      * @inheritDoc
      */

@@ -12,9 +12,9 @@ declare(strict_types = 1);
 
 namespace Vain\Core\Api\Config\Parameter\Filter;
 
-use Vain\Core\Api\Config\Parameter\Result\ApiConfigParameterFailedResult;
 use Vain\Core\Api\Config\Parameter\Result\ApiConfigParameterResultInterface;
 use Vain\Core\Api\Config\Parameter\Result\ApiConfigParameterSuccessfulResult;
+use Vain\Core\Api\Config\Parameter\Result\ApiConfigParameterWrongTypeResult;
 
 /**
  * Class ApiConfigParameterFloatFilter
@@ -29,9 +29,7 @@ class ApiConfigParameterFloatFilter extends AbstractApiConfigParameterFilter
     public function doFilter(string $name, $element): ApiConfigParameterResultInterface
     {
         if (false === ($float = filter_var($element, FILTER_VALIDATE_FLOAT))) {
-            return new ApiConfigParameterFailedResult(
-                sprintf('Parameter %s [%s] is not a valid float', $name, var_export($element, true))
-            );
+            return new ApiConfigParameterWrongTypeResult($name, 'float', $element);
         }
 
         return new ApiConfigParameterSuccessfulResult($float);
