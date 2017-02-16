@@ -25,4 +25,12 @@ class ApiParameterMissingResult extends AbstractApiConfigParameterFailedResult
     {
         return sprintf('Required parameter %s is missing', $this->getName());
     }
+
+    /**
+     * @return array
+     */
+    public function toDisplay(): array
+    {
+        return array_merge(parent::toDisplay(), [$this->getName() => ['required' => true]]);
+    }
 }

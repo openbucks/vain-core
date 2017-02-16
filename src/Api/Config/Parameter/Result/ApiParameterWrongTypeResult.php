@@ -11,7 +11,6 @@
 
 namespace Vain\Core\Api\Config\Parameter\Result;
 
-
 /**
  * Class ApiConfigParameterWrongTypeResult
  *
@@ -47,6 +46,17 @@ class ApiParameterWrongTypeResult extends AbstractApiConfigParameterFailedResult
             $this->getName(),
             $this->expected,
             var_export($this->actualValue, true)
+        );
+    }
+
+    /**
+     * @return array
+     */
+    public function toDisplay(): array
+    {
+        return array_merge(
+            parent::toDisplay(),
+            [$this->getName() => ['expected' => $this->expected, 'actual' => gettype($this->actualValue)]]
         );
     }
 }
