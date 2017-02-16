@@ -12,9 +12,9 @@ declare(strict_types = 1);
 
 namespace Vain\Core\Api\Config\Parameter\Filter;
 
-use Vain\Core\Api\Config\Parameter\Result\ApiConfigParameterFailedResult;
 use Vain\Core\Api\Config\Parameter\Result\ApiConfigParameterResultInterface;
 use Vain\Core\Api\Config\Parameter\Result\ApiConfigParameterSuccessfulResult;
+use Vain\Core\Api\Config\Parameter\Result\ApiConfigParameterWrongTypeResult;
 
 /**
  * Class ApiConfigParameterArrayFilter
@@ -30,9 +30,7 @@ class ApiConfigParameterArrayFilter extends AbstractApiConfigParameterFilter
     {
         if (false === ($array = filter_var($element, FILTER_UNSAFE_RAW, ['flags' => FILTER_REQUIRE_ARRAY]))
         ) {
-            return new ApiConfigParameterFailedResult(
-                sprintf('Parameter %s [%s] is not an array', $name, var_export($element, true))
-            );
+            return new ApiConfigParameterWrongTypeResult($name, 'array', $element);
         }
 
         return new ApiConfigParameterSuccessfulResult($array);

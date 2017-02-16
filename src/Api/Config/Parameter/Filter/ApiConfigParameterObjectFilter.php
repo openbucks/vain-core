@@ -12,9 +12,9 @@
 namespace Vain\Core\Api\Config\Parameter\Filter;
 
 use Vain\Core\Api\Config\Parameter\Filter\Factory\Storage\ApiConfigParameterFilterFactoryStorageInterface;
-use Vain\Core\Api\Config\Parameter\Result\ApiConfigParameterFailedResult;
 use Vain\Core\Api\Config\Parameter\Result\ApiConfigParameterResultInterface;
 use Vain\Core\Api\Config\Parameter\Result\ApiConfigParameterSuccessfulResult;
+use Vain\Core\Api\Config\Parameter\Result\ApiConfigParameterWrongTypeResult;
 
 /**
  * Class ApiConfigParameterObjectFilter
@@ -52,9 +52,7 @@ class ApiConfigParameterObjectFilter extends AbstractApiConfigParameterFilter
     public function doFilter(string $name, $element): ApiConfigParameterResultInterface
     {
         if (false === ($array = filter_var($element, FILTER_UNSAFE_RAW, ['flags' => FILTER_REQUIRE_ARRAY]))) {
-            return new ApiConfigParameterFailedResult(
-                sprintf('Parameter %s [%s] is not an object', $name, var_export($element, true))
-            );
+            return new ApiConfigParameterWrongTypeResult($name, 'object', $element);
         }
 
         $filteredData = [];

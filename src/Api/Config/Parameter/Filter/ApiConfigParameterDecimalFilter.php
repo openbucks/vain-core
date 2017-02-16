@@ -12,9 +12,9 @@ declare(strict_types = 1);
 
 namespace Vain\Core\Api\Config\Parameter\Filter;
 
-use Vain\Core\Api\Config\Parameter\Result\ApiConfigParameterFailedResult;
 use Vain\Core\Api\Config\Parameter\Result\ApiConfigParameterResultInterface;
 use Vain\Core\Api\Config\Parameter\Result\ApiConfigParameterSuccessfulResult;
+use Vain\Core\Api\Config\Parameter\Result\ApiConfigParameterWrongTypeResult;
 
 /**
  * Class ApiConfigParameterDecimalFilter
@@ -48,14 +48,20 @@ class ApiConfigParameterDecimalFilter extends AbstractApiConfigParameterFilter
     public function doFilter(string $name, $element): ApiConfigParameterResultInterface
     {
         if (false === ($decimal = filter_var($element, FILTER_VALIDATE_FLOAT))) {
-            return new ApiConfigParameterFailedResult(sprintf('Parameter %s is not a valid decimal', $name));
+            return new ApiConfigParameterWrongTypeResult(
+                $name,
+                sprintf('decimal (%s,%s)', $this->scale, $this->precision),
+                $element
+            );
         }
         $format = sprintf('%%01.%df', $this->scale);
         $value = sprintf($format, $decimal);
 
         if (strlen($value) > $this->precision + 1) {
-            return new ApiConfigParameterFailedResult(
-                sprintf('Parameter %s exceeds precision range (%d, %d)', $name, $this->precision, $this->scale)
+            return new ApiConfigParameterWrongTypeResult(
+                $name,
+                sprintf('decimal (%s,%s)', $this->scale, $this->precision),
+                $element
             );
         }
 
