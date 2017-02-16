@@ -65,7 +65,7 @@ abstract class AbstractResult implements ResultInterface
      */
     public function toDisplay() : array
     {
-        return ['status' => $this->status];
+        return [];
     }
 
     /**

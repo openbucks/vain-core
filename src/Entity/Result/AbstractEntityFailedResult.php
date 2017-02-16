@@ -42,4 +42,12 @@ abstract class AbstractEntityFailedResult extends AbstractFailedResult
     {
         return $this->entity;
     }
+
+    /**
+     * @return array
+     */
+    public function toDisplay(): array
+    {
+        return array_merge(parent::toDisplay(), ['entity' => $this->entity->toDisplay()]);
+    }
 }
