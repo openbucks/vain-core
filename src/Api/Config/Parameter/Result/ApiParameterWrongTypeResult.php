@@ -56,7 +56,13 @@ class ApiParameterWrongTypeResult extends AbstractApiConfigParameterFailedResult
     {
         return array_merge(
             parent::toDisplay(),
-            [$this->getName() => ['expected' => $this->expected, 'actual' => gettype($this->actualValue)]]
+            [
+                $this->getName() => [
+                    'expected' => $this->expected,
+                    'actual'   => gettype($this->actualValue),
+                    'message'  => $this->__toString(),
+                ],
+            ]
         );
     }
 }

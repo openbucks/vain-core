@@ -31,6 +31,9 @@ class ApiParameterMissingResult extends AbstractApiConfigParameterFailedResult
      */
     public function toDisplay(): array
     {
-        return array_merge(parent::toDisplay(), [$this->getName() => ['required' => true]]);
+        return array_merge(
+            parent::toDisplay(),
+            [$this->getName() => ['required' => true, 'message' => $this->__toString()]]
+        );
     }
 }

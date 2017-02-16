@@ -38,7 +38,7 @@ abstract class AbstractEntityFailedResult extends AbstractFailedResult
     /**
      * @return EntityInterface
      */
-    public function getEntity() : EntityInterface
+    public function getEntity(): EntityInterface
     {
         return $this->entity;
     }
@@ -48,6 +48,9 @@ abstract class AbstractEntityFailedResult extends AbstractFailedResult
      */
     public function toDisplay(): array
     {
-        return array_merge(parent::toDisplay(), ['entity' => $this->entity->toDisplay()]);
+        return array_merge(
+            parent::toDisplay(),
+            ['entity' => $this->entity->toDisplay(), 'message' => $this->__toString()]
+        );
     }
 }
