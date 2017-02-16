@@ -49,7 +49,7 @@ class ApiConfigValidator extends AbstractApiValidator
         foreach ($apiConfig->getParameterConfigs() as $apiParameterConfig) {
             $result = $apiParameterConfig->handle($serverRequest);
             if (false === $result->isSuccessful()) {
-                $errors[] = $result->__toString();
+                $errors[] = $result->toDisplay();
                 continue;
             }
 

@@ -17,10 +17,8 @@ namespace Vain\Core\Api\Config\Parameter\Result;
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class ApiConfigParameterWrongTypeResult extends AbstractApiConfigParameterFailedResult
+class ApiParameterWrongTypeResult extends AbstractApiConfigParameterFailedResult
 {
-    private $name;
-
     private $expected;
 
     private $actualValue;
@@ -34,10 +32,9 @@ class ApiConfigParameterWrongTypeResult extends AbstractApiConfigParameterFailed
      */
     public function __construct(string $name, string $expected, $actualValue)
     {
-        $this->name = $name;
         $this->expected = $expected;
         $this->actualValue = $actualValue;
-        parent::__construct();
+        parent::__construct($name);
     }
 
     /**
@@ -47,7 +44,7 @@ class ApiConfigParameterWrongTypeResult extends AbstractApiConfigParameterFailed
     {
         return sprintf(
             'Parameter %s [%s] is not an %s',
-            $this->name,
+            $this->getName(),
             $this->expected,
             var_export($this->actualValue, true)
         );

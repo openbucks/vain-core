@@ -13,31 +13,19 @@ declare(strict_types = 1);
 namespace Vain\Core\Result;
 
 /**
- * Class FailedResult
+ * Class AbstractFailedResult
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class FailedResult extends AbstractResult implements ResultInterface
+abstract class AbstractFailedResult extends AbstractResult implements ResultInterface
 {
-    private $message;
-
     /**
      * FailedResult constructor.
      *
      * @param string $message
      */
-    public function __construct(string $message = '')
+    public function __construct()
     {
-        $this->message = $message;
         parent::__construct(false);
-    }
-
-
-    /**
-     * @inheritDoc
-     */
-    public function __toString() : string
-    {
-        return $this->message;
     }
 }

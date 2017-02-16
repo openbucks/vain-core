@@ -14,7 +14,7 @@ namespace Vain\Core\Api\Config\Parameter\Filter;
 
 use Vain\Core\Api\Config\Parameter\Result\ApiConfigParameterResultInterface;
 use Vain\Core\Api\Config\Parameter\Result\ApiConfigParameterSuccessfulResult;
-use Vain\Core\Api\Config\Parameter\Result\ApiConfigParameterWrongTypeResult;
+use Vain\Core\Api\Config\Parameter\Result\ApiParameterWrongTypeResult;
 use Vain\Core\Time\Factory\TimeFactoryInterface;
 
 /**
@@ -45,7 +45,7 @@ class ApiConfigParameterDateTimeFilter extends AbstractApiConfigParameterFilter
     public function doFilter(string $name, $element): ApiConfigParameterResultInterface
     {
         if (false === ($dateTime = filter_var($element, FILTER_SANITIZE_STRING))) {
-            return new ApiConfigParameterWrongTypeResult($name, 'time string', $element);
+            return new ApiParameterWrongTypeResult($name, 'time string', $element);
         }
 
         return new ApiConfigParameterSuccessfulResult($this->timeFactory->createFromString($dateTime));

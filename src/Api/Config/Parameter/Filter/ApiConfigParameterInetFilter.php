@@ -14,7 +14,7 @@ namespace Vain\Core\Api\Config\Parameter\Filter;
 
 use Vain\Core\Api\Config\Parameter\Result\ApiConfigParameterResultInterface;
 use Vain\Core\Api\Config\Parameter\Result\ApiConfigParameterSuccessfulResult;
-use Vain\Core\Api\Config\Parameter\Result\ApiConfigParameterWrongTypeResult;
+use Vain\Core\Api\Config\Parameter\Result\ApiParameterWrongTypeResult;
 
 /**
  * Class ApiConfigParameterInetFilter
@@ -29,7 +29,7 @@ class ApiConfigParameterInetFilter extends AbstractApiConfigParameterFilter
     public function doFilter(string $name, $element): ApiConfigParameterResultInterface
     {
         if (false === ($ip = filter_var($element, FILTER_VALIDATE_IP))) {
-            return new ApiConfigParameterWrongTypeResult($name, 'ip address', $element);
+            return new ApiParameterWrongTypeResult($name, 'ip address', $element);
         }
 
         return new ApiConfigParameterSuccessfulResult($ip);

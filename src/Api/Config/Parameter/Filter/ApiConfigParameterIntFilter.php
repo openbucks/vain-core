@@ -14,7 +14,7 @@ namespace Vain\Core\Api\Config\Parameter\Filter;
 
 use Vain\Core\Api\Config\Parameter\Result\ApiConfigParameterResultInterface;
 use Vain\Core\Api\Config\Parameter\Result\ApiConfigParameterSuccessfulResult;
-use Vain\Core\Api\Config\Parameter\Result\ApiConfigParameterWrongTypeResult;
+use Vain\Core\Api\Config\Parameter\Result\ApiParameterWrongTypeResult;
 
 /**
  * Class ApiConfigParameterIntFilter
@@ -29,7 +29,7 @@ class ApiConfigParameterIntFilter extends AbstractApiConfigParameterFilter
     public function doFilter(string $name, $element): ApiConfigParameterResultInterface
     {
         if (false === ($int = filter_var($element, FILTER_VALIDATE_INT))) {
-            return new ApiConfigParameterWrongTypeResult($name, 'integer', $element);
+            return new ApiParameterWrongTypeResult($name, 'integer', $element);
         }
 
         return new ApiConfigParameterSuccessfulResult($int);

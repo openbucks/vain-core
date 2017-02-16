@@ -14,10 +14,10 @@ namespace Vain\Core\Entity\Operation;
 
 use Vain\Core\Entity\EntityInterface;
 use Vain\Core\Entity\Event\DeleteEntityEvent;
+use Vain\Core\Entity\Result\CannotDeleteEntityResult;
 use Vain\Core\Event\Dispatcher\EventDispatcherInterface;
 use Vain\Core\Event\Resolver\EventResolverInterface;
 use Vain\Core\Operation\AbstractOperation;
-use Vain\Core\Result\FailedResult;
 use Vain\Core\Result\ResultInterface;
 use Vain\Core\Result\SuccessfulResult;
 
@@ -55,7 +55,7 @@ abstract class AbstractDeleteEntityOperation extends AbstractOperation
     public function execute() : ResultInterface
     {
         if (null === ($entity = $this->deleteEntity())) {
-            return new FailedResult();
+            return new CannotDeleteEntityResult($entity);
         }
 
         $this->eventDispatcher
