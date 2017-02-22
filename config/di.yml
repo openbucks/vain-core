@@ -4,6 +4,7 @@ parameters:
   command.name: 'command'
   http.log.level.header: 'X-Log-Level'
   locale.default: 'us'
+  logger.channel.app: 'app'
   logger.channel.connection: 'connection'
   logger.channel.event: 'event'
   logger.channel.http: 'http'
@@ -251,6 +252,11 @@ services:
     arguments: ['@monolog.logger.security']
     tags:
       - {name: logger}
+  logger.app:
+    class: Vain\Logger\Monolog\MonologAdapter
+    arguments: ['@monolog.logger.app']
+    tags:
+      - {name: logger}
   monolog.logger.connection:
     class: Monolog\Logger
     arguments: ['%logger.channel.connection%']
@@ -266,6 +272,9 @@ services:
   monolog.logger.security:
     class: Monolog\Logger
     arguments: ['%logger.channel.security%']
+  monolog.logger.app:
+    class: Monolog\Logger
+    arguments: ['%logger.channel.app%']
   operation.collection.factory.transaction:
     class: Vain\Core\Operation\Collection\Factory\Decorator\Transaction\CollectionFactoryTransactionDecorator
     decorates: operation.collection.factory
@@ -426,3 +435,18 @@ services:
   time.provider:
     class: Vain\Core\Time\Provider\TimeProvider
     arguments: ['@time.factory']
+  http.application.proxy:
+    decorates: http.application
+    decoration_priority: 200
+    class: Vain\Core\Http\Application\Decorator\Proxy\ProxyApplicationDecorator
+    arguments: ['@http.application.proxy.inner', '@logger.app']
+  http.application.exception:
+    decorates: http.application
+    decoration_priority: 300
+    class: Vain\Core\Http\Application\Decorator\Exception\ExceptionApplicationDecorator
+    arguments: ['@http.application.exception.inner', '@logger.app']
+  http.application.event:
+    decorates: http.application
+    decoration_priority: 400
+    class: Vain\Core\Http\Application\Decorator\Event\EventApplicationDecorator
+    arguments: ['@http.application.event.inner', '@logger.app']
