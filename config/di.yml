@@ -439,14 +439,14 @@ services:
     decorates: http.application
     decoration_priority: 200
     class: Vain\Core\Http\Application\Decorator\Proxy\ProxyApplicationDecorator
-    arguments: ['@http.application.proxy.inner', '@logger.app']
+    arguments: ['@http.application.proxy.inner', '@http.request.proxy', '@http.response.proxy', '@http.response.factory']
   http.application.exception:
     decorates: http.application
     decoration_priority: 300
     class: Vain\Core\Http\Application\Decorator\Exception\ExceptionApplicationDecorator
-    arguments: ['@http.application.exception.inner', '@logger.app']
+    arguments: ['@http.application.exception.inner', '@http.response.factory']
   http.application.event:
     decorates: http.application
     decoration_priority: 400
     class: Vain\Core\Http\Application\Decorator\Event\EventApplicationDecorator
-    arguments: ['@http.application.event.inner', '@logger.app']
+    arguments: ['@http.application.event.inner', '@evet.dispatcher', '@event.factory.http']
