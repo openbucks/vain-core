@@ -103,3 +103,8 @@ services:
     decoration_priority: 100
     class: Vain\Core\Security\Access\Decorator\Logger\AccessControlLoggerDecorator
     arguments: ['@security.access.control.voter.debug.inner', '@logger.security']
+  http.application.debug:
+    decorates: http.application
+    decoration_priority: 100
+    class: Vain\Core\Http\Application\Decorator\Logger\LoggerApplicationDecorator
+    arguments: ['@http.application.debug.inner', '@logger.app']
