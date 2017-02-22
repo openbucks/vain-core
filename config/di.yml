@@ -449,4 +449,4 @@ services:
     decorates: http.application
     decoration_priority: 400
     class: Vain\Core\Http\Application\Decorator\Event\EventApplicationDecorator
-    arguments: ['@http.application.event.inner', '@evet.dispatcher', '@event.factory.http']
+    arguments: ['@http.application.event.inner', '@event.dispatcher', '@event.factory.http']
