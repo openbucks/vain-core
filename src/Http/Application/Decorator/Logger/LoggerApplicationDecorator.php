@@ -46,7 +46,11 @@ class LoggerApplicationDecorator extends AbstractHttpApplicationDecorator
     {
         $this->logger->debug(sprintf('Received request %s', implode(PHP_EOL, $request->toDisplay())));
         $response = parent::handleRequest($request);
-        $this->logger->debug(sprintf('Generated response %s', implode(PHP_EOL, $response->toDisplay())));
+        if ($response->getStatusCode() >= 400) {
+            $this->logger->warning(sprintf('Generated error response %s', implode(PHP_EOL, $response->toDisplay())));
+        } else {
+            $this->logger->debug(sprintf('Generated successful response %s', implode(PHP_EOL, $response->toDisplay())));
+        }
 
         return $response;
     }
