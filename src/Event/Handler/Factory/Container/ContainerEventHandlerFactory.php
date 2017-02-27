@@ -11,7 +11,7 @@
 
 namespace Vain\Core\Event\Handler\Factory\Container;
 
-use Vain\Core\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use Vain\Core\Event\Handler\Factory\EventHandlerFactoryInterface;
 use Vain\Core\Event\Handler\EventHandlerInterface;
 
