@@ -11,7 +11,7 @@
 
 namespace Vain\Core\Event\Handler\Factory\Decorator;
 
-use Vain\Core\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use Vain\Core\Exception\UnknownHandlerException;
 use Vain\Core\Event\Handler\EventHandlerInterface;
 use Vain\Core\Event\Handler\Factory\EventHandlerFactoryInterface;

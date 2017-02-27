@@ -12,7 +12,7 @@ declare(strict_types = 1);
 
 namespace Vain\Core\Application;
 
-use Vain\Core\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 
 /**
  * Interface ApplicationInterface

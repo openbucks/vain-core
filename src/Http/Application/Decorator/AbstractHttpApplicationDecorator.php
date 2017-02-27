@@ -12,7 +12,7 @@ declare(strict_types = 1);
 
 namespace Vain\Core\Http\Application\Decorator;
 
-use Vain\Core\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use Vain\Core\Http\Application\HttpApplicationInterface;
 use Vain\Core\Http\Request\VainServerRequestInterface;
 use Vain\Core\Http\Response\VainResponseInterface;

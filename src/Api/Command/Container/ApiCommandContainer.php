@@ -12,11 +12,11 @@ declare(strict_types = 1);
 
 namespace Vain\Core\Api\Command\Container;
 
+use Psr\Container\ContainerInterface;
 use Vain\Core\Api\Command\ApiCommandInterface;
 use Vain\Core\Api\Config\ApiConfigInterface;
 use Vain\Core\Api\Request\ApiRequestInterface;
 use Vain\Core\Api\Response\ApiResponseInterface;
-use Vain\Core\Container\ContainerInterface;
 
 /**
  * Class ApiCommandContainer
