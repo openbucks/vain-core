@@ -20,14 +20,14 @@ namespace Vain\Core\Counter;
 interface CounterInterface
 {
     /**
+     * @param int $seed
+     *
      * @return CounterInterface
      */
-    public function reset() : CounterInterface;
+    public function reset(int $seed) : CounterInterface;
 
     /**
-     * @param int $timeStamp
-     *
      * @return int
      */
-    public function next(int $timeStamp) : int;
+    public function next() : int;
 }
