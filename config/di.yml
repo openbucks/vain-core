@@ -125,12 +125,11 @@ services:
     class: Vain\Core\Api\Config\Composite\ApiCompositeConfig
     arguments: ['@config.data.provider']
   app.context.factory.config:
-    class: Vain\Core\Config\Context\Factory\ConfigContextFactory
-  app.context.config:
-    class: Vain\Core\Config\Context\ConfigApplicationContext
+    class: Vain\Core\Application\Context\Factory\ApplicationContextConfigFactory
+  app.context:
+    class: Vain\Core\Application\Context\ApplicationContext
     factory:  ['@app.context.factory.config', createFromConfig]
-    arguments: ['@config', '%app.env%', '%app.mode%']
-  app.context: '@app.context.config'
+    arguments: ['%app.env%', '%app.mode%']
   cache.storage:
     class: Vain\Core\Cache\Storage\CacheStorage
     arguments: ['@config', '@connection.storage']
