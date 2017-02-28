@@ -22,6 +22,16 @@ class Counter implements CounterInterface
     private $counter = 0;
 
     /**
+     * Counter constructor.
+     *
+     * @param int $seed
+     */
+    public function __construct(int $seed = 0)
+    {
+        $this->counter = $seed;
+    }
+
+    /**
      * @inheritDoc
      */
     public function next() : int
