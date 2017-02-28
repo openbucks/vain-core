@@ -24,6 +24,16 @@ interface ApplicationContextInterface extends DisplayableInterface, PrivateInter
     /**
      * @return string
      */
+    public function getHostName() : string;
+
+    /**
+     * @return int
+     */
+    public function getPid() : int;
+
+    /**
+     * @return string
+     */
     public function getName() : string;
 
     /**

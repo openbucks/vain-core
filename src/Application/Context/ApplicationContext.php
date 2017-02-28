@@ -12,12 +12,16 @@
 namespace Vain\Core\Application\Context;
 
 /**
- * Class AbstractApplicationContext
+ * Class ApplicationContext
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-abstract class AbstractApplicationContext implements ApplicationContextInterface
+class ApplicationContext implements ApplicationContextInterface
 {
+    private $hostName;
+
+    private $pid;
+
     private $name;
 
     private $version;
@@ -29,13 +33,17 @@ abstract class AbstractApplicationContext implements ApplicationContextInterface
     /**
      * AbstractContext constructor.
      *
+     * @param string $hostName
+     * @param int    $pid
      * @param string $name
      * @param string $version
      * @param string $env
      * @param string $mode
      */
-    public function __construct(string $name, string $version, string $env, string $mode)
+    public function __construct(string $hostName, int $pid, string $name, string $version, string $env, string $mode)
     {
+        $this->hostName = $hostName;
+        $this->pid = $pid;
         $this->name = $name;
         $this->version = $version;
         $this->env = $env;
@@ -43,9 +51,25 @@ abstract class AbstractApplicationContext implements ApplicationContextInterface
     }
 
     /**
+     * @return string
+     */
+    public function getHostName(): string
+    {
+        return $this->hostName;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPid(): int
+    {
+        return $this->pid;
+    }
+
+    /**
      * @inheritDoc
      */
-    public function getName() : string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -53,7 +77,7 @@ abstract class AbstractApplicationContext implements ApplicationContextInterface
     /**
      * @inheritDoc
      */
-    public function getVersion() : string
+    public function getVersion(): string
     {
         return $this->version;
     }
@@ -77,15 +101,22 @@ abstract class AbstractApplicationContext implements ApplicationContextInterface
     /**
      * @inheritDoc
      */
-    public function toDisplay() : array
+    public function toDisplay(): array
     {
-        return ['name' => $this->name, 'version' => $this->version, 'env' => $this->env, 'mode' => $this->mode];
+        return [
+            'hostname' => $this->hostName,
+            'pid'      => $this->pid,
+            'name'     => $this->name,
+            'version'  => $this->version,
+            'env'      => $this->env,
+            'mode'     => $this->mode,
+        ];
     }
 
     /**
      * @inheritDoc
      */
-    public function toPrivate() : array
+    public function toPrivate(): array
     {
         return ['name' => $this->name, 'version' => $this->version];
     }
