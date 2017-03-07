@@ -19,7 +19,7 @@ services:
     class: Vain\Core\Application\Context\Factory\Decorator\Assert\ApplicationContextFactoryAssertDecorator
     decorates: app.context.factory.config
     public: false
-    arguments: ['@app.context.factory.config.assert.inner']
+    arguments: ['@app.context.factory.config.assert.inner', '@config']
   connection.storage.assert:
     class: Vain\Core\Connection\Storage\Decorator\Assert\ConnectionStorageAssertDecorator
     decorates: connection.storage

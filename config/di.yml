@@ -129,7 +129,7 @@ services:
     arguments: ['@config']
   app.context:
     class: Vain\Core\Application\Context\ApplicationContext
-    factory:  ['@app.context.factory.config', createFromConfig]
+    factory:  ['@app.context.factory.config', createContext]
     arguments: ['%app.env%', '%app.mode%']
   cache.storage:
     class: Vain\Core\Cache\Storage\CacheStorage
