@@ -126,6 +126,7 @@ services:
     arguments: ['@config.data.provider']
   app.context.factory.config:
     class: Vain\Core\Application\Context\Factory\ApplicationContextConfigFactory
+    arguments: ['@config']
   app.context:
     class: Vain\Core\Application\Context\ApplicationContext
     factory:  ['@app.context.factory.config', createFromConfig]
