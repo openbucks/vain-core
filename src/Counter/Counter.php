@@ -28,7 +28,7 @@ class Counter implements CounterInterface
      */
     public function __construct(int $seed = 0)
     {
-        $this->counter = $seed;
+        $this->counter = mt_rand(0, 65535);
     }
 
     /**
