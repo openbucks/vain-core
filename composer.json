@@ -27,7 +27,7 @@
     "suggest": {
         "vain/config": "Nested configuration files and caches",
         "vain/doctrine": "Doctrine bridge for entities",
-        "vain/memcache": "Memcache implementation",
+        "vain/memcache": "Memcache implementation for cache",
         "vain/redis": "Redis implementation",
         "vain/http": "PSR-7 implementation",
         "vain/operation": "Operation and collection implementation",
