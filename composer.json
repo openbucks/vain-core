@@ -25,7 +25,7 @@
         "robmorgan/phinx": "^0.6"
     },
     "suggest": {
-        "vain/config": "Nested configuration files and caches",
+        "vain/config": "Nested configuration files and php array cache",
         "vain/doctrine": "Doctrine bridge for entities",
         "vain/memcache": "Memcache implementation for cache",
         "vain/redis": "Redis implementation",
