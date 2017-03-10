@@ -197,4 +197,12 @@ abstract class AbstractMessageProxy implements HttpMessageProxyInterface
 
         return $this;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function toDisplay(): array
+    {
+        return $this->getCurrentMessage()->toDisplay();
+    }
 }

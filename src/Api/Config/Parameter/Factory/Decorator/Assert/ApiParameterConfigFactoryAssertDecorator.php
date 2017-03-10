@@ -27,17 +27,16 @@ class ApiParameterConfigFactoryAssertDecorator extends AbstractApiParameterConfi
      * @inheritDoc
      */
     public function createParameterConfig(
-        string $endpointName,
         string $name,
         array $configData
     ) : ApiParameterConfigInterface
     {
         foreach (['source', 'type'] as $requiredField) {
             if (false === array_key_exists($requiredField, $configData)) {
-                throw new NoRequiredFieldParameterFactoryException($this, $endpointName, $name, $requiredField);
+                throw new NoRequiredFieldParameterFactoryException($this, $name, $requiredField);
             }
         }
 
-        return parent::createParameterConfig($endpointName, $name, $configData);
+        return parent::createParameterConfig($name, $configData);
     }
 }

@@ -13,7 +13,7 @@ declare(strict_types = 1);
 namespace Vain\Core\Operation\Failed;
 
 use Vain\Core\Operation\AbstractOperation;
-use Vain\Core\Result\FailedResult;
+use Vain\Core\Operation\Result\OperationFailedResult;
 use Vain\Core\Result\ResultInterface;
 
 /**
@@ -29,6 +29,6 @@ class FailedOperation extends AbstractOperation
      */
     public function execute() : ResultInterface
     {
-        return new FailedResult();
+        return new OperationFailedResult($this);
     }
 }

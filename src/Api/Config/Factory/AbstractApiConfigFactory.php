@@ -62,17 +62,15 @@ abstract class AbstractApiConfigFactory implements ApiConfigFactoryInterface
     }
 
     /**
-     * @param string $endpointName
      * @param array  $parametersData
      *
      * @return ApiParameterConfigInterface[]
      */
-    public function createParameterConfigs(string $endpointName, array $parametersData) : array
+    public function createParameterConfigs(array $parametersData) : array
     {
         $parameterConfigs = [];
         foreach ($parametersData as $name => $parameterConfig) {
             $parameterConfigs[] = $this->getParameterConfigFactory()->createParameterConfig(
-                $endpointName,
                 $name,
                 $parameterConfig
             );

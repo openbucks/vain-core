@@ -23,11 +23,4 @@ interface ArrayInterface
      * @return array
      */
     public function toArray() : array;
-
-    /**
-     * @param array $data
-     *
-     * @return ArrayInterface
-     */
-    public function fromArray(array $data) : ArrayInterface;
 }

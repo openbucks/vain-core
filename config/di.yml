@@ -4,13 +4,17 @@ parameters:
   command.name: 'command'
   http.log.level.header: 'X-Log-Level'
   locale.default: 'us'
+  logger.channel.app: 'app'
   logger.channel.connection: 'connection'
   logger.channel.event: 'event'
+  logger.channel.http: 'http'
   logger.channel.operation: 'operation'
   logger.channel.security: 'security'
   time.zone.default: 'UTC'
 
 services:
+  api.extension.storage:
+    class: Vain\Core\Api\Extension\Storage\ApiExtensionStorage
   api.request.factory:
     class: Vain\Core\Api\Request\Factory\ApiRequestFactory
     arguments: ['@api.request.id.provider']
@@ -24,7 +28,7 @@ services:
     arguments: ['@api.request.factory']
   api.request.validator.config:
     class: Vain\Core\Api\Request\Validator\Config\ApiConfigValidator
-    arguments: ['@api.request.factory', '@api.request.validator.module.storage']
+    arguments: ['@api.request.factory']
   api.request.validator: '@api.request.validator.config'
   api.request.id.provider.random:
     class: Vain\Core\Api\Request\Id\Provider\Random\ApiRequestIdRandomProvider
@@ -42,61 +46,69 @@ services:
     class: Vain\Core\Api\Config\Factory\ApiConfigFactory
   api.config.parameter.factory:
     class: Vain\Core\Api\Config\Parameter\Factory\ApiParameterConfigFactory
+    arguments: ['@api.parameter.filter.factory.storage', '@api.parameter.source.factory.storage']
   api.config.storage:
     class: Vain\Core\Api\Config\Storage\ApiConfigStorage
     arguments: ['@api.config.composite', '@api.config.factory']
   api.config.provider: '@api.config.storage'
-  api.validator.module.factory.array:
-    class: Vain\Core\Api\Request\Validator\Module\Filter\Factory\ApiValidatorArrayModuleFactory
+  api.config.parameter.factory.array:
+    class: Vain\Core\Api\Config\Parameter\Filter\Factory\ApiConfigParameterArrayFactory
     tags:
-      - {name: validator.factory}
-  api.validator.module.factory.boolean:
-    class: Vain\Core\Api\Request\Validator\Module\Filter\Factory\ApiValidatorBooleanModuleFactory
+      - {name: filter.factory}
+  api.config.parameter.factory.boolean:
+    class: Vain\Core\Api\Config\Parameter\Filter\Factory\ApiConfigParameterBooleanFactory
     tags:
-      - {name: validator.factory}
-  api.validator.module.factory.float:
-    class: Vain\Core\Api\Request\Validator\Module\Filter\Factory\ApiValidatorFloatModuleFactory
-    tags:
-      - {name: validator.factory}
-  api.validator.module.factory.int:
-    class: Vain\Core\Api\Request\Validator\Module\Filter\Factory\ApiValidatorIntModuleFactory
-    tags:
-      - {name: validator.factory}
-  api.validator.module.factory.string:
-    class: Vain\Core\Api\Request\Validator\Module\Filter\Factory\ApiValidatorStringModuleFactory
-    tags:
-      - {name: validator.factory}
-  api.validator.module.factory.inet:
-    class: Vain\Core\Api\Request\Validator\Module\Filter\Factory\ApiValidatorInetModuleFactory
-    tags:
-      - {name: validator.factory}
-  api.validator.module.factory.datetime:
-    class: Vain\Core\Api\Request\Validator\Module\Filter\Factory\ApiValidatorDateTimeModuleFactory
+      - {name: filter.factory}
+  api.config.parameter.factory.datetime:
+    class: Vain\Core\Api\Config\Parameter\Filter\Factory\ApiConfigParameterDateTimeFactory
     arguments: ['@time.factory']
     tags:
-      - {name: validator.factory}
-  api.validator.module.factory.optional:
-    class: Vain\Core\Api\Request\Validator\Module\Filter\Factory\ApiValidatorOptionalModuleFactory
+      - {name: filter.factory}
+  api.config.parameter.factory.decimal:
+    class: Vain\Core\Api\Config\Parameter\Filter\Factory\ApiConfigParameterDecimalFactory
     tags:
-      - {name: validator.factory}
-  api.validator.module.factory.body:
-    class: Vain\Core\Api\Request\Validator\Module\Source\Factory\ApiValidatorBodyModuleFactory
+      - {name: filter.factory}
+  api.config.parameter.factory.float:
+    class: Vain\Core\Api\Config\Parameter\Filter\Factory\ApiConfigParameterFloatFactory
     tags:
-      - {name: validator.factory}
-  api.validator.module.factory.cookie:
-    class: Vain\Core\Api\Request\Validator\Module\Source\Factory\ApiValidatorCookieModuleFactory
+      - {name: filter.factory}
+  api.config.parameter.factory.inet:
+    class: Vain\Core\Api\Config\Parameter\Filter\Factory\ApiConfigParameterInetFactory
     tags:
-      - {name: validator.factory}
-  api.validator.module.factory.header:
-    class: Vain\Core\Api\Request\Validator\Module\Source\Factory\ApiValidatorHeaderModuleFactory
+      - {name: filter.factory}
+  api.config.parameter.factory.int:
+    class: Vain\Core\Api\Config\Parameter\Filter\Factory\ApiConfigParameterIntFactory
     tags:
-      - {name: validator.factory}
-  api.validator.module.factory.query:
-    class: Vain\Core\Api\Request\Validator\Module\Source\Factory\ApiValidatorQueryModuleFactory
+      - {name: filter.factory}
+  api.config.parameter.factory.object:
+    class: Vain\Core\Api\Config\Parameter\Filter\Factory\ApiConfigParameterObjectFactory
+    arguments: ['@api.parameter.filter.factory.storage']
     tags:
-      - {name: validator.factory}
-  api.request.validator.module.storage:
-    class: Vain\Core\Api\Request\Validator\Module\Storage\ApiValidatorModuleStorage
+      - {name: filter.factory}
+  api.config.parameter.factory.string:
+    class: Vain\Core\Api\Config\Parameter\Filter\Factory\ApiConfigParameterStringFactory
+    tags:
+      - {name: filter.factory}
+  api.parameter.filter.factory.storage:
+    class: Vain\Core\Api\Config\Parameter\Filter\Factory\Storage\ApiConfigParameterFilterFactoryStorage
+  api.parameter.source.factory.storage:
+    class: Vain\Core\Api\Config\Parameter\Source\Factory\Storage\ApiConfigParameterSourceFactoryStorage
+  api.config.parameter.factory.body:
+    class: Vain\Core\Api\Config\Parameter\Source\Factory\ApiConfigParameterBodyFactory
+    tags:
+      - {name: source.factory}
+  api.config.parameter.factory.cookie:
+    class: Vain\Core\Api\Config\Parameter\Source\Factory\ApiConfigParameterCookieFactory
+    tags:
+      - {name: source.factory}
+  api.config.parameter.factory.header:
+    class: Vain\Core\Api\Config\Parameter\Source\Factory\ApiConfigParameterHeaderFactory
+    tags:
+      - {name: source.factory}
+  api.config.parameter.factory.query:
+    class: Vain\Core\Api\Config\Parameter\Source\Factory\ApiConfigParameterQueryFactory
+    tags:
+      - {name: source.factory}
   api.command.chain: '@api.command.tracker'
   api.command.tracker:
     class: Vain\Core\Api\Request\Tracker\Trust\ApiTrustTracker
@@ -113,12 +125,12 @@ services:
     class: Vain\Core\Api\Config\Composite\ApiCompositeConfig
     arguments: ['@config.data.provider']
   app.context.factory.config:
-    class: Vain\Core\Config\Context\Factory\ConfigContextFactory
-  app.context.config:
-    class: Vain\Core\Config\Context\ConfigApplicationContext
-    factory:  ['@app.context.factory.config', createFromConfig]
-    arguments: ['@config', '%app.env%', '%app.mode%']
-  app.context: '@app.context.config'
+    class: Vain\Core\Application\Context\Factory\ApplicationContextConfigFactory
+    arguments: ['@config']
+  app.context:
+    class: Vain\Core\Application\Context\ApplicationContext
+    factory:  ['@app.context.factory.config', createContext]
+    arguments: ['%app.env%', '%app.mode%']
   cache.storage:
     class: Vain\Core\Cache\Storage\CacheStorage
     arguments: ['@config', '@connection.storage']
@@ -197,6 +209,8 @@ services:
     parent: event.handler.abstract
     class: Vain\Core\Http\Event\Handler\HttpEventHandler
     arguments: ['@logger', '%http.log.level.header%']
+  http.response.emitter.factory:
+    class: Vain\Core\Http\Response\Emitter\Factory\EmitterSapiFactory
   http.header.provider.apache:
     class: Vain\Core\Http\Header\Provider\Apache\ApacheHeaderProvider
     arguments: ['@http.header.provider.server']
@@ -223,6 +237,11 @@ services:
     arguments: ['@monolog.logger.event']
     tags:
       - {name: logger}
+  logger.http:
+    class: Vain\Logger\Monolog\MonologAdapter
+    arguments: ['@monolog.logger.http']
+    tags:
+      - {name: logger}
   logger.operation:
     class: Vain\Logger\Monolog\MonologAdapter
     arguments: ['@monolog.logger.operation']
@@ -231,6 +250,11 @@ services:
   logger.security:
     class: Vain\Logger\Monolog\MonologAdapter
     arguments: ['@monolog.logger.security']
+    tags:
+      - {name: logger}
+  logger.app:
+    class: Vain\Logger\Monolog\MonologAdapter
+    arguments: ['@monolog.logger.app']
     tags:
       - {name: logger}
   monolog.logger.connection:
@@ -242,9 +266,15 @@ services:
   monolog.logger.operation:
     class: Monolog\Logger
     arguments: ['%logger.channel.operation%']
+  monolog.logger.http:
+    class: Monolog\Logger
+    arguments: ['%logger.channel.http%']
   monolog.logger.security:
     class: Monolog\Logger
     arguments: ['%logger.channel.security%']
+  monolog.logger.app:
+    class: Monolog\Logger
+    arguments: ['%logger.channel.app%']
   operation.collection.factory.transaction:
     class: Vain\Core\Operation\Collection\Factory\Decorator\Transaction\CollectionFactoryTransactionDecorator
     decorates: operation.collection.factory
@@ -405,3 +435,18 @@ services:
   time.provider:
     class: Vain\Core\Time\Provider\TimeProvider
     arguments: ['@time.factory']
+  http.application.proxy:
+    decorates: http.application
+    decoration_priority: 200
+    class: Vain\Core\Http\Application\Decorator\Proxy\ProxyApplicationDecorator
+    arguments: ['@http.application.proxy.inner', '@http.request.proxy', '@http.response.proxy', '@http.response.factory']
+  http.application.exception:
+    decorates: http.application
+    decoration_priority: 300
+    class: Vain\Core\Http\Application\Decorator\Exception\ExceptionApplicationDecorator
+    arguments: ['@http.application.exception.inner', '@http.response.factory']
+  http.application.event:
+    decorates: http.application
+    decoration_priority: 400
+    class: Vain\Core\Http\Application\Decorator\Event\EventApplicationDecorator
+    arguments: ['@http.application.event.inner', '@event.dispatcher', '@event.factory.http']

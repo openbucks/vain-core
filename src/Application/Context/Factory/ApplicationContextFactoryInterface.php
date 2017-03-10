@@ -11,6 +11,8 @@
 
 namespace Vain\Core\Application\Context\Factory;
 
+use Vain\Core\Application\Context\ApplicationContextInterface;
+
 /**
  * Interface ApplicationContextFactoryInterface
  *
@@ -18,4 +20,11 @@ namespace Vain\Core\Application\Context\Factory;
  */
 interface ApplicationContextFactoryInterface
 {
+    /**
+     * @param string $env
+     * @param string $mode
+     *
+     * @return ApplicationContextInterface
+     */
+    public function createContext(string $env, string $mode) : ApplicationContextInterface;
 }

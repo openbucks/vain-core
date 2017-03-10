@@ -58,9 +58,9 @@ class CollectionEventDispatcher implements CollectionEventDispatcherInterface
      */
     public function flush() : CollectionEventDispatcherInterface
     {
-        if (0 < $this->level) {
-            $this->level--;
+        $this->level--;
 
+        if (0 < $this->level) {
             return $this;
         }
 

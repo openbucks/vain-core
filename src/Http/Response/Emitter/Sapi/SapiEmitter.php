@@ -25,14 +25,15 @@ class SapiEmitter implements EmitterInterface
     /**
      * @return EmitterInterface
      */
-    protected function closeBuffers() : EmitterInterface
+    protected function closeBuffers(): EmitterInterface
     {
-        $status = ob_get_status(true);
-        $level = count($status);
+        $obStatuses = ob_get_status(true);
+        $level = count($obStatuses);
         $flags = PHP_OUTPUT_HANDLER_REMOVABLE | PHP_OUTPUT_HANDLER_FLUSHABLE;
-        while ($level-- > 0 && ($s = $status[$level])
-               && (!isset($s['del']) ? !isset($s['flags'])
-                                       || $flags === ($s['flags'] & $flags) : $s['del'])) {
+        while ($level-- > 0 && ($status = $obStatuses[$level])
+               && (isset($status['del'])
+                ? $status['del']
+                : !isset($status['flags']) || $flags === ($status['flags'] & $flags))) {
             ob_end_flush();
         }
 
@@ -42,7 +43,7 @@ class SapiEmitter implements EmitterInterface
     /**
      * @inheritDoc
      */
-    public function send(HttpResponseInterface $response) : EmitterInterface
+    public function send(HttpResponseInterface $response): EmitterInterface
     {
         if (headers_sent()) {
             return $this;

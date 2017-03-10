@@ -12,6 +12,10 @@ declare(strict_types = 1);
 
 namespace Vain\Core\Api\Config\Parameter;
 
+use Psr\Http\Message\ServerRequestInterface;
+use Vain\Core\Api\Config\Parameter\Filter\ApiConfigParameterFilterInterface;
+use Vain\Core\Api\Config\Parameter\Source\ApiConfigParameterSourceInterface;
+
 /**
  * Class AbstractApiParameterConfig
  *
@@ -21,87 +25,50 @@ class ApiParameterConfig implements ApiParameterConfigInterface
 {
     private $name;
 
-    private $sourceName;
-
-    private $type;
+    private $config;
 
     private $source;
 
-    private $optional;
-
-    private $defaultValue;
+    private $filter;
 
     /**
-     * AbstractApiParameterConfig constructor.
+     * ApiParameterConfig constructor.
      *
-     * @param string $name
-     * @param string $sourceName
-     * @param string $type
-     * @param string $source
-     * @param bool   $optional
-     * @param mixed  $defaultValue
+     * @param string                            $name
+     * @param array                             $config
+     * @param ApiConfigParameterSourceInterface $source
+     * @param ApiConfigParameterFilterInterface $filter
      */
     public function __construct(
         string $name,
-        string $sourceName,
-        string $type,
-        string $source,
-        bool $optional,
-        $defaultValue
+        array $config,
+        ApiConfigParameterSourceInterface $source,
+        ApiConfigParameterFilterInterface $filter
     ) {
         $this->name = $name;
-        $this->sourceName = $sourceName;
-        $this->type = $type;
+        $this->config = $config;
         $this->source = $source;
-        $this->optional = $optional;
-        $this->defaultValue = $defaultValue;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSourceName(): string
-    {
-        return $this->sourceName;
-    }
-
-    /**
-     * @return string
-     */
-    public function getType(): string
-    {
-        return $this->type;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSource(): string
-    {
-        return $this->source;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isOptional(): bool
-    {
-        return $this->optional;
+        $this->filter = $filter;
     }
 
     /**
      * @inheritDoc
      */
-    public function getDefaultValue()
+    public function toArray(): array
     {
-        return $this->defaultValue;
+        return [$this->name => $this->config];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function handle(ServerRequestInterface $serverRequest)
+    {
+        $result = $this->source->extract($serverRequest);
+        if (false === $result->isSuccessful()) {
+            return $result;
+        }
+
+        return $this->filter->filter($result->getValue());
     }
 }

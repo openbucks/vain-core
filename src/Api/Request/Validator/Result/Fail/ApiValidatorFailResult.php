@@ -14,14 +14,14 @@ namespace Vain\Core\Api\Request\Validator\Result\Fail;
 
 use Vain\Core\Api\Request\ApiRequestInterface;
 use Vain\Core\Api\Request\Validator\Result\ApiValidatorResultInterface;
-use Vain\Core\Result\FailedResult;
+use Vain\Core\Result\AbstractFailedResult;
 
 /**
  * Class ApiValidatorFailResult
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class ApiValidatorFailResult extends FailedResult implements ApiValidatorResultInterface
+class ApiValidatorFailResult extends AbstractFailedResult implements ApiValidatorResultInterface
 {
     private $errors;
 
@@ -39,9 +39,17 @@ class ApiValidatorFailResult extends FailedResult implements ApiValidatorResultI
     /**
      * @inheritDoc
      */
-    public function getRequest() : ApiRequestInterface
+    public function getRequest(): ApiRequestInterface
     {
         return null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function toDisplay(): array
+    {
+        return array_merge(parent::toDisplay(), ['errors' => $this->errors]);
     }
 
     /**
@@ -50,5 +58,13 @@ class ApiValidatorFailResult extends FailedResult implements ApiValidatorResultI
     public function getErrors(): array
     {
         return $this->errors;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function __toString(): string
+    {
+        return implode(', ', $this->errors);
     }
 }

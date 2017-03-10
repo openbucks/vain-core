@@ -12,6 +12,7 @@ declare(strict_types = 1);
 
 namespace Vain\Core\Entity\Operation\Factory;
 
+use Vain\Core\Entity\EntityInterface;
 use Vain\Core\Operation\OperationInterface;
 
 /**
@@ -22,33 +23,24 @@ use Vain\Core\Operation\OperationInterface;
 interface EntityOperationFactoryInterface
 {
     /**
-     * @param string $entityName
-     * @param array  $entityData
+     * @param EntityInterface $entity
      *
      * @return OperationInterface
      */
-    public function createOperation(string $entityName, array $entityData) : OperationInterface;
+    public function createOperation(EntityInterface $entity) : OperationInterface;
 
     /**
-     * @param string $entityName
-     * @param array  $criteria
-     * @param array  $entityData
-     * @param bool   $lock
+     * @param EntityInterface $newEntity
+     * @param EntityInterface $oldEntity
      *
      * @return OperationInterface
      */
-    public function updateOperation(
-        string $entityName,
-        array $criteria,
-        array $entityData,
-        bool $lock = false
-    ) : OperationInterface;
+    public function updateOperation(EntityInterface $newEntity, EntityInterface $oldEntity) : OperationInterface;
 
     /**
-     * @param string $entityName
-     * @param array  $criteria
+     * @param EntityInterface $entity
      *
      * @return OperationInterface
      */
-    public function deleteOperation(string $entityName, array $criteria) : OperationInterface;
+    public function deleteOperation(EntityInterface $entity) : OperationInterface;
 }

@@ -16,7 +16,6 @@ use Psr\Http\Message\ServerRequestInterface;
 use Vain\Core\Api\Config\ApiConfigInterface;
 use Vain\Core\Api\Request\Factory\ApiRequestFactoryInterface;
 use Vain\Core\Api\Request\Validator\AbstractApiValidator;
-use Vain\Core\Api\Request\Validator\Module\Storage\ApiValidatorModuleStorageInterface;
 use Vain\Core\Api\Request\Validator\Result\ApiValidatorResultInterface;
 use Vain\Core\Api\Request\Validator\Result\Fail\ApiValidatorFailResult;
 use Vain\Core\Api\Request\Validator\Result\Successful\ApiValidatorSuccessfulResult;
@@ -28,19 +27,13 @@ use Vain\Core\Api\Request\Validator\Result\Successful\ApiValidatorSuccessfulResu
  */
 class ApiConfigValidator extends AbstractApiValidator
 {
-    private $moduleStorage;
-
     /**
      * ApiConfigValidator constructor.
      *
-     * @param ApiRequestFactoryInterface         $apiRequestFactory
-     * @param ApiValidatorModuleStorageInterface $moduleStorage
+     * @param ApiRequestFactoryInterface $apiRequestFactory
      */
-    public function __construct(
-        ApiRequestFactoryInterface $apiRequestFactory,
-        ApiValidatorModuleStorageInterface $moduleStorage
-    ) {
-        $this->moduleStorage = $moduleStorage;
+    public function __construct(ApiRequestFactoryInterface $apiRequestFactory)
+    {
         parent::__construct($apiRequestFactory);
     }
 
@@ -50,17 +43,21 @@ class ApiConfigValidator extends AbstractApiValidator
     public function validate(
         ServerRequestInterface $serverRequest,
         ApiConfigInterface $apiConfig
-    ) : ApiValidatorResultInterface
-    {
+    ): ApiValidatorResultInterface {
         $processedValues = [];
+        $errors = [];
         foreach ($apiConfig->getParameterConfigs() as $apiParameterConfig) {
-            if (null === ($processedValue = $this->moduleStorage
-                    ->getModule($apiParameterConfig)
-                    ->validate($serverRequest, $apiParameterConfig))
-            ) {
-                return new ApiValidatorFailResult();
+            $result = $apiParameterConfig->handle($serverRequest);
+            if (false === $result->isSuccessful()) {
+                $errors[] = $result->toDisplay();
+                continue;
             }
-            $processedValues[] = $processedValue;
+
+            $processedValues[] = $result->getValue();
+        }
+
+        if ([] !== $errors) {
+            return new ApiValidatorFailResult($errors);
         }
 
         $extractedValues = count($processedValues) > 0

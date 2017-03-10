@@ -29,12 +29,8 @@ abstract class AbstractApiExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container) : AbstractApiExtension
     {
-        $absolutePath = sprintf(
-            '%s%s..%s',
-            dirname((new \ReflectionClass(get_class($this)))->getFileName()),
-            DIRECTORY_SEPARATOR,
-            DIRECTORY_SEPARATOR
-        );
+        $reflectionClass = new \ReflectionClass($this);
+        $absolutePath = dirname($reflectionClass->getFileName(), 2);
 
         $loader = new YamlFileLoader($container, new FileLocator($absolutePath));
         $loader->load('di.yml');
@@ -48,11 +44,32 @@ abstract class AbstractApiExtension extends Extension
             return $this;
         }
 
+        if (substr($absolutePath, strlen($appDir)) . DIRECTORY_SEPARATOR . 'api') {
+            $container
+                ->findDefinition('api.config.composite')
+                ->addMethodCall(
+                    'addFile',
+                    [substr($absolutePath, strlen($appDir)) . DIRECTORY_SEPARATOR . 'api']
+                );
+        }
+
+        if (false === $container->has('api.extension.storage')) {
+            return $this;
+        }
+
+        $entityDir = $absolutePath . DIRECTORY_SEPARATOR . 'Entity';
+        if (false === is_dir($entityDir)) {
+            return $this;
+        }
+
         $container
-            ->findDefinition('api.config.composite')
+            ->findDefinition('api.extension.storage')
             ->addMethodCall(
-                'addFile',
-                [substr($absolutePath, strlen($appDir) + 1) . 'api']
+                'addPath',
+                [
+                    $entityDir,
+                    str_replace('\Extension', '\Entity', $reflectionClass->getNamespaceName()),
+                ]
             );
 
         return $this;

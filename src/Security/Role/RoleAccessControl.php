@@ -53,6 +53,12 @@ class RoleAccessControl extends AbstractAccessControl
         ServerRequestInterface $request
     ) : bool
     {
-        return $this->roleHierarchy->isReachable($accessConfigData['name'], $token->getUser()->getRoles());
+        $user = $token->getUser();
+        foreach ($this->roleHierarchy->getChildRoles($accessConfigData['name']) as $role) {
+            if ($user->hasRole($role)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

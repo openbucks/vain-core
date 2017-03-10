@@ -14,10 +14,10 @@ namespace Vain\Core\Entity\Operation;
 
 use Vain\Core\Entity\EntityInterface;
 use Vain\Core\Entity\Event\UpdateEntityEvent;
+use Vain\Core\Entity\Result\CannotUpdateEntityResult;
 use Vain\Core\Event\Dispatcher\EventDispatcherInterface;
 use Vain\Core\Event\Resolver\EventResolverInterface;
 use Vain\Core\Operation\AbstractOperation;
-use Vain\Core\Result\FailedResult;
 use Vain\Core\Result\ResultInterface;
 use Vain\Core\Result\SuccessfulResult;
 
@@ -47,30 +47,36 @@ abstract class AbstractUpdateEntityOperation extends AbstractOperation
     /**
      * @return EntityInterface
      */
-    abstract public function findEntity() : EntityInterface;
+    abstract public function getNewEntity() : EntityInterface;
 
     /**
-     * @param EntityInterface $entity
+     * @return EntityInterface
+     */
+    abstract public function getOldEntity() : EntityInterface;
+
+    /**
+     * @param EntityInterface $newEntity
+     * @param EntityInterface $oldEntity
      *
      * @return EntityInterface
      */
-    abstract public function updateEntity(EntityInterface $entity) : EntityInterface;
+    abstract public function updateEntity(EntityInterface $newEntity, EntityInterface $oldEntity) : EntityInterface;
 
     /**
      * @inheritDoc
      */
     public function execute() : ResultInterface
     {
-        if (null === ($oldEntity = $this->findEntity())) {
-            return new FailedResult();
+        if (null === ($newEntity = $this->getNewEntity())) {
+            return new CannotUpdateEntityResult($newEntity);
         }
 
-        if (null === ($newEntity = $this->updateEntity($oldEntity))) {
-            return new FailedResult();
+        if (null === ($oldEntity = $this->getOldEntity())) {
+            return new CannotUpdateEntityResult($newEntity);
         }
 
-        if ($newEntity->equals($oldEntity)) {
-            return new SuccessfulResult();
+        if (null === ($this->updateEntity($newEntity, $oldEntity))) {
+            return new CannotUpdateEntityResult($newEntity);
         }
 
         $this->eventDispatcher

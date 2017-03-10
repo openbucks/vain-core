@@ -12,6 +12,7 @@ declare(strict_types = 1);
 
 namespace Vain\Core\Entity;
 
+use Vain\Core\ArrayX\ArrayInterface;
 use Vain\Core\Equal\EquatableInterface;
 
 /**
@@ -32,5 +33,20 @@ abstract class AbstractEntity implements EntityInterface
 
         return ($this->getPrimaryKey() === $equatable->getPrimaryKey())
                && ($this->getEntityName() === $equatable->getEntityName());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function fromArray(array $data) : ArrayInterface
+    {
+        foreach ($data as $field => $value) {
+            if (false === property_exists($this, $field)) {
+                continue;
+            }
+            $this->{$field} = $value;
+        }
+
+        return $this;
     }
 }

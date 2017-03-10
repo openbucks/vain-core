@@ -26,6 +26,7 @@ abstract class AbstractMessage implements VainMessageInterface
 {
     private $version = '1.1';
 
+
     private $headerStorage;
 
     private $stream;
@@ -197,5 +198,20 @@ abstract class AbstractMessage implements VainMessageInterface
         $this->headerStorage = clone $this->headerStorage;
 
         return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function toDisplay(): array
+    {
+        $displayData = [];
+        foreach ($this->headerStorage->getHeaders() as $header) {
+            $displayData[] = $header->__toString();
+        }
+
+        $displayData[] = $this->stream->getContents();
+
+        return $displayData;
     }
 }

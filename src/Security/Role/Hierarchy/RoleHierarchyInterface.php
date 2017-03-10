@@ -22,10 +22,9 @@ use Vain\Core\Security\Role\SecurityRoleInterface;
 interface RoleHierarchyInterface
 {
     /**
-     * @param string                $roleName
-     * @param SecurityRoleInterface[] $availableRoles
+     * @param string $roleName
      *
-     * @return bool
+     * @return SecurityRoleInterface[]
      */
-    public function isReachable(string $roleName, array $availableRoles) : bool;
+    public function getChildRoles(string $roleName) : array;
 }

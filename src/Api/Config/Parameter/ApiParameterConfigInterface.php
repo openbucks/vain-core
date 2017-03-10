@@ -12,40 +12,18 @@ declare(strict_types = 1);
 
 namespace Vain\Core\Api\Config\Parameter;
 
+use Psr\Http\Message\ServerRequestInterface;
+use Vain\Core\Api\Config\Parameter\Result\ApiConfigParameterResultInterface;
+use Vain\Core\ArrayX\ArrayInterface;
+use Vain\Core\Http\Request\Handler\RequestHandlerInterface;
+
 /**
  * Interface ApiParameterConfigInterface
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
+ *
+ * @method ApiConfigParameterResultInterface handle(ServerRequestInterface $request)
  */
-interface ApiParameterConfigInterface
+interface ApiParameterConfigInterface extends RequestHandlerInterface, ArrayInterface
 {
-    /**
-     * @return string
-     */
-    public function getName() : string;
-
-    /**
-     * @return string
-     */
-    public function getType() : string;
-
-    /**
-     * @return string
-     */
-    public function getSource() : string;
-
-    /**
-     * @return string
-     */
-    public function getSourceName() : string;
-
-    /**
-     * @return bool
-     */
-    public function isOptional() : bool;
-
-    /**
-     * @return mixed
-     */
-    public function getDefaultValue();
 }

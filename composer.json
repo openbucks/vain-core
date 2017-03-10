@@ -16,16 +16,18 @@
     },
     "require": {
         "php": ">=7.0",
+        "psr/container": "~1.0",
         "psr/log": "~1.0",
         "psr/http-message": "~1.0",
         "symfony/dependency-injection": "^3",
         "symfony/config": "^3",
-        "symfony/yaml": "^3"
+        "symfony/yaml": "^3",
+        "robmorgan/phinx": "^0.6"
     },
     "suggest": {
         "vain/config": "Nested configuration files and caches",
         "vain/doctrine": "Doctrine bridge for entities",
-        "vain/memcache": "Memcache implementation",
+        "vain/memcache": "Memcache implementation for cache",
         "vain/redis": "Redis implementation",
         "vain/http": "PSR-7 implementation",
         "vain/operation": "Operation and collection implementation",

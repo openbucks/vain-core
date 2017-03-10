@@ -19,27 +19,32 @@ namespace Vain\Core\Counter;
  */
 class Counter implements CounterInterface
 {
-    private $counter = [];
+    private $counter = 0;
 
     /**
-     * @inheritDoc
+     * Counter constructor.
+     *
+     * @param int $seed
      */
-    public function next(int $timeStamp) : int
+    public function __construct(int $seed = 0)
     {
-        if (array_key_exists($timeStamp, $this->counter)) {
-            return ++$this->counter[$timeStamp];
-        }
-        $this->counter[$timeStamp] = mt_rand(0, 4294967296);
-
-        return $this->counter[$timeStamp];
+        $this->counter = mt_rand(0, 65535);
     }
 
     /**
      * @inheritDoc
      */
-    public function reset() : CounterInterface
+    public function next() : int
     {
-        $this->counter = [];
+        return ++$this->counter;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function reset(int $seed) : CounterInterface
+    {
+        $this->counter = $seed;
 
         return $this;
     }
