@@ -8,7 +8,7 @@
  * @license   https://opensource.org/licenses/MIT MIT License
  * @link      https://github.com/allflame/vain-time
  */
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Vain\Core\Time\Factory;
 
@@ -59,14 +59,19 @@ class TimeFactory implements TimeFactoryInterface
         string $string,
         string $timeZoneName = '',
         string $locale = ''
-    ) : TimeInterface
-    {
+    ): TimeInterface {
+        $dateTime = new \DateTime($string);
         $targetLocale = ('' !== $locale) ? $locale : $this->defaultLocale;
         $locale = $this->localeRepository->getLocale($targetLocale);
-        $targetZone = ('' !== $timeZoneName) ? $timeZoneName : $this->defaultTimeZone;
-        $timeZone = $this->timeZoneFactory->getTimeZone($targetZone, new \DateTime($string));
-        $timeZoneNow = $this->timeZoneFactory->getTimeZone($targetZone, new \DateTime('now'));
+        $timeZone = ('' !== $timeZoneName)
+            ? $this->timeZoneFactory->getTimeZone($timeZoneName, $dateTime)
+            : $this->timeZoneFactory->getTimeZone($dateTime->getTimezone()->getName(), $dateTime);
+        $targetZone = $this->timeZoneFactory->getTimeZone($this->defaultTimeZone, $dateTime);
 
-        return new Time($string, $locale, $timeZone, new Time('now', $locale, $timeZoneNow));
+        return (new Time(
+            $string, $locale, $timeZone,
+            (new Time('now', $locale, $timeZone))
+                ->setTimezone($targetZone)
+        ))->setTimezone($targetZone);
     }
 }
