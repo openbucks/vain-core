@@ -223,6 +223,7 @@ services:
     arguments: ['@http.request.proxy', '@http.response.proxy']
   encoder.json:
     class: Vain\Core\Encoder\Json\JsonEncoder
+    arguments: [0]
   decoder.json: '@encoder.json'
   encoder.xml:
     class: Vain\Core\Encoder\Xml\XmlEncoder
