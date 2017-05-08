@@ -63,12 +63,22 @@ abstract class AbstractApiExtension extends Extension
         }
 
         $container
-            ->findDefinition('api.extension.storage')
+            ->findDefinition('api.extension.entity.storage')
             ->addMethodCall(
                 'addPath',
                 [
                     $entityDir,
                     str_replace('\Extension', '\Entity', $reflectionClass->getNamespaceName()),
+                ]
+            );
+
+        $container
+            ->findDefinition('api.extension.document.storage')
+            ->addMethodCall(
+                'addPath',
+                [
+                    $entityDir,
+                    str_replace('\Extension', '\Document', $reflectionClass->getNamespaceName()),
                 ]
             );
 
