@@ -33,9 +33,6 @@
         "vain/operation": "Operation and collection implementation",
         "vain/time": "Immutable DateTime with handful methods"
     },
-    "config": {
-        "secure-http": false
-    },
     "prefer-stable": true,
     "minimum-stability": "dev"
 }
