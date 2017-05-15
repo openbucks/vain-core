@@ -45,8 +45,8 @@ class SecurityProcessorConsensusStrategy extends AbstractSecurityProcessorStrate
     ) : bool
     {
         $positive = $negative = 0;
-        foreach ($securityConfig->getAccessControls() as $aclName => $accessConfig) {
-            switch ($this->checkSingle($aclName, $accessConfig, $token, $request)) {
+        foreach ($securityConfig->getAccessControls() as $accessControl) {
+            switch ($this->checkSingle($accessControl['name'], $accessControl['config'], $token, $request)) {
                 case false:
                     $negative++;
                     break;
