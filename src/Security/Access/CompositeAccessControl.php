@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace Vain\Core\Security\Access;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Vain\Core\Security\Access\Storage\AccessControlStorageInterface;
+use Vain\Core\Security\Processor\Strategy\Storage\SecurityProcessorStrategyStorageInterface;
 use Vain\Core\Security\Token\SecurityTokenInterface;
 
 /**
@@ -23,10 +23,17 @@ use Vain\Core\Security\Token\SecurityTokenInterface;
  */
 class CompositeAccessControl extends AbstractAccessControl
 {
-    /**
-     * @var AccessControlStorageInterface
-     */
     private $storage;
+
+    /**
+     * CompositeAccessControl constructor.
+     *
+     * @param SecurityProcessorStrategyStorageInterface $storage
+     */
+    public function __construct(SecurityProcessorStrategyStorageInterface $storage)
+    {
+        $this->storage = $storage;
+    }
 
     /**
      * @inheritDoc
@@ -37,18 +44,6 @@ class CompositeAccessControl extends AbstractAccessControl
     }
 
     /**
-     * @param AccessControlStorageInterface $storage
-     *
-     * @return AccessControlInterface
-     */
-    public function setStorage(AccessControlStorageInterface $storage): AccessControlInterface
-    {
-        $this->storage = $storage;
-
-        return $this;
-    }
-
-    /**
      * @inheritDoc
      */
     public function doIsAllowed(
@@ -56,19 +51,12 @@ class CompositeAccessControl extends AbstractAccessControl
         SecurityTokenInterface $token,
         ServerRequestInterface $request
     ): bool {
-        foreach ($accessConfigData as $singleConfigData) {
-            if (false === $this->storage
-                    ->getAcl($singleConfigData['name'])
-                    ->isAllowed(
-                        $singleConfigData['config'],
-                        $token,
-                        $request
-                    )
-            ) {
-                return false;
-            }
-        }
-
-        return true;
+        return $this->storage
+            ->getStrategy($accessConfigData['strategy'])
+            ->decide(
+                $accessConfigData['configs'],
+                $token,
+                $request
+            );
     }
 }

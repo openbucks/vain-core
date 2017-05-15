@@ -14,7 +14,6 @@ namespace Vain\Core\Security\Processor\Strategy;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Vain\Core\Security\Access\Storage\AccessControlStorageInterface;
-use Vain\Core\Security\Config\SecurityConfigInterface;
 use Vain\Core\Security\Token\SecurityTokenInterface;
 
 /**
@@ -39,13 +38,13 @@ class SecurityProcessorConsensusStrategy extends AbstractSecurityProcessorStrate
      * @inheritDoc
      */
     public function decide(
-        SecurityConfigInterface $securityConfig,
+        array $accessControls,
         SecurityTokenInterface $token,
         ServerRequestInterface $request
     ) : bool
     {
         $positive = $negative = 0;
-        foreach ($securityConfig->getAccessControls() as $accessControl) {
+        foreach ($accessControls as $accessControl) {
             switch ($this->checkSingle($accessControl['name'], $accessControl['config'], $token, $request)) {
                 case false:
                     $negative++;
