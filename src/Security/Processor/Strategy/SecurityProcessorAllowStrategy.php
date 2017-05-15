@@ -51,6 +51,6 @@ class SecurityProcessorAllowStrategy extends AbstractSecurityProcessorStrategy
             return true;
         }
 
-        return true;
+        return false;
     }
 }
