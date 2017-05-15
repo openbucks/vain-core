@@ -421,6 +421,13 @@ services:
     arguments: ['@security.resource.provider.storage', '@security.voter.strategy.storage']
     tags:
       - {name: security.access.control}
+  security.access.controle.composite:
+    parent: security.access.control.abstract
+    class: Vain\Core\Security\Access\CompositeAccessControl
+    calls:
+      - ['setStorage', ['security.access.control.storage']]
+    tags:
+      - {name: security.access.control}
   security.resource.provider.storage:
     class: Vain\Core\Security\Resource\Provider\Storage\ResourceProviderStorage
   security.resource.provider.token:
