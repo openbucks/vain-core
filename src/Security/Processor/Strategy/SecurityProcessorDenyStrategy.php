@@ -45,10 +45,8 @@ class SecurityProcessorDenyStrategy extends AbstractSecurityProcessorStrategy
     {
         foreach ($securityConfig->getAccessControls() as $aclName => $accessConfig) {
             if ($this->checkSingle($aclName, $accessConfig, $token, $request)) {
-                continue;
+                return true;
             }
-
-            return false;
         }
 
         return false;
