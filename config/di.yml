@@ -425,7 +425,7 @@ services:
     parent: security.access.control.abstract
     class: Vain\Core\Security\Access\CompositeAccessControl
     calls:
-      - ['setStorage', ['security.access.control.storage']]
+      - ['setStorage', ['@security.access.control.storage']]
     tags:
       - {name: security.access.control}
   security.resource.provider.storage:
