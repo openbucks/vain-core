@@ -76,6 +76,14 @@ class OAuthSecurityToken extends AbstractApiResource implements SecurityTokenInt
     }
 
     /**
+     * @return OAuthClientInterface
+     */
+    public function getClient()
+    {
+        return $this->client;
+    }
+
+    /**
      * @inheritDoc
      */
     public function isExpired() : bool
