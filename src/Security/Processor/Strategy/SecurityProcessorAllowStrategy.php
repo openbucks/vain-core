@@ -43,8 +43,8 @@ class SecurityProcessorAllowStrategy extends AbstractSecurityProcessorStrategy
         ServerRequestInterface $request
     ) : bool
     {
-        foreach ($securityConfig->getAccessControls() as $aclName => $accessConfig) {
-            if (false === $this->checkSingle($aclName, $accessConfig, $token, $request)) {
+        foreach ($securityConfig->getAccessControls() as $accessControl) {
+            if (false === $this->checkSingle($accessControl['name'], $accessControl['config'], $token, $request)) {
                 continue;
             }
 
