@@ -227,10 +227,14 @@ services:
   http.context:
     class: Vain\Core\Http\Context\HttpContext
     arguments: ['@http.request.proxy', '@http.response.proxy']
-  encoder.json:
+  encoder.json.object:
     class: Vain\Core\Encoder\Json\JsonEncoder
     arguments: [0]
-  decoder.json: '@encoder.json'
+  encoder.json.plain:
+    class: Vain\Core\Encoder\Json\JsonEncoder
+    arguments: [0]
+  decoder.json.object: '@encoder.json.object'
+  decoder.json.plain: '@encoder.json.plain'
   encoder.xml:
     class: Vain\Core\Encoder\Xml\XmlEncoder
   decoder.xml: '@encoder.xml'
