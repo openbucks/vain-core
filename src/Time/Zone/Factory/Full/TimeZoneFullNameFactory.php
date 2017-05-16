@@ -39,6 +39,9 @@ class TimeZoneFullNameFactory implements TimeZoneFactoryInterface
      */
     public function getTimeZone(string $fullName, \DateTimeInterface $dateTime) : TimeZone
     {
+        if ('' === $fullName) {
+            $fullName = 'UTC';
+        }
         if (false === array_key_exists($fullName, $this->timeZones)) {
             $synonym = $fullName;
         } else {
