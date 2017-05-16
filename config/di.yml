@@ -170,6 +170,10 @@ services:
     abstract: true
     class: Vain\Core\Database\AbstractDatabase
     arguments: ['@database.generator.factory']
+  document.operation.factory.abstract:
+    abstract: true
+    class: Vain\Core\Document\Operation\Factory\AbstractDocumentOperationFactory
+    arguments: ['@operation.factory']
   entity.operation.factory.abstract:
     abstract: true
     class: Vain\Core\Entity\Operation\Factory\AbstractEntityOperationFactory
@@ -223,6 +227,7 @@ services:
     arguments: ['@http.request.proxy', '@http.response.proxy']
   encoder.json:
     class: Vain\Core\Encoder\Json\JsonEncoder
+    arguments: [0]
   decoder.json: '@encoder.json'
   encoder.xml:
     class: Vain\Core\Encoder\Xml\XmlEncoder

@@ -24,12 +24,25 @@ use Vain\Core\Exception\JsonEncodeException;
  */
 class JsonEncoder implements EncoderInterface, DecoderInterface
 {
+
+    private $options;
+
+    /**
+     * JsonEncoder constructor.
+     *
+     * @param int $options
+     */
+    public function __construct(int $options)
+    {
+        $this->options = $options;
+    }
+
     /**
      * @inheritDoc
      */
     public function encode($dataToEncode) : string
     {
-        $encoded = json_encode($dataToEncode);
+        $encoded = json_encode($dataToEncode, $this->options);
         if (0 !== ($errorCode = json_last_error())) {
             $errorMessage = json_last_error_msg();
             json_encode(null);
