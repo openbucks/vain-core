@@ -22,7 +22,7 @@ use Vain\Core\PrivateX\PrivateInterface;
  *
  * @author Nazar Ivanenko <nivanenko@gmail.com>
  */
-interface DocumentInterface extends DisplayableInterface, PrivateInterface, EquatableInterface, ArrayInterface
+interface DocumentInterface extends DisplayableInterface, EquatableInterface, ArrayInterface
 {
     /**
      * @return string
@@ -33,9 +33,4 @@ interface DocumentInterface extends DisplayableInterface, PrivateInterface, Equa
      * @return string
      */
     public function getDocumentName() : string;
-
-    /**
-     * @return array
-     */
-    public function toRecord() : array;
 }
