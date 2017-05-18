@@ -15,7 +15,6 @@ namespace Vain\Core\Document;
 use Vain\Core\ArrayX\ArrayInterface;
 use Vain\Core\Display\DisplayableInterface;
 use Vain\Core\Equal\EquatableInterface;
-use Vain\Core\PrivateX\PrivateInterface;
 
 /**
  * Class DocumentInterface
