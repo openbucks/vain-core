@@ -53,6 +53,10 @@ services:
     class: Vain\Core\Api\Config\Storage\ApiConfigStorage
     arguments: ['@api.config.composite', '@api.config.factory']
   api.config.provider: '@api.config.storage'
+  api.config.parameter.factory.ignore:
+    class: Vain\Core\Api\Config\Parameter\Filter\Factory\ApiConfigParameterIgnoreFactory
+    tags:
+          - {name: filter.factory}
   api.config.parameter.factory.array:
     class: Vain\Core\Api\Config\Parameter\Filter\Factory\ApiConfigParameterArrayFactory
     tags:
