@@ -88,7 +88,7 @@ class OAuthSecurityToken extends AbstractApiResource implements SecurityTokenInt
      */
     public function isExpired() : bool
     {
-        return (null !== $this->expiresAt) && ($this->expiresAt->getTimestamp() > time());
+        return (null !== $this->expiresAt) && ($this->expiresAt->getTimestamp() < time());
     }
 
     /**
