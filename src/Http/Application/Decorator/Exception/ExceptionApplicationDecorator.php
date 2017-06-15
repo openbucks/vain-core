@@ -8,7 +8,7 @@
  * @license   https://opensource.org/licenses/MIT MIT License
  * @link      https://github.com/allflame/vain-http
  */
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Vain\Core\Http\Application\Decorator\Exception;
 
@@ -48,8 +48,18 @@ class ExceptionApplicationDecorator extends AbstractHttpApplicationDecorator
             $response = parent::handleRequest($request);
         } catch (\Throwable $e) {
             $response = $this->responseFactory
-                ->createResponse('php://temp', $e->getCode())
+                ->createResponse(
+                    'php://temp',
+                    $e->getCode(),
+                    [],
+                    json_encode(
+                        ['status' => false, 'code' => $e->getCode(), 'message' => $e->getMessage()]
+                    )
+                )
                 ->withStatus($e->getCode(), $e->getMessage());
+            if ($request->hasHeader('Content-Type')) {
+                $response->withHeader('Content-Type', $request->getHeader('Content-Type'));
+            }
         }
 
         return $response;
