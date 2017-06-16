@@ -148,7 +148,7 @@ services:
     arguments: ['%app.dir%']
   config.handler.factory:
     class: Vain\Core\Config\Data\Handler\RequireX\RequireHandlerFactory
-    arguments: ['%app.dir%', '%cache.dir%', '%config.dir%']
+    arguments: ['%app.dir%', '%cache.dir%', '%config.dir%', '%app.env%', '%app.mode%']
   config.reader.data.provider:
     class: Vain\Core\Config\Data\Provider\Reader\ReaderConfigDataProvider
     arguments: ['@config.reader.factory']
