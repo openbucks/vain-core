@@ -56,6 +56,6 @@ abstract class AbstractApiConfigParameterFailedResult extends AbstractFailedResu
      */
     public function toDisplay(): array
     {
-        return ['status' => false, 'name' => $this->name];
+        return ['status' => false, 'name' => $this->name, 'code' => 422];
     }
 }
