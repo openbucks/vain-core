@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace Vain\Core\Http\Application\Decorator\Exception;
 
+use Vain\Core\Exception\AbstractCoreException;
 use Vain\Core\Http\Application\Decorator\AbstractHttpApplicationDecorator;
 use Vain\Core\Http\Application\HttpApplicationInterface;
 use Vain\Core\Http\Request\VainServerRequestInterface;
@@ -46,6 +47,16 @@ class ExceptionApplicationDecorator extends AbstractHttpApplicationDecorator
     {
         try {
             $response = parent::handleRequest($request);
+        } catch (AbstractCoreException $e) {
+            $response = $this->responseFactory
+                ->createResponse(
+                    'php://temp',
+                    $e->getCode(),
+                    [],
+                    json_encode($e)
+                )
+                ->withContentType(VainResponseInterface::CONTENT_TYPE_APPLICATION_JSON)
+                ->withStatus($e->getCode(), $e->getMessage());
         } catch (\Throwable $e) {
             $response = $this->responseFactory
                 ->createResponse(
@@ -56,10 +67,8 @@ class ExceptionApplicationDecorator extends AbstractHttpApplicationDecorator
                         ['status' => false, 'code' => $e->getCode(), 'message' => $e->getMessage()]
                     )
                 )
+                ->withContentType(VainResponseInterface::CONTENT_TYPE_APPLICATION_JSON)
                 ->withStatus($e->getCode(), $e->getMessage());
-            if ($request->hasHeader('Content-Type')) {
-                $response->withHeader('Content-Type', $request->getHeader('Content-Type'));
-            }
         }
 
         return $response;
