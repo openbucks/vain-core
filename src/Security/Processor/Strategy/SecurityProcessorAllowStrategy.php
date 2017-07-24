@@ -43,13 +43,11 @@ class SecurityProcessorAllowStrategy extends AbstractSecurityProcessorStrategy
     ) : bool
     {
         foreach ($accessControls as $accessControl) {
-            if (false === $this->checkSingle($accessControl['name'], $accessControl['config'], $token, $request)) {
-                continue;
+            if ($this->checkSingle($accessControl['name'], $accessControl['config'], $token, $request)) {
+                return true;
             }
-
-            return true;
         }
 
-        return true;
+        return false;
     }
 }
