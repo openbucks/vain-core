@@ -47,7 +47,7 @@ class ApiConfigParameterDateTimeFilter extends AbstractApiConfigParameterFilter
         if (null === ($dateTime = filter_var(
                 $element,
                 FILTER_SANITIZE_STRING,
-                ['flags' => FILTER_FLAG_EMPTY_STRING_NULL]
+                ['flags' => FILTER_FLAG_EMPTY_STRING_NULL | FILTER_NULL_ON_FAILURE]
             ))
         ) {
             return new ApiParameterWrongTypeResult($name, 'time string', $element);
