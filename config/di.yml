@@ -169,6 +169,7 @@ services:
     class: Vain\Core\Connection\AbstractConnection
     arguments: ['@config']
   connection.storage:
+    public: true
     class: Vain\Core\Connection\Storage\ConnectionStorage
   database.generator.factory:
     class: Vain\Core\Database\Generator\Factory\DatabaseGeneratorFactory
