@@ -222,6 +222,7 @@ services:
     class: Vain\Core\Http\Event\Handler\HttpEventHandler
     arguments: ['@logger', '%http.log.level.header%']
   http.response.emitter.factory:
+    public: true
     class: Vain\Core\Http\Response\Emitter\Factory\EmitterSapiFactory
   http.header.provider.apache:
     class: Vain\Core\Http\Header\Provider\Apache\ApacheHeaderProvider
