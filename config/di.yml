@@ -186,6 +186,7 @@ services:
     class: Vain\Core\Entity\Operation\Factory\AbstractEntityOperationFactory
     arguments: ['@operation.factory']
   event.handler.abstract:
+    public: true
     abstract: true
     class: Vain\Core\Event\Handler\AbstractEventHandler
     arguments: ['@event.resolver']
