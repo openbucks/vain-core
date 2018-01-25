@@ -448,6 +448,7 @@ services:
   security.token.storage:
     class: Vain\Core\Security\Token\Storage\SecurityTokenStorage
   time.factory:
+    public: true
     class: Vain\Core\Time\Factory\TimeFactory
     arguments: ['@locale.storage', '@time.zone.factory', '%time.zone.default%', '%locale.default%']
   time.zone.factory.full:
