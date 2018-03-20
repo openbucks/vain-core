@@ -29,7 +29,7 @@ class ApiConfigParameterStringFilter extends AbstractApiConfigParameterFilter
     public function doFilter(string $name, $element): ApiConfigParameterResultInterface
     {
         if (false === ($string = filter_var(
-                $element,
+                is_string($element) ? urldecode($element) : null,
                 FILTER_SANITIZE_STRING,
                 ['flags' => FILTER_FLAG_EMPTY_STRING_NULL]
             ))
