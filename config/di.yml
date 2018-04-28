@@ -469,7 +469,7 @@ services:
     decorates: http.application
     decoration_priority: 300
     class: Vain\Core\Http\Application\Decorator\Exception\ExceptionApplicationDecorator
-    arguments: ['@http.application.exception.inner', '@http.response.factory']
+    arguments: ['@http.application.exception.inner', '@http.response.factory', '@logger.app']
   http.application.event:
     decorates: http.application
     decoration_priority: 400
