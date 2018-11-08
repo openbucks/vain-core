@@ -31,7 +31,7 @@ class ApiConfigParameterStringFilter extends AbstractApiConfigParameterFilter
         if (false === ($string = filter_var(
                 $element,
                 FILTER_SANITIZE_STRING,
-                ['flags' => FILTER_FLAG_EMPTY_STRING_NULL | FILTER_FLAG_NO_ENCODE_QUOTES | FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH]
+                ['flags' => FILTER_FLAG_EMPTY_STRING_NULL | FILTER_FLAG_NO_ENCODE_QUOTES | FILTER_FLAG_STRIP_LOW]
             ))
         ) {
             return new ApiParameterWrongTypeResult($name, 'string', $element);
