@@ -320,6 +320,7 @@ services:
   queue.message.factory.storage:
     class: Vain\Core\Queue\Message\Factory\Storage\QueueMessageFactoryStorage
   queue.event:
+    public: true
     class: Vain\Core\Queue\QueueInterface
     factory: ['@queue.factory.event', getEventQueue]
     arguments: ['@config']
