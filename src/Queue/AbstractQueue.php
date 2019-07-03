@@ -115,14 +115,14 @@ abstract class AbstractQueue implements QueueInterface
     /**
      * @return QueueMessageInterface
      */
-    abstract public function doDequeue() : ?QueueMessageInterface;
+    abstract public function doDequeue(array $configData) : ?QueueMessageInterface;
 
     /**
      * @inheritDoc
      */
     public function dequeue() : ?QueueMessageInterface
     {
-        if (null === ($queueMessage = $this->doDequeue())) {
+        if (null === ($queueMessage = $this->doDequeue($this->configData))) {
             return null;
         }
 
