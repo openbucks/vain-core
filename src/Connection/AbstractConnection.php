@@ -63,7 +63,7 @@ abstract class AbstractConnection implements ConnectionInterface
      */
     public function establish($force = false)
     {
-        if (null === $this->connectionInstance) {
+        if ($force || null === $this->connectionInstance) {
             $this->connectionInstance = $this->doEstablish();
         }
 
