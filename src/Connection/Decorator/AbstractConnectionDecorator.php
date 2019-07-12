@@ -52,8 +52,8 @@ abstract class AbstractConnectionDecorator implements ConnectionInterface
     /**
      * @inheritDoc
      */
-    public function establish()
+    public function establish($force = false)
     {
-        return $this->connection->establish();
+        return $this->connection->establish($force);
     }
 }

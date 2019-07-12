@@ -24,5 +24,5 @@ interface ConnectionInterface extends NameableInterface
     /**
      * @return mixed
      */
-    public function establish();
+    public function establish($force = false);
 }
