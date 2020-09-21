@@ -173,7 +173,7 @@ abstract class AbstractRequestProxy extends AbstractMessageProxy implements Http
     /**
      * @inheritDoc
      */
-    public function getContentType()
+    public function getContentType(): ?string
     {
         return $this->getCurrentRequest()->getContentType();
     }

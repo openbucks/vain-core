@@ -12,6 +12,7 @@ declare(strict_types = 1);
 
 namespace Vain\Core\Http\Message\Proxy;
 
+use Phalcon\Http\Response\HeadersInterface as PhalconHeadersInterface;
 use Psr\Http\Message\StreamInterface;
 use Vain\Core\Http\Header\Storage\HeaderStorageInterface;
 use Vain\Core\Http\Message\VainMessageInterface;
@@ -106,7 +107,7 @@ abstract class AbstractMessageProxy implements HttpMessageProxyInterface
     /**
      * @inheritDoc
      */
-    public function getHeaders()
+    public function getHeaders(): PhalconHeadersInterface
     {
         return $this->getCurrentMessage()->getHeaders();
     }
@@ -114,7 +115,7 @@ abstract class AbstractMessageProxy implements HttpMessageProxyInterface
     /**
      * @inheritDoc
      */
-    public function hasHeader($name) : bool
+    public function hasHeader($name): bool
     {
         return $this->getCurrentMessage()->hasHeader($name);
     }
@@ -122,7 +123,7 @@ abstract class AbstractMessageProxy implements HttpMessageProxyInterface
     /**
      * @inheritDoc
      */
-    public function getHeader($name)
+    public function getHeader($name): string
     {
         return $this->getCurrentMessage()->getHeader($name);
     }
