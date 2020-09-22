@@ -31,7 +31,7 @@ interface VainServerRequestInterface extends Psr7ServerRequestInterface, VainReq
      *
      * @return string
      */
-    public function getServer($name, $default = null);
+    public function getServer(string $name): ?string;
 
     /**
      * @param string $name

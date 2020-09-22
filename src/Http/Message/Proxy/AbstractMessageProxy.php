@@ -107,14 +107,6 @@ abstract class AbstractMessageProxy implements HttpMessageProxyInterface
     /**
      * @inheritDoc
      */
-    public function getHeaders(): PhalconHeadersInterface
-    {
-        return $this->getCurrentMessage()->getHeaders();
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function hasHeader($name): bool
     {
         return $this->getCurrentMessage()->hasHeader($name);

@@ -51,7 +51,7 @@ abstract class AbstractResponseProxy extends AbstractMessageProxy implements Htt
     /**
      * @inheritDoc
      */
-    public function getStatusCode()
+    public function getStatusCode(): ?int
     {
         return $this->getCurrentMessage()->getStatusCode();
     }

@@ -90,7 +90,7 @@ abstract class AbstractRequestProxy extends AbstractMessageProxy implements Http
     /**
      * @inheritDoc
      */
-    public function getUri() : UriInterface
+    public function getUri(bool $onlyPath = NULL): string
     {
         return $this->getCurrentMessage()->getUri();
     }
@@ -149,15 +149,15 @@ abstract class AbstractRequestProxy extends AbstractMessageProxy implements Http
     /**
      * @inheritDoc
      */
-    public function getServer($name, $default = null)
+    public function getServer(string $name): ?string
     {
-        return $this->getCurrentRequest()->getServer($name, $default);
+        return $this->getCurrentRequest()->getServer($name);
     }
 
     /**
      * @inheritDoc
      */
-    public function hasServer($name)
+    public function hasServer($name): bool
     {
         return $this->getCurrentRequest()->hasServer($name);
     }
@@ -165,7 +165,7 @@ abstract class AbstractRequestProxy extends AbstractMessageProxy implements Http
     /**
      * @inheritDoc
      */
-    public function hasBodyParam(string $name)
+    public function hasBodyParam(string $name): bool
     {
         return $this->getCurrentRequest()->hasBodyParam($name);
     }
@@ -181,7 +181,7 @@ abstract class AbstractRequestProxy extends AbstractMessageProxy implements Http
     /**
      * @inheritDoc
      */
-    public function getUserAgent()
+    public function getUserAgent(): string
     {
         return $this->getCurrentRequest()->getUserAgent();
     }
@@ -189,7 +189,7 @@ abstract class AbstractRequestProxy extends AbstractMessageProxy implements Http
     /**
      * @inheritDoc
      */
-    public function getServerAddress()
+    public function getServerAddress(): string
     {
         return $this->getCurrentRequest()->getServerAddress();
     }
@@ -197,7 +197,7 @@ abstract class AbstractRequestProxy extends AbstractMessageProxy implements Http
     /**
      * @inheritDoc
      */
-    public function getServerName()
+    public function getServerName(): string
     {
         return $this->getCurrentRequest()->getServerName();
     }
@@ -205,7 +205,7 @@ abstract class AbstractRequestProxy extends AbstractMessageProxy implements Http
     /**
      * @inheritDoc
      */
-    public function getHttpHost()
+    public function getHttpHost(): string
     {
         return $this->getCurrentRequest()->getHttpHost();
     }
@@ -213,7 +213,7 @@ abstract class AbstractRequestProxy extends AbstractMessageProxy implements Http
     /**
      * @inheritDoc
      */
-    public function getHttpPort()
+    public function getHttpPort(): int
     {
         return $this->getCurrentRequest()->getHttpPort();
     }
@@ -221,7 +221,7 @@ abstract class AbstractRequestProxy extends AbstractMessageProxy implements Http
     /**
      * @inheritDoc
      */
-    public function isPost()
+    public function isPost(): bool
     {
         return $this->getCurrentRequest()->isPost();
     }
@@ -229,7 +229,7 @@ abstract class AbstractRequestProxy extends AbstractMessageProxy implements Http
     /**
      * @inheritDoc
      */
-    public function isGet()
+    public function isGet(): bool
     {
         return $this->getCurrentRequest()->isGet();
     }
@@ -237,7 +237,7 @@ abstract class AbstractRequestProxy extends AbstractMessageProxy implements Http
     /**
      * @inheritDoc
      */
-    public function isPut()
+    public function isPut(): bool
     {
         return $this->getCurrentRequest()->isPut();
     }
@@ -245,7 +245,7 @@ abstract class AbstractRequestProxy extends AbstractMessageProxy implements Http
     /**
      * @inheritDoc
      */
-    public function getScheme()
+    public function getScheme(): string
     {
         return $this->getCurrentRequest()->getScheme();
     }
@@ -253,7 +253,7 @@ abstract class AbstractRequestProxy extends AbstractMessageProxy implements Http
     /**
      * @inheritDoc
      */
-    public function isHead()
+    public function isHead(): bool
     {
         return $this->getCurrentRequest()->isHead();
     }
@@ -261,7 +261,7 @@ abstract class AbstractRequestProxy extends AbstractMessageProxy implements Http
     /**
      * @inheritDoc
      */
-    public function isDelete()
+    public function isDelete(): bool
     {
         return $this->getCurrentRequest()->isDelete();
     }
@@ -269,7 +269,7 @@ abstract class AbstractRequestProxy extends AbstractMessageProxy implements Http
     /**
      * @inheritDoc
      */
-    public function isOptions()
+    public function isOptions(): bool
     {
         return $this->getCurrentRequest()->isOptions();
     }
@@ -277,7 +277,7 @@ abstract class AbstractRequestProxy extends AbstractMessageProxy implements Http
     /**
      * @inheritDoc
      */
-    public function isPurge()
+    public function isPurge(): bool
     {
         return $this->getCurrentRequest()->isPurge();
     }
@@ -285,7 +285,7 @@ abstract class AbstractRequestProxy extends AbstractMessageProxy implements Http
     /**
      * @inheritDoc
      */
-    public function isTrace()
+    public function isTrace(): bool
     {
         return $this->getCurrentRequest()->isTrace();
     }
@@ -293,7 +293,7 @@ abstract class AbstractRequestProxy extends AbstractMessageProxy implements Http
     /**
      * @inheritDoc
      */
-    public function isConnect()
+    public function isConnect(): bool
     {
         return $this->getCurrentRequest()->isConnect();
     }
@@ -301,7 +301,7 @@ abstract class AbstractRequestProxy extends AbstractMessageProxy implements Http
     /**
      * @inheritDoc
      */
-    public function isSecureRequest()
+    public function isSecureRequest(): bool
     {
         return $this->getCurrentRequest()->isSecureRequest();
     }
