@@ -12,7 +12,6 @@ declare(strict_types = 1);
 
 namespace Vain\Core\Http\Message\Proxy;
 
-use Phalcon\Http\Response\HeadersInterface as PhalconHeadersInterface;
 use Psr\Http\Message\StreamInterface;
 use Vain\Core\Http\Header\Storage\HeaderStorageInterface;
 use Vain\Core\Http\Message\VainMessageInterface;
