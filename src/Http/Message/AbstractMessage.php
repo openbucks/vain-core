@@ -16,6 +16,7 @@ use Psr\Http\Message\StreamInterface;
 use Vain\Core\Exception\UnsupportedVersionException;
 use Vain\Core\Http\Header\Storage\HeaderStorageInterface;
 use Vain\Core\Http\Stream\VainStreamInterface;
+use Phalcon\Http\Response\HeadersInterface as PhalconHeadersInterface;
 
 /**
  * Class AbstractMessage
@@ -139,31 +140,6 @@ abstract class AbstractMessage implements VainMessageInterface
         $copy->stream = $body;
 
         return $copy;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getHeaders() : array
-    {
-        $result = [];
-        foreach ($this->headerStorage->getHeaders() as $header) {
-            $result[$header->getName()] = $header->getValues();
-        }
-
-        return $result;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getHeader($name) : array
-    {
-        if (false === $this->headerStorage->hasHeader($name)) {
-            return [];
-        }
-
-        return $this->headerStorage->getHeader($name)->getValues();
     }
 
     /**

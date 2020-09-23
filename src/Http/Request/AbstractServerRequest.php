@@ -229,7 +229,7 @@ abstract class AbstractServerRequest extends AbstractRequest implements VainServ
     /**
      * @inheritDoc
      */
-    public function getServer($name, $default = null)
+    public function getServer($name): ?string
     {
         if (false === array_key_exists($name, $this->serverParams)) {
             return $default;

@@ -87,9 +87,17 @@ abstract class AbstractRequest extends AbstractMessage implements VainRequestInt
     }
 
     /**
+     * @return string
+     */
+    public function getUri(bool $onlyPath = NULL): string
+    {
+        return $onlyPath ? $this->uri->getPath() : (string) $this->uri;
+    }
+
+    /**
      * @return VainUriInterface
      */
-    public function getUri() : VainUriInterface
+    public function getVUri() : VainUriInterface
     {
         return $this->uri;
     }
@@ -116,6 +124,31 @@ abstract class AbstractRequest extends AbstractMessage implements VainRequestInt
         $this->getBody()->rewind();
 
         return $this->getBody()->getContents();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getHeader($name) : string
+    {
+        if (false === $this->getHeaderStorage()->hasHeader($name)) {
+            return [];
+        }
+
+        return (string) $this->getHeaderStorage()->getHeader($name);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getHeaders() : array
+    {
+        $result = [];
+        foreach ($this->getHeaderStorage()->getHeaders() as $header) {
+            $result[$header->getName()] = $header->getValues();
+        }
+
+        return $result;
     }
 
     /**

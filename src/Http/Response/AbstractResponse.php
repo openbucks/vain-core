@@ -12,6 +12,8 @@ declare(strict_types = 1);
 
 namespace Vain\Core\Http\Response;
 
+use Phalcon\Http\Response\HeadersInterface as PhalconHeadersInterface;
+use Phalcon\Http\Response\Headers;
 use Vain\Core\Http\Header\Storage\HeaderStorageInterface;
 use Vain\Core\Http\Message\AbstractMessage;
 use Vain\Core\Http\Stream\VainStreamInterface;
@@ -81,6 +83,33 @@ abstract class AbstractResponse extends AbstractMessage implements VainResponseI
 
         return self::CODE_TO_MESSAGE[$this->code];
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getHeader($name) : array
+    {
+        if (false === $this->getHeaderStorage()->hasHeader($name)) {
+            return [];
+        }
+
+        return $this->getHeaderStorage()->getHeader($name)->getValues();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getHeaders() : PhalconHeadersInterface
+    {
+        $result = new Headers;
+        foreach ($this->getHeaderStorage()->getHeaders() as $header) {
+            $allHeaders = $header->getValues();
+            $result->set($header->getName(), reset($allHeaders));
+        }
+
+        return $result;
+    }
+
 
     /**
      * @inheritDoc

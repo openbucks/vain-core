@@ -92,7 +92,15 @@ abstract class AbstractRequestProxy extends AbstractMessageProxy implements Http
      */
     public function getUri(bool $onlyPath = NULL): string
     {
-        return $this->getCurrentMessage()->getUri();
+        return $this->getCurrentMessage()->getUri($onlyPath);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getVUri() : UriInterface
+    {
+        return $this->getCurrentMessage()->getVUri();
     }
 
     /**
