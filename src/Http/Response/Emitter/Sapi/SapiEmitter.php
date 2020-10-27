@@ -58,12 +58,8 @@ class SapiEmitter implements EmitterInterface
             true,
             $response->getStatusCode()
         );
-        foreach ($response->getHeaders() as $header => $values) {
-            $first = true;
-            foreach ($values as $value) {
-                header(sprintf('%s: %s', $header, $value), $first);
-                $first = false;
-            }
+        foreach ($response->getHeaders()->toArray() as $header => $value) {
+            header(sprintf("%s: %s", $header, $value));
         }
         echo $response->getBody();
         switch (true) {
