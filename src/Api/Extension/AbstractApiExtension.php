@@ -61,7 +61,7 @@ abstract class AbstractApiExtension extends Extension
                     'addPath',
                     [
                         $entityDir,
-                        str_replace('\Extension', '\Entity', $reflectionClass->getNamespaceName()),
+                        str_replace('\Extension', '', $reflectionClass->getNamespaceName()),
                     ]
                 );
         }
@@ -74,7 +74,7 @@ abstract class AbstractApiExtension extends Extension
                     'addPath',
                     [
                         $documentDir,
-                        str_replace('\Extension', '\Document', $reflectionClass->getNamespaceName()),
+                        str_replace('\Extension', '', $reflectionClass->getNamespaceName()),
                     ]
                 );
 
