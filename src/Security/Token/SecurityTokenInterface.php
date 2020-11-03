@@ -17,6 +17,7 @@ use Vain\Core\PrivateX\PrivateInterface;
 use Vain\Core\Security\OAuth\Client\OAuthClientInterface;
 use Vain\Core\Security\User\SecurityUserInterface;
 use Vain\Core\String\StringInterface;
+use Vain\Core\Time\TimeInterface;
 
 /**
  * Interface SecurityTokenInterface
@@ -28,6 +29,11 @@ interface SecurityTokenInterface extends
     PrivateInterface,
     StringInterface
 {
+    /**
+     * @return TimeInterface
+     */
+    public function getExpiteAt(): TimeInterface;
+
     /**
      * @return bool
      */
@@ -41,7 +47,12 @@ interface SecurityTokenInterface extends
     /**
      * @return OAuthClientInterface
      */
-    public function getClient();
+    public function getClient(): OAuthClientInterface;
+
+    /**
+     * @return array
+     */
+    public function getPermissions(): array;
 
     /**
      * @param string $resource
