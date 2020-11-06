@@ -81,9 +81,9 @@ abstract class AbstractQueue implements QueueInterface
     /**
      * @return mixed
      */
-    public function getQueue()
+    public function getQueue(bool $force = false)
     {
-        if (!$this->queue) {
+        if (!$this->queue || $force) {
             $this->queue = $this->connection->establish();
         }
 
